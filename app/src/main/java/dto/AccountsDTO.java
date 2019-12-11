@@ -18,6 +18,12 @@ public class AccountsDTO implements Serializable {
         this.role = role;
     }
 
+    public AccountsDTO(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
     public String getId() {
         return id;
     }
