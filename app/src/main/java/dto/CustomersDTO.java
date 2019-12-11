@@ -8,7 +8,7 @@ public class CustomersDTO implements Serializable {
     private String id;
     private String firstName;
     private String lastName;
-    private Date dayOfBirth;
+    private long dayOfBirth;
     private String email;
     private boolean gender;
     private boolean active;
@@ -17,7 +17,7 @@ public class CustomersDTO implements Serializable {
     public CustomersDTO() {
     }
 
-    public CustomersDTO(String id, String firstName, String lastName, Date dayOfBirth, String email, boolean gender, boolean active, String accountsId) {
+    public CustomersDTO(String id, String firstName, String lastName, long dayOfBirth, String email, boolean gender, boolean active, String accountsId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,11 +52,11 @@ public class CustomersDTO implements Serializable {
         this.lastName = lastName;
     }
 
-    public Date getDayOfBirth() {
+    public long getDayOfBirth() {
         return dayOfBirth;
     }
 
-    public void setDayOfBirth(Date dayOfBirth) {
+    public void setDayOfBirth(long dayOfBirth) {
         this.dayOfBirth = dayOfBirth;
     }
 

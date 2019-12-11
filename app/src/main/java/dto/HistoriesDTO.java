@@ -6,14 +6,14 @@ import java.util.Date;
 public class HistoriesDTO implements Serializable {
 
     private String id;
-    private Date date;
+    private long date;
     private String customersId;
     private String productsId;
 
     public HistoriesDTO() {
     }
 
-    public HistoriesDTO(String id, Date date, String customersId, String productsId) {
+    public HistoriesDTO(String id, long date, String customersId, String productsId) {
         this.id = id;
         this.date = date;
         this.customersId = customersId;
@@ -28,11 +28,11 @@ public class HistoriesDTO implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

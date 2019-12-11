@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class ResponsesDTO implements Serializable {
     private String id;
-    private Date date;
+    private long date;
     private String title;
     private String content;
     private float rating;
@@ -16,7 +16,7 @@ public class ResponsesDTO implements Serializable {
     public ResponsesDTO() {
     }
 
-    public ResponsesDTO(String id, Date date, String title, String content, float rating, String img, String productsId, String orderStoreId) {
+    public ResponsesDTO(String id, long date, String title, String content, float rating, String img, String productsId, String orderStoreId) {
         this.id = id;
         this.date = date;
         this.title = title;
@@ -35,11 +35,11 @@ public class ResponsesDTO implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
