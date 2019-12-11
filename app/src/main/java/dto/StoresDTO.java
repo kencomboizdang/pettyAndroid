@@ -6,7 +6,7 @@ import java.util.Date;
 public class StoresDTO implements Serializable {
     private String id;
     private String name;
-    private Date date;
+    private long date;
     private String description;
     private String logoImg;
     private String province;
@@ -21,7 +21,7 @@ public class StoresDTO implements Serializable {
     private float positionY;
     private String accountId;
 
-    public StoresDTO(String id, String name, Date date, String description, String logoImg, String province, String district, String ward, String detail, String phone, String email, boolean active, String postalCode, float positionX, float positionY, String accountId) {
+    public StoresDTO(String id, String name, long date, String description, String logoImg, String province, String district, String ward, String detail, String phone, String email, boolean active, String postalCode, float positionX, float positionY, String accountId) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -60,11 +60,11 @@ public class StoresDTO implements Serializable {
         this.name = name;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
