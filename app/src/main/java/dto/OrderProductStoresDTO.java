@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class OrderProductStoresDTO implements Serializable {
     private String id;
-    private String date;
+    private long date;
     private float total;
     private String orderStatus;
     private String storeId;
     private String orderProductDetailId;
 
-    public OrderProductStoresDTO(String id, String date, float total, String orderStatus, String storeId, String orderProductDetailId) {
+    public OrderProductStoresDTO(String id, long date, float total, String orderStatus, String storeId, String orderProductDetailId) {
         this.id = id;
         this.date = date;
         this.total = total;
@@ -30,11 +30,11 @@ public class OrderProductStoresDTO implements Serializable {
         this.id = id;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
