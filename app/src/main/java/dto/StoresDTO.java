@@ -3,7 +3,7 @@ package dto;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Stores implements Serializable {
+public class StoresDTO implements Serializable {
     private String id;
     private String name;
     private Date date;
@@ -21,7 +21,7 @@ public class Stores implements Serializable {
     private float positionY;
     private String accountId;
 
-    public Stores(String id, String name, Date date, String description, String logoImg, String province, String district, String ward, String detail, String phone, String email, boolean active, String postalCode, float positionX, float positionY, String accountId) {
+    public StoresDTO(String id, String name, Date date, String description, String logoImg, String province, String district, String ward, String detail, String phone, String email, boolean active, String postalCode, float positionX, float positionY, String accountId) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -40,7 +40,7 @@ public class Stores implements Serializable {
         this.accountId = accountId;
     }
 
-    public Stores() {
+    public StoresDTO() {
 
     }
 
