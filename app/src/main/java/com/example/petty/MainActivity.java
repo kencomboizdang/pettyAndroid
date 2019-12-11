@@ -35,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -56,22 +57,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
         imageView = (ImageView) findViewById(R.id.imgView);
 
     }
 
     public void clickToCreate(View view) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        String userId = mDatabase.push().getKey();
+        String userId = mDatabase.push().getKey(); // random key
         User user = new User("Ravi Tamada", "ravi@androiddhive.info");
-
         mDatabase.child(userId).setValue(user);
         TextView view1 = findViewById(R.id.txtDetail);
         view1.setText("dfesfesf");
     }
 
-    public void clickToRead(final View view) {
+    public void clickToRead(final View view) { // read only 1 object
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
         mDatabase.child("-Lv_5xDkgQzFzIYqm2wm").addValueEventListener(new ValueEventListener() {
             @Override
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void clickToReadAll(View view) {
+    public void clickToReadAll(View view) { // read all object in one table
 
         Query allUser = FirebaseDatabase.getInstance().getReference().child("users");
         allUser.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -118,10 +117,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void ClickToUpdate(View view) {
+    public void ClickToUpdate(View view) { // update object in one table
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
         String newEmail = "ahihi@gmail.com";
-
         mDatabase.child("-Lv_69SF7L6zoResKarV").child("email").setValue(newEmail);
     }
 
@@ -134,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-
     }
 
     public void clickToUploadImage(View view) {
@@ -144,7 +141,11 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            String uid = UUID.randomUUID().toString();
+            StorageReference ref = storageReference.child("images/"+ uid);
+            System.out.println(uid);
+            TextView view1 = findViewById(R.id.txtDetail);
+            view1.setText(uid + "\n");
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
