@@ -14,14 +14,14 @@ public class ProductsDTO implements Serializable {
     private String origin;
     private float netWeight;
     private String status;
-    private Date startDate;
-    private Date expiration;
+    private long startDate;
+    private long expiration;
     private String categoriesId;
 
     public ProductsDTO() {
     }
 
-    public ProductsDTO(String id, String name, String description, float price, int quantity, String size, String img, String origin, float netWeight, String status, Date startDate, Date expiration, String categoriesId) {
+    public ProductsDTO(String id, String name, String description, float price, int quantity, String size, String img, String origin, float netWeight, String status, long startDate, long expiration, String categoriesId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -117,19 +117,19 @@ public class ProductsDTO implements Serializable {
         this.status = status;
     }
 
-    public Date getStartDate() {
+    public long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
 
-    public Date getExpiration() {
+    public long getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(Date expiration) {
+    public void setExpiration(long expiration) {
         this.expiration = expiration;
     }
 
