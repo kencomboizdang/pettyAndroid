@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "324893708616",
+    "firebase_url": "https://petty-418a3.firebaseio.com",
+    "project_id": "petty-418a3",
+    "storage_bucket": "petty-418a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324893708616:android:a17725165125492ffca37d",
+        "android_client_info": {
+          "package_name": "com.example.petty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324893708616-1llgi3jq41dt67cr9ocrgvj12ea1p3ks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBCLnImsuCUTCyaYTeJgFMjUlaYxTS15E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324893708616-1llgi3jq41dt67cr9ocrgvj12ea1p3ks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324893708616:android:90b1f403e278f416fca37d",
+        "android_client_info": {
+          "package_name": "com.fpt.petty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324893708616-1llgi3jq41dt67cr9ocrgvj12ea1p3ks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBCLnImsuCUTCyaYTeJgFMjUlaYxTS15E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324893708616-1llgi3jq41dt67cr9ocrgvj12ea1p3ks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
