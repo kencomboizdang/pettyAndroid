@@ -3,7 +3,7 @@ package dto;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Customers implements Serializable {
+public class CustomersDTO implements Serializable {
 
     private String id;
     private String firstName;
@@ -14,10 +14,10 @@ public class Customers implements Serializable {
     private boolean active;
     private String accountsId;
 
-    public Customers() {
+    public CustomersDTO() {
     }
 
-    public Customers(String id, String firstName, String lastName, Date dayOfBirth, String email, boolean gender, boolean active, String accountsId) {
+    public CustomersDTO(String id, String firstName, String lastName, Date dayOfBirth, String email, boolean gender, boolean active, String accountsId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

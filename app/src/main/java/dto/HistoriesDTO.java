@@ -3,17 +3,17 @@ package dto;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Histories implements Serializable {
+public class HistoriesDTO implements Serializable {
 
     private String id;
     private Date date;
     private String customersId;
     private String productsId;
 
-    public Histories() {
+    public HistoriesDTO() {
     }
 
-    public Histories(String id, Date date, String customersId, String productsId) {
+    public HistoriesDTO(String id, Date date, String customersId, String productsId) {
         this.id = id;
         this.date = date;
         this.customersId = customersId;

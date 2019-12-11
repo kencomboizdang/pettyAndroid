@@ -2,16 +2,16 @@ package dto;
 
 import java.io.Serializable;
 
-public class Accounts implements Serializable {
+public class AccountsDTO implements Serializable {
     private String id;
     private String username;
     private String password;
     private String role;
 
-    public Accounts() {
+    public AccountsDTO() {
     }
 
-    public Accounts(String id, String username, String password, String role) {
+    public AccountsDTO(String id, String username, String password, String role) {
         this.id = id;
         this.username = username;
         this.password = password;

@@ -3,7 +3,7 @@ package dto;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Responses implements Serializable {
+public class ResponsesDTO implements Serializable {
     private String id;
     private Date date;
     private String title;
@@ -13,10 +13,10 @@ public class Responses implements Serializable {
     private String productsId;
     private String orderStoreId;
 
-    public Responses() {
+    public ResponsesDTO() {
     }
 
-    public Responses(String id, Date date, String title, String content, float rating, String img, String productsId, String orderStoreId) {
+    public ResponsesDTO(String id, Date date, String title, String content, float rating, String img, String productsId, String orderStoreId) {
         this.id = id;
         this.date = date;
         this.title = title;
