@@ -14,6 +14,15 @@ public class OrderProductDetailsDTO implements Serializable {
     public OrderProductDetailsDTO() {
     }
 
+    public OrderProductDetailsDTO(long date, int quantity, float price, String orderStatus, String orderId, String productId) {
+        this.date = date;
+        this.quantity = quantity;
+        this.price = price;
+        this.orderStatus = orderStatus;
+        this.orderId = orderId;
+        this.productId = productId;
+    }
+
     public OrderProductDetailsDTO(String id, long date, int quantity, float price, String orderStatus, String orderId, String productId) {
         this.id = id;
         this.date = date;
