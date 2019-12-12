@@ -40,6 +40,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import dao.AccountsDAO;
+import dto.AccountsDTO;
 import dto.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,13 +60,16 @@ public class MainActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         imageView = (ImageView) findViewById(R.id.imgView);
+//        AccountsDTO dto = new AccountsDTO("AAAAAAA","781239","user");
+//        AccountsDAO dao = new AccountsDAO();
+//        dao.createAccount(dto);
 
     }
 
     public void clickToCreate(View view) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
         String userId = mDatabase.push().getKey(); // random key
-        User user = new User("Ravi Tamada", "ravi@androiddhive.info");
+        final User user = new User("Ravi Tamada", "ravi@androiddhive.info");
         mDatabase.child(userId).setValue(user);
         TextView view1 = findViewById(R.id.txtDetail);
         view1.setText("dfesfesf");
@@ -104,10 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     users.add(user);
                     result+= item.getKey();
                 }
-
                 view1.setText(result);
-
-
             }
 
             @Override
