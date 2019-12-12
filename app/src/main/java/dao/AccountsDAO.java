@@ -15,7 +15,7 @@ public class AccountsDAO implements Serializable {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(ACCOUNT);
         String accountId = mDatabase.push().getKey();
         mDatabase.child(accountId).setValue(dto);
-        return dto;
+        return dto;   
     }
 
 //    public AccountsDTO updateAccount(AccountsDTO dto, String newPassword) {
