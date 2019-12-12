@@ -74,7 +74,13 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:onClick="clickToUploadImage"/>
-
+            <Button
+                android:id="@+id/btnRetrieveImage"
+                android:text="Upload"
+                android:layout_weight="1"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:onClick="clickToRetrieveImage"/>
             <ImageView
                 android:id="@+id/imgView"
                 android:layout_width="300dp"

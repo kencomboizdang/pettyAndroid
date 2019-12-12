@@ -19,6 +19,14 @@ public class OrderProductStoresDTO implements Serializable {
         this.orderProductDetailId = orderProductDetailId;
     }
 
+    public OrderProductStoresDTO(long date, float total, String orderStatus, String storeId, String orderProductDetailId) {
+        this.date = date;
+        this.total = total;
+        this.orderStatus = orderStatus;
+        this.storeId = storeId;
+        this.orderProductDetailId = orderProductDetailId;
+    }
+
     public OrderProductStoresDTO() {
     }
 

@@ -39,14 +39,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
 import dao.AccountsDAO;
+import dao.CustomersDAO;
 import dto.AccountsDTO;
+import dao.OrdersDAO;
+import dto.CustomersDTO;
+import dto.OrdersDTO;
 import dto.User;
+import util.DateTimeStamp;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     private Button btnChoose, btnUpload;
+
+    private TextView idTest;
 
     private Uri filePath;
 
@@ -60,10 +66,23 @@ public class MainActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         imageView = (ImageView) findViewById(R.id.imgView);
-//        AccountsDTO dto = new AccountsDTO("AAAAAAA","781239","user");
+//        AccountsDTO dto = new AccountsDTO("-Lvs8_uru8gXaAq0LtZN","AAAAAAA","781239","user");
 //        AccountsDAO dao = new AccountsDAO();
-//        dao.createAccount(dto);
+//        String newPassword = "LinhHN456456";
+        //dao.createAccount(dto);
+       // dao.updateAccount(dto, newPassword);
+//        DateTimeStamp dateTimeStamp = new DateTimeStamp();
+//        OrdersDAO ordersDAO = new OrdersDAO();
 
+   //     CustomersDTO dto = new CustomersDTO("Linh","Hoang",100000,"linhhnse62997@fpt.edu.vn", true, true, "-Lvs8_uru8gXaAq0LtZN");
+        CustomersDAO dao = new CustomersDAO();
+      //  dao.createCustomer(dto);
+
+        idTest = (TextView) findViewById(R.id.idTest);
+
+        String id = "-Lvsg4jJ6bGz4rFCWigl";
+        CustomersDTO dto = dao.getCustomerById(id);
+        idTest.setText("" + dto.getFirstName());
     }
 
     public void clickToCreate(View view) {
@@ -75,24 +94,26 @@ public class MainActivity extends AppCompatActivity {
         view1.setText("dfesfesf");
     }
 
-    public void clickToRead(final View view) { // read only 1 object
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        mDatabase.child("-Lv_5xDkgQzFzIYqm2wm").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-
-                Log.d(ContentValues.TAG, "User name: " + user.getName() + ", email " + user.getEmail());
-                TextView view1 = findViewById(R.id.txtDetail);
-                view1.setText(user.getName());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
-            }
-        });
-    }
+//    public void clickToRead(final View view) { // read only 1 object
+//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
+//        mDatabase.child("-Lv_5xDkgQzFzIYqm2wm").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                User user = dataSnapshot.getValue(User.class);
+//
+//                Log.d(ContentValues.TAG, "User name: " + user.getName() + ", email " + user.getEmail());
+//                TextView view1 = findViewById(R.id.txtDetail);
+//                view1.setText(user.getName());
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
+//            }
+//        });
+//        String result = mDatabase.child("-Lv_5xDkgQzFzIYqm2wm");
+//        TextView view1 = findViewById(R.id.txtDetail);
+//        view1.setText(user.getName());
+//    }
 
     public void clickToReadAll(View view) { // read all object in one table
 
@@ -171,8 +192,8 @@ public class MainActivity extends AppCompatActivity {
                             progressDialog.setMessage("Uploaded "+(int)progress+"%");
                         }
                     });
+            view1.setText(ref.getBucket()+"\n"+ref.getPath());
         }
-
     }
 
     @Override
@@ -191,5 +212,9 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void clickToRetrieveImage(View view) {
+
     }
 }
