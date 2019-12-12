@@ -86,7 +86,7 @@ public class OrdersDAO implements Serializable {
     //Update Order Status
     public boolean updateOrderStatus (String id, String orderStatus){
         try{
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(orderStatus);
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(ORDERS);
             mDatabase.child(id).child("orderStatus").setValue(orderStatus);
             return true;
         } catch (Exception e){

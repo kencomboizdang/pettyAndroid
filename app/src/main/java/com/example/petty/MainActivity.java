@@ -90,9 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
             }
         });
-        String result = mDatabase.child("-Lv_5xDkgQzFzIYqm2wm");
         TextView view1 = findViewById(R.id.txtDetail);
-        view1.setText(user.getName());
     }
 
     public void clickToReadAll(View view) { // read all object in one table
