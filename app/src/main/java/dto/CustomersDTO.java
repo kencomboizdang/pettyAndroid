@@ -28,6 +28,16 @@ public class CustomersDTO implements Serializable {
         this.accountsId = accountsId;
     }
 
+    public CustomersDTO(String firstName, String lastName, long dayOfBirth, String email, boolean gender, boolean active, String accountsId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dayOfBirth = dayOfBirth;
+        this.email = email;
+        this.gender = gender;
+        this.active = active;
+        this.accountsId = accountsId;
+    }
+
     public String getId() {
         return id;
     }
