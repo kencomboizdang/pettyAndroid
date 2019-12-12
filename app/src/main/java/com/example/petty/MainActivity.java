@@ -169,8 +169,8 @@ public class MainActivity extends AppCompatActivity {
                             progressDialog.setMessage("Uploaded "+(int)progress+"%");
                         }
                     });
+            view1.setText(ref.getBucket()+"\n"+ref.getPath());
         }
-
     }
 
     @Override
@@ -189,5 +189,9 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void clickToRetrieveImage(View view) {
+
     }
 }
