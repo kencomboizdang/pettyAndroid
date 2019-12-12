@@ -40,7 +40,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import dao.OrdersDAO;
+import dto.OrdersDTO;
 import dto.User;
+import util.DateTimeStamp;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
@@ -58,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         imageView = (ImageView) findViewById(R.id.imgView);
-
+        DateTimeStamp dateTimeStamp = new DateTimeStamp();
+        OrdersDAO ordersDAO = new OrdersDAO();
     }
 
     public void clickToCreate(View view) {
@@ -81,12 +85,14 @@ public class MainActivity extends AppCompatActivity {
                 TextView view1 = findViewById(R.id.txtDetail);
                 view1.setText(user.getName());
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
             }
         });
+        String result = mDatabase.child("-Lv_5xDkgQzFzIYqm2wm");
+        TextView view1 = findViewById(R.id.txtDetail);
+        view1.setText(user.getName());
     }
 
     public void clickToReadAll(View view) { // read all object in one table
