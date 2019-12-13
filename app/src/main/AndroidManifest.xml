@@ -20,7 +20,10 @@
         android:roundIcon="@drawable/logo_petty"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReturnProductActivity"></activity>
+        <activity android:name=".SearchProductActivity"></activity>
+        <activity android:name=".StoreDetailActivity" />
+        <activity android:name=".OrderPendingActivity" />
+        <activity android:name=".ReturnProductActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".AccountDetailActivity" />
@@ -35,6 +38,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key" />
     </application>
 
 </manifest>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SearchProductActivity"
+    android:background="@color/colorWhite"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/text_box_gray"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        >
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_back_grey"
+            android:paddingLeft="10dp"
+            android:onClick="clickToBackHome"
+            />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/edt_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:defaultQueryHint="Bạn muốn tìm gì cho thú cưng"
+            android:inputType="textFilter"
+            android:background="@drawable/btn_white_stroke_grey"
+            android:textFontWeight="@android:integer/config_mediumAnimTime"
+            android:textSize="15sp"
+            android:focusable="true"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation_bar"
+        android:id="@+id/search_frame">
+
+    </FrameLayout>
+
+</LinearLayout>

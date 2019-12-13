@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StoreDetailActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:background="@color/colorPrimary"
+            >
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/icon_back"
+                android:onClick="clickToBack"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/text_box_gray"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:onClick="clickToSearch"
+                    android:layout_marginEnd="50dp"
+                    >
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/icon_search"
+                        android:paddingLeft="20dp"
+                        android:onClick="clickToSearch"/>
+                    <TextView
+                        android:id="@+id/edtSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Bạn muốn tìm gì cho thú cưng"
+                        android:inputType="textFilter"
+                        android:paddingLeft="10dp"
+                        android:textColorHighlight="#3CACA797"
+
+                        android:paddingBottom="-10dp"
+                        android:textFontWeight="@android:integer/config_mediumAnimTime"
+                        android:textSize="15sp"
+                        android:onClick="clickToSearch"/>
+
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/imgCart"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/icon_cart"
+                    android:onClick="clickToCart"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+        <ScrollView
+            style="@android:style/Widget.Material.Light.ScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:scrollbarSize="0dp"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
+                    <LinearLayout
+                        android:id="@+id/food_dog_001"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_margin="10dp">
+                        <com.mikhaellopez.circularimageview.CircularImageView
+                            android:id="@+id/imgStore"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/food_dog_001" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:orientation="vertical"
+                            android:paddingLeft="7dp"
+                            >
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/txtNameStore"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:maxLines="2"
+                                    android:text="Tên Store"
+                                    android:textColor="@color/colorBlack"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"/>
+                            </RelativeLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/txtAddress"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Địa chỉ"
+                                    android:textColor="#F3555555"
+                                    android:textSize="16sp"
+                                    />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/colorGreyWhite"
+                    android:orientation="vertical" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Thông tin liên lạc"
+                        android:layout_marginTop="6dp"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:paddingLeft="10dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Địa chỉ"
+                            android:paddingLeft="12dp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/txtStoreAddr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Số 116, Đường Ba Tháng Hai, Quận 10, Tp. Hồ Chí Minh"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:paddingLeft="12dp"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="12dp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/txtStoreAddr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chỉ đường"
+                            android:ellipsize="end"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorRed"
+                            android:maxLines="2"
+                            android:onClick="clickToDirection"
+                            android:paddingLeft="12dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGreyWhite"
+                    android:orientation="vertical" />
+<!--                <com.example.petty.NonScrollListView-->
+<!--                    android:id="@+id/listCategory"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:scrollbars="none"-->
+<!--                    >-->
+<!--                </com.example.petty.NonScrollListView>-->
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</LinearLayout>
