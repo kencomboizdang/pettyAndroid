@@ -12,3 +12,8 @@
 /captures
 .externalNativeBuild
 .cxx
+app/src/main/res/layout/activity_main.xml
+app/src/main/java/dto/OrdersDTO.java
+app/src/main/java/dao/OrdersDAO.java
+app/src/main/java/dao/OrderProductDetailsDAO.java
+app/src/main/java/com/example/petty/MainActivity.java
