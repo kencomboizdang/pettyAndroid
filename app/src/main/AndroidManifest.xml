@@ -22,10 +22,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AccountDetailActivity"></activity>
         <activity android:name=".ProductDetailActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".HomePageActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".OpeningActivity" />
-        <activity android:name=".HomePageActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
