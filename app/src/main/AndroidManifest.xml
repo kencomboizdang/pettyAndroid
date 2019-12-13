@@ -20,13 +20,15 @@
         android:roundIcon="@drawable/logo_petty"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegistrationActivity"></activity>
+        <activity android:name=".ReturnProductActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".RegistrationActivity" />
         <activity android:name=".AccountDetailActivity" />
         <activity android:name=".ProductDetailActivity" />
         <activity android:name=".HomePageActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".OpeningActivity">
+        <activity android:name=".OpeningActivity" />
+        <activity android:name=".ProductListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

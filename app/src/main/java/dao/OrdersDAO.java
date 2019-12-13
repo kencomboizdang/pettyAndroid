@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import dto.OrderProductDetailsDTO;
 import dto.OrderProductStoresDTO;
@@ -62,23 +63,25 @@ public class OrdersDAO implements Serializable {
     }
 
     //Retrieve All
-    private ArrayList<OrdersDTO> orderList;
-    public ArrayList<OrdersDTO> getOrderAll(){
-        Query allOrder = FirebaseDatabase.getInstance().getReference().child(ORDERS);
-        allOrder.addListenerForSingleValueEvent(new ValueEventListener() {
+    public List<OrdersDTO> orderList;
+    public List<OrdersDTO> getOrderAll(){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(ORDERS);
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                orderList = new ArrayList<>();
-                for (DataSnapshot item : dataSnapshot.getChildren()){
-                    OrdersDTO ordersDTO = item.getValue(OrdersDTO.class);
-                    orderList.add(ordersDTO);
-                }
+//                orderList = new ArrayList<>();
+//                for (DataSnapshot item : dataSnapshot.getChildren()){
+//                    OrdersDTO ordersDTO = item.getValue(OrdersDTO.class);
+//                    orderList.add(ordersDTO);
+//                }
+                orderList = (List<OrdersDTO>) dataSnapshot.getValue();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
             }
         });
+
         return orderList;
     }
 
