@@ -22,11 +22,11 @@ import java.util.List;
 
 import dto.ProductsDTO;
 
-public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
+public class ProductsHistoryAdapter extends RecyclerView.Adapter<ProductsHistoryAdapter.ViewHolder> {
     private List<ProductsDTO> productsList;
     private Context context;
 
-    public ProductsAdapter() {
+    public ProductsHistoryAdapter() {
     }
 
     @NonNull
@@ -34,7 +34,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_product, parent, false);
+        View view = inflater.inflate(R.layout.item_product_2, parent, false);
         return new ViewHolder(view);
 
     }
@@ -63,7 +63,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         return productsList.size();
     }
 
-    public ProductsAdapter(Context context, List<ProductsDTO> productsList) {
+    public ProductsHistoryAdapter(Context context, List<ProductsDTO> productsList) {
         this.productsList = productsList;
         this.context = context;
     }
@@ -73,7 +73,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         public TextView txtName, txtPrice;
         public ImageView imgProduct;
         public LinearLayout productItem;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = (TextView) itemView.findViewById(R.id.txtProductName);

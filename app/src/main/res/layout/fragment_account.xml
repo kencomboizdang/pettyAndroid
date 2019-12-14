@@ -37,6 +37,7 @@
                             android:id="@+id/circularImageView"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:src="@drawable/food_dog_001"
                             />
 
                         <TableRow
@@ -107,7 +108,7 @@
                         android:layout_height="50dp"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="14dp"
-                        android:text="Quản lý đơn hàng / đặt lịch"
+                        android:text="Quản lý đơn hàng"
                         android:textSize="18sp"
                         />
                     <ImageView
@@ -128,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="clickToAddressView"
+                    android:onClick="clickToAddressList"
                     >
 
                     <TextView
