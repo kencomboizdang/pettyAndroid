@@ -6,8 +6,7 @@ import java.util.Date;
 public class CustomersDTO implements Serializable {
 
     private String id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private long dayOfBirth;
     private String email;
     private boolean gender;
@@ -17,10 +16,8 @@ public class CustomersDTO implements Serializable {
     public CustomersDTO() {
     }
 
-    public CustomersDTO(String id, String firstName, String lastName, long dayOfBirth, String email, boolean gender, boolean active, String accountsId) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public CustomersDTO(String name, long dayOfBirth, String email, boolean gender, boolean active, String accountsId) {
+        this.name = name;
         this.dayOfBirth = dayOfBirth;
         this.email = email;
         this.gender = gender;
@@ -36,20 +33,12 @@ public class CustomersDTO implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long getDayOfBirth() {

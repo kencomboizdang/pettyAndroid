@@ -6,168 +6,90 @@
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="320dp"
+        android:layout_height="142dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_petty_registration" />
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên đăng nhập"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/edtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mật Khẩu"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Xác nhận mật khẩu"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/edtConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-            >
+            <Button
+                android:id="@+id/btnCreate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:onClick="clickToRegister"
+                android:text="Đăng ký"
+                android:textColor="@color/colorWhite" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="296dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/logo_petty_registration" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="25dp">
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20px"
-                    android:text="Họ và tên"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint=""
-                    android:textSize="16sp"/>
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20px"
-                    android:text="Email"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textSize="16sp"/>
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20px"
-                    android:text="Mật khẩu"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPassword"
-                    android:textSize="16sp"/>
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20px"
-                    android:text="Ngày sinh"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="date"
-                    android:textSize="16sp"/>
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:requiresFadingEdge="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/radioButton3"
-                        android:layout_width="130dp"
-                        android:layout_height="wrap_content"
-                        android:text="Nam"
-                        android:textSize="16sp"/>
-
-                    <RadioButton
-                        android:id="@+id/radioButton4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="Nữ"
-                        android:textSize="16sp"/>
-                </RadioGroup>
-
-                <LinearLayout
-                    android:layout_width="295dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <Button
-                            android:id="@+id/btnLogin"
-                            android:layout_width="141dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/btn_yellow"
-                            android:text="ĐĂNG KÝ"
-                            android:foreground="?android:attr/selectableItemBackground"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:onClick="clickRegistrationFinish" />
-
-                        <Button
-                            android:id="@+id/btnRegister"
-                            android:layout_width="141dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/btn_white_border_yellow"
-                            android:foreground="?android:attr/selectableItemBackground"
-                            android:text="TRỞ VỀ"
-                            android:textColor="#fdc700"
-                            android:textSize="18sp"
-                            android:onClick="clickRegistrationFinish"/>
-                    </TableRow>
-                </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="Khi đăng kí, bạn đã chấp nhận điều khoản sử dụng" />
-
-            </LinearLayout>
-
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+                android:text="Trở Về" />
         </LinearLayout>
-
-    </RelativeLayout>
-
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

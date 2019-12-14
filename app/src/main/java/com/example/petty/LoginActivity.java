@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,11 +18,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import dto.AccountsDTO;
+import sqlite.DatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String ACCOUNT = "accounts";
+    DatabaseHelper myDb;
 
+    private static final String ACCOUNT = "accounts";
 
     EditText edtUsername, edtPassword;
     TextView txtWarning;
@@ -42,9 +45,8 @@ public class LoginActivity extends AppCompatActivity {
         txtWarning = (TextView) findViewById(R.id.txtWarning);
 
         mDatabase = FirebaseDatabase.getInstance().getReference(ACCOUNT);
+        myDb = new DatabaseHelper(this);
 
-        AccountsDTO dto = new AccountsDTO("Linh", "HN", "user");
-        addAccount(dto.getUsername(), dto.getPassword(), dto.getRole());
     }
 
     public void clickToLogin(View view) {
@@ -58,14 +60,16 @@ public class LoginActivity extends AppCompatActivity {
                         String iUsername = edtUsername.getText().toString();
                         String iPassword = edtPassword.getText().toString();
 //                        if(iUsername.trim() == null || iPassword.trim() == null) {
-//                            txtWarning.setText("Not null");
-//                        }
+////                            txtWarning.setText("Not null");
+////                        }
                         txtWarning.setText("");
                         if (iUsername.equals(dbUsername)&& iPassword.equals(dbPassword)) {
+                            myDb.insertAccount(iUsername, iPassword);
                             Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
                             startActivity(intent);
+                            txtWarning.setText("");
                         } else {
-                            txtWarning.setText("Invalid Username or Password");
+                            txtWarning.setText("Sai tên đăng nhập hoặc mật khẩu");
                         }
                     }
                 }
@@ -79,14 +83,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void clickToRegistration(View view) {
+        Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+        startActivity(intent);
     }
-
-    public void addAccount(String username, String password, String role) {
-        AccountsDTO dto = new AccountsDTO(username, password, role);
-        String accountKey = mDatabase.push().getKey();
-        dto.setId(accountKey);
-        mDatabase.child(accountKey).setValue(dto);
-    }
-
 
 }
