@@ -21,6 +21,11 @@ public class ProductsDTO implements Serializable {
     public ProductsDTO() {
     }
 
+    public ProductsDTO(String name, float price) {
+        this.name = name;
+        this.price = price;
+    }
+
     public ProductsDTO(String id, String name, String description, float price, int quantity, String size, String img, String origin, float netWeight, String status, long startDate, long expiration, String categoriesId) {
         this.id = id;
         this.name = name;

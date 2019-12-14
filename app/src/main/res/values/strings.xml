@@ -3,4 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="map_key" translatable="false">
+        AIzaSyBNFJxbuP_F0gaNP4BK8ur3KTc2Cbfmtng
+    </string>
 </resources>

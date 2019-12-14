@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imgView);
         DateTimeStamp dateTimeStamp = new DateTimeStamp();
         OrdersDAO ordersDAO = new OrdersDAO();
+        ordersDAO.getOrderAll();
+//        System.out.println(ordersDAO.orderList.size());
     }
 
     public void clickToCreate(View view) {
