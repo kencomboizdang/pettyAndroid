@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/txtTilteName"
+                android:id="@+id/txtProductDialogName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ALALAL"
@@ -53,7 +53,7 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"/>
             <TextView
-                android:id="@+id/txtStore"
+                android:id="@+id/txtProductDialogStore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ALALAL"
@@ -63,7 +63,7 @@
                 android:textColor="@color/colorGrey"
                />
             <TextView
-                android:id="@+id/txtPriceDiscount"
+                android:id="@+id/txtProductDialogPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"

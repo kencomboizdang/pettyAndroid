@@ -12,6 +12,7 @@ public class ProductsDTO implements Serializable {
     private String size;
     private String img;
     private String origin;
+    private String brand;
     private float netWeight;
     private String status;
     private long startDate;
@@ -21,7 +22,16 @@ public class ProductsDTO implements Serializable {
     public ProductsDTO() {
     }
 
-    public ProductsDTO(String id, String name, String description, float price, int quantity, String size, String img, String origin, float netWeight, String status, long startDate, long expiration, String categoriesId) {
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public ProductsDTO(String id, String name, String description, float price, int quantity, String size, String img, String origin, String brand, float netWeight, String status, long startDate, long expiration, String categoriesId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -30,6 +40,7 @@ public class ProductsDTO implements Serializable {
         this.size = size;
         this.img = img;
         this.origin = origin;
+        this.brand = brand;
         this.netWeight = netWeight;
         this.status = status;
         this.startDate = startDate;

@@ -20,8 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imgView);
         DateTimeStamp dateTimeStamp = new DateTimeStamp();
         OrdersDAO ordersDAO = new OrdersDAO();
+//        ordersDAO.getOrderAll();
+//        System.out.println(ordersDAO.orderList.size());
     }
 
     public void clickToCreate(View view) {
@@ -156,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(MainActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            System.out.println(taskSnapshot.getDownloadUrl());
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
