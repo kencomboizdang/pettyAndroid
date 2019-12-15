@@ -21,7 +21,6 @@
             android:layout_width="55dp"
             android:layout_height="match_parent"
             android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="clickToBack"
             app:srcCompat="@drawable/icon_back" />
 
         <TextView
@@ -130,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
-                android:onClick="clickToRegister"
+                android:onClick="createCustomer"
                 android:text="Đăng ký"
                 android:textColor="@color/colorWhite" />
 
