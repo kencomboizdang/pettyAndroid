@@ -17,7 +17,10 @@ public class OpeningActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opening);
         myDB = new DatabaseHelper(this);
+
         final Cursor res = myDB.checkData();
+        final Cursor resCus = myDB.getKeyCustomer();
+
 
         Handler handler=new Handler();
         handler.postDelayed(new Runnable() {
@@ -25,6 +28,9 @@ public class OpeningActivity extends AppCompatActivity {
             public void run() {
                 if(res.getCount() == 0) {
                     Intent intent = new Intent(OpeningActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else if(resCus.getCount() == 0){
+                    Intent intent = new Intent(OpeningActivity.this, CustomerActivity.class);
                     startActivity(intent);
                 } else {
                     Intent intent=new Intent(OpeningActivity.this, HomePageActivity.class);
