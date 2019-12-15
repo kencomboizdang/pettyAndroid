@@ -78,7 +78,12 @@ public class LoginActivity extends AppCompatActivity {
                                             String dbAccountId = dsCus.child("accountsId").getValue(String.class);
                                             if(dbAccountId.equals(dbId)) {
                                                 myDb.insertCustomer(dbCustomerId, dbAccountId);
+                                                finish();
                                                 Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                                                startActivity(intent);
+                                            } else {
+                                                finish();
+                                                Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
                                                 startActivity(intent);
                                             }
                                         }
@@ -90,9 +95,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 }
                             });
-                            Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
-                            startActivity(intent);
-                            txtWarning.setText("");
+
                         } else {
                             txtWarning.setText("Sai tên đăng nhập hoặc mật khẩu");
                         }

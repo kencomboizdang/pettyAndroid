@@ -85,7 +85,8 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public void clickToSignOut(View view) {
-        finish();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }
 

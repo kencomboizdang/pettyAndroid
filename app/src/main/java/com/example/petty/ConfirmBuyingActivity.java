@@ -137,7 +137,7 @@ public class ConfirmBuyingActivity extends AppCompatActivity {
         String generateOrderProductDetailID = orderProductDetailDatabase.push().getKey();
         DateTimeStamp dateTimeStamp = new DateTimeStamp();
         for (String storeID : storesIDList){
-            
+
             for (ProductsDTO productsDTO: productsList){
                 if (storeID.equals(productsDTO.getStoreId())){
                     OrderProductDetailsDTO orderProductDetailsDTO = new OrderProductDetailsDTO();
