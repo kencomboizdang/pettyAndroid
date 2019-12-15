@@ -57,12 +57,13 @@ public class LoginActivity extends AppCompatActivity {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String dbUsername = ds.child("username").getValue(String.class);
                         String dbPassword = ds.child("password").getValue(String.class);
+                        String dbId = ds.child("id").getValue(String.class);
                         String iUsername = edtUsername.getText().toString();
                         String iPassword = edtPassword.getText().toString();
                         txtWarning.setText("");
                         if (iUsername.equals(dbUsername)&& iPassword.equals(dbPassword)) {
-                            myDb.insertAccount(iUsername, iPassword);
-                            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                            myDb.insertAccount(dbId, iUsername, iPassword);
+                            Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
                             startActivity(intent);
                             txtWarning.setText("");
                         } else {
