@@ -20,7 +20,14 @@
         android:roundIcon="@drawable/logo_petty"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchProductActivity"></activity>
+        <activity android:name=".OrderManagementActivity" />
+        <activity android:name=".SuccessfulBuyingActivity" />
+        <activity android:name=".ConfirmBuyingActivity" />
+        <activity android:name=".AddressBuyingActivity" />
+        <activity android:name=".AddressDetailActivity" />
+        <activity android:name=".AddressListActivity" />
+        <activity android:name=".CartActivity" />
+        <activity android:name=".SearchProductActivity" />
         <activity android:name=".StoreDetailActivity" />
         <activity android:name=".OrderPendingActivity" />
         <activity android:name=".ReturnProductActivity" />
@@ -28,10 +35,10 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".AccountDetailActivity" />
         <activity android:name=".ProductDetailActivity" />
-        <activity android:name=".HomePageActivity" />
+        <activity android:name=".ProductListActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".OpeningActivity" />
-        <activity android:name=".ProductListActivity">
+        <activity android:name=".HomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

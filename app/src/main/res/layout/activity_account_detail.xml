@@ -63,7 +63,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editText5"
+                    android:id="@+id/edtPassRes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -80,7 +80,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editText5"
+                    android:id="@+id/edtPassRes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -97,7 +97,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editText5"
+                    android:id="@+id/edtPassRes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -114,7 +114,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editText5"
+                    android:id="@+id/edtPassRes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"

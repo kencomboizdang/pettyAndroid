@@ -86,12 +86,12 @@
                 android:layout_width="141dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/btn_yellow"
-                android:text="ĐĂNG NHẬP"
+                android:background="@color/colorPrimary"
                 android:foreground="?android:attr/selectableItemBackground"
+                android:onClick="clickToLogin"
+                android:text="ĐĂNG NHẬP"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:onClick="clickToLogin" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/btnRegister"
