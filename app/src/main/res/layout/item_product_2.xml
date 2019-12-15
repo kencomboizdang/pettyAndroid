@@ -12,6 +12,7 @@
         android:onClick="clickToProductDetail">
 
         <ImageView
+            android:id="@+id/imgProduct"
             android:layout_width="65dp"
             android:layout_height="65dp"
            android:src="@drawable/food_dog_001"/>

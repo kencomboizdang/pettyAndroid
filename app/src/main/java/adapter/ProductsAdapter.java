@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.petty.ProductDetailActivity;
 import com.example.petty.R;
 
@@ -46,6 +47,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         holder.txtName.setText(productsDTO.getName());
         holder.txtPrice.setText(decimalFormat.format(productsDTO.getPrice()) + " đ");
         //holder.imgProduct.setImageResource();
+        Glide.with(context)
+                .load(productsDTO.getImg())
+                .into(holder.imgProduct);
         holder.productItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,17 +26,20 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DecimalFormat;
 
 import dto.ProductsDTO;
+import dto.StoresDTO;
 
 public class ProductDetailActivity extends AppCompatActivity {
     final String PRODUCTS = "products";
+    final String STORES = "stores";
     private  TextView txtName, txtPrice, txtStore, txtDescription, txtBrand, txtSize, txtOrigin, txtStore2;
+    private ImageView imgProduct;
+    private String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         Bundle bundle= getIntent().getBundleExtra("data");
         String id = bundle.getString("id_product");
-        System.out.println(id);
         txtName = (TextView) findViewById(R.id.txtTitleProduct);
         txtPrice = (TextView) findViewById(R.id.txtPrice);
         txtStore = (TextView) findViewById(R.id.txtStore);
@@ -44,18 +48,43 @@ public class ProductDetailActivity extends AppCompatActivity {
         txtSize = (TextView) findViewById(R.id.txtSize);
         txtOrigin = (TextView) findViewById(R.id.txtOrigin);
         txtStore2 = (TextView) findViewById(R.id.txtStore2);
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(PRODUCTS);
-        mDatabase.child(id).addValueEventListener(new ValueEventListener() {
+        imgProduct= (ImageView) findViewById(R.id.imgProduct);
+        DatabaseReference productsDatabase = FirebaseDatabase.getInstance().getReference(PRODUCTS);
+        productsDatabase.child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ProductsDTO dto = dataSnapshot.getValue(ProductsDTO.class);
-                txtName.setText(dto.getName());
+                final ProductsDTO productDto = dataSnapshot.getValue(ProductsDTO.class);
+                txtName.setText(productDto.getName());
                 DecimalFormat decimalFormat = new DecimalFormat("#,##0");
-                txtPrice.setText(decimalFormat.format(dto.getPrice()) + " đ");
-                txtDescription.setText(dto.getDescription());
-                txtBrand.setText(dto.getBrand());
-                txtOrigin.setText(dto.getOrigin());
-                txtSize.setText(dto.getSize());
+                txtPrice.setText(decimalFormat.format(productDto.getPrice()) + " đ");
+                txtDescription.setText(productDto.getDescription());
+                txtBrand.setText(productDto.getBrand());
+                txtOrigin.setText(productDto.getOrigin());
+                txtSize.setText(productDto.getSize());
+                Glide.with(ProductDetailActivity.this)
+                        .load(productDto.getImg())
+                        .into(imgProduct);
+                url = productDto.getImg();
+                DatabaseReference storeDatabase = FirebaseDatabase.getInstance().getReference(STORES);
+                storeDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot item : dataSnapshot.getChildren()){
+                            StoresDTO storesDTO = item.getValue(StoresDTO.class);
+                            if (storesDTO.getId().equals(productDto.getStoreId())){
+                                txtStore.setText(storesDTO.getName());
+                                txtStore2.setText(storesDTO.getName());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
+
+                    }
+                });
+
             }
 
             @Override
@@ -75,8 +104,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         ImageView imageDialogView = mView.findViewById(R.id.imgProduct);
         TextView txtDialogStore = mView.findViewById(R.id.txtProductDialogStore);
         TextView txtDialogPrice = mView.findViewById(R.id.txtProductDialogPrice);
+        ImageView imgBuyingProduct= (ImageView) mView.findViewById(R.id.imgBuyingProduct);
         txtDialogName.setText(txtName.getText().toString());
         txtDialogPrice.setText(txtPrice.getText().toString());
+        Glide.with(ProductDetailActivity.this)
+                .load(url)
+                .into(imgBuyingProduct);
         alert.setView(mView);
         final AlertDialog alertDialog= alert.create();
         alertDialog.setCanceledOnTouchOutside(true);
