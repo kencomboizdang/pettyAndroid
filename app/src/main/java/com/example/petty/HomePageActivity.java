@@ -6,18 +6,24 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import sqlite.DatabaseHelper;
+
 public class HomePageActivity extends AppCompatActivity {
     private FrameLayout mMainFrame;
     private BottomNavigationView navigationView;
     private  HomeFragment homePageFragment;
     private AccountFragment accountFragment;
+
+    DatabaseHelper myDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,14 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
 
+        myDb = new DatabaseHelper(this);
+        Cursor res = myDb.getKeyCustomer();
+        String keyCustomer = "";
+        while (res.moveToFirst()) {
+            keyCustomer = res.getString(0);
+            break;
+        }
+        Log.d("TAG", keyCustomer);
     }
     private  void setFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
