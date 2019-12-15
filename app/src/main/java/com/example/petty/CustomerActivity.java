@@ -26,7 +26,7 @@ public class CustomerActivity extends AppCompatActivity {
     EditText edtName, edtBirthday, edtEmail;
     RadioButton rbtMale, rbtFemale;
     Button btnCreate, btnBack;
-    DatabaseHelper myDb;
+    DatabaseHelper myDb;//
     private DatabaseReference mDatabase;
     String customerKey = "";
     @Override
@@ -44,7 +44,7 @@ public class CustomerActivity extends AppCompatActivity {
         rbtFemale = (RadioButton) findViewById(R.id.rbtFemale);
 
         mDatabase = FirebaseDatabase.getInstance().getReference(CUSTOMER);
-        myDb = new DatabaseHelper(this);
+        myDb = new DatabaseHelper(this);//
     }
 
 
@@ -60,6 +60,8 @@ public class CustomerActivity extends AppCompatActivity {
         }
 
         Cursor res = myDb.checkData();
+
+
         String accountId = "";
         while (res.moveToFirst()) {
             accountId = res.getString(0);

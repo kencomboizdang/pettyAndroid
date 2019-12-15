@@ -127,18 +127,27 @@ public class ConfirmBuyingActivity extends AppCompatActivity {
     }
 
     public void clickToPaymentSuccess(View view) {
-//        Bundle bundle= getIntent().getBundleExtra("data");
-//        String addressId = bundle.getString("id_address");
-//        DatabaseReference orderDatabase = FirebaseDatabase.getInstance().getReference(ORDERS);
-//        DatabaseReference orderProductStoreDatabase = FirebaseDatabase.getInstance().getReference(ORDERPRODUCTSTORES);
-//        DatabaseReference orderProductDetailDatabase = FirebaseDatabase.getInstance().getReference(ORDERPRODUCTDETAILS);
-//        String generateOrderID = orderDatabase.push().getKey();
-//        String generateOrderProductStoreID =orderProductStoreDatabase.push().getKey();
-//        String generateOrderProductDetailID = orderProductDetailDatabase.push().getKey();
-//        DateTimeStamp dateTimeStamp = new DateTimeStamp();
-//        OrdersDTO ordersDTO = new OrdersDTO(generateOrderID, dateTimeStamp.getCurrentTime(),Float.parseFloat(txtTotal.getText().toString()),"pending", "customerid", addressId);
+        Bundle bundle= getIntent().getBundleExtra("data");
+        String addressId = bundle.getString("id_address");
+        DatabaseReference orderDatabase = FirebaseDatabase.getInstance().getReference(ORDERS);
+        DatabaseReference orderProductStoreDatabase = FirebaseDatabase.getInstance().getReference(ORDERPRODUCTSTORES);
+        DatabaseReference orderProductDetailDatabase = FirebaseDatabase.getInstance().getReference(ORDERPRODUCTDETAILS);
+        String generateOrderID = orderDatabase.push().getKey();
+        String generateOrderProductStoreID =orderProductStoreDatabase.push().getKey();
+        String generateOrderProductDetailID = orderProductDetailDatabase.push().getKey();
+        DateTimeStamp dateTimeStamp = new DateTimeStamp();
+        for (String storeID : storesIDList){
+            
+            for (ProductsDTO productsDTO: productsList){
+                if (storeID.equals(productsDTO.getStoreId())){
+                    OrderProductDetailsDTO orderProductDetailsDTO = new OrderProductDetailsDTO();
+                    orderProductDetailDatabase.child(generateOrderProductDetailID).setValue(orderProductDetailsDTO);
+                }
+            }
+        }
+        OrdersDTO ordersDTO = new OrdersDTO(generateOrderID, dateTimeStamp.getCurrentTime(),Float.parseFloat(txtTotal.getText().toString()),"pending", "customerid", addressId);
 //        OrderProductStoresDTO orderProductStoresDTO = new OrderProductStoresDTO(generateOrderProductStoreID,dateTimeStamp.getCurrentTime(), float total,"pending", String storeId, generateOrderID);
-//        OrderProductDetailsDTO orderProductDetailsDTO = new OrderProductDetailsDTO();
+        OrderProductDetailsDTO orderProductDetailsDTO = new OrderProductDetailsDTO();
 
     }
 }

@@ -2,6 +2,7 @@ package com.example.petty;
 
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.fragment.app.Fragment;
+
+import sqlite.DatabaseHelper;
 
 
 /**
@@ -28,18 +31,18 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
-        btnSignOut = (RelativeLayout) view.findViewById(R.id.btnSignOut);
+        DatabaseHelper myDb;//
+        myDb = new DatabaseHelper(getActivity());//
+        Cursor res = myDb.getKeyCustomer();
+        String accountId = "";
+        while (res.moveToFirst()) {
+            accountId = res.getString(0);
+            break;
+        }
+        System.out.println(accountId);
         return view;
     }
 
-    public void clickToSignOut(View view) {
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
+
 
 }
