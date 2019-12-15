@@ -34,14 +34,11 @@ public class HomePageActivity extends AppCompatActivity {
                     case R.id.bar_home:
                         setFragment(homePageFragment);
                         return true;
-
                     case R.id.bar_account:
                         setFragment(accountFragment);
                         return true;
-
                     default: return false;
                 }
-
             }
         });
 

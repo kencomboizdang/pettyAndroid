@@ -35,7 +35,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="10dp">
         <ImageView
-            android:id="@+id/imgProduct"
+            android:id="@+id/imgBuyingProduct"
             android:layout_width="120dp"
             android:layout_height="120dp" />
         <LinearLayout

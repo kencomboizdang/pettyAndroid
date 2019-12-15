@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petty.AddressDetailActivity;
+import com.example.petty.ConfirmBuyingActivity;
 import com.example.petty.ProductDetailActivity;
 import com.example.petty.R;
 
@@ -23,7 +24,7 @@ import dto.AddressesDTO;
 public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.ViewHolder>  {
     private List<AddressesDTO> addressList;
     private Context context;
-
+    private String type;
     public AddressAdapter() {
     }
 
@@ -46,9 +47,15 @@ public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.ViewHol
         holder.addressItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, AddressDetailActivity.class);
+                Intent intent=null;
                 Bundle bundle = new Bundle();
                 bundle.putString("id_address", addressesDTO.getId());
+                if (type.equals("edit")) {
+                    intent = new Intent(context, AddressDetailActivity.class);
+
+                } else if (type.equals("buying")) {
+                    intent = new Intent(context, ConfirmBuyingActivity.class);
+                }
                 intent.putExtra("data", bundle);
                 context.startActivity(intent);
             }
@@ -60,9 +67,10 @@ public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.ViewHol
         return addressList.size();
     }
 
-    public AddressAdapter(List<AddressesDTO> addressList, Context context) {
+    public AddressAdapter(List<AddressesDTO> addressList, Context context, String type) {
         this.addressList = addressList;
         this.context = context;
+        this.type = type;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

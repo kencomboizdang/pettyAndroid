@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddressListActivity">
+    tools:context=".AddressBuyingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="Sổ địa chỉ"
+                    android:text="Chọn địa chỉ giao hàng"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp" />
                 <TextView
