@@ -59,9 +59,6 @@ public class LoginActivity extends AppCompatActivity {
                         String dbPassword = ds.child("password").getValue(String.class);
                         String iUsername = edtUsername.getText().toString();
                         String iPassword = edtPassword.getText().toString();
-//                        if(iUsername.trim() == null || iPassword.trim() == null) {
-////                            txtWarning.setText("Not null");
-////                        }
                         txtWarning.setText("");
                         if (iUsername.equals(dbUsername)&& iPassword.equals(dbPassword)) {
                             myDb.insertAccount(iUsername, iPassword);

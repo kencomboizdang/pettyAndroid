@@ -159,31 +159,32 @@
                     android:layout_height="1dp"
                     android:background="@color/colorGreyWhite"
                     android:orientation="vertical" />
+
                 <RelativeLayout
+                    android:id="@+id/btnSignOut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="clickToSignout"
-                    >
+                    android:onClick="clickToSignOut"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView9"
                         android:layout_width="344dp"
                         android:layout_height="50dp"
-                        android:gravity="center_vertical"
                         android:layout_marginLeft="14dp"
+                        android:gravity="center_vertical"
                         android:text="Đăng xuất"
                         android:textColor="@color/colorRed"
                         android:textSize="18sp" />
+
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/icon_power_off"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        />
+                        android:src="@drawable/icon_power_off" />
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
