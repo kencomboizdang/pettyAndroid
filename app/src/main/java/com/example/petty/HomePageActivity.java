@@ -64,5 +64,10 @@ public class HomePageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddressListActivity.class);
         startActivity(intent);
     }
+
+    public void clickToCart(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
 }
 

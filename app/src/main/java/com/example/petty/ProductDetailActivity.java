@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,15 +26,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 
+import dto.AddressesDTO;
+import dto.CartsDTO;
 import dto.ProductsDTO;
 import dto.StoresDTO;
 
 public class ProductDetailActivity extends AppCompatActivity {
     final String PRODUCTS = "products";
     final String STORES = "stores";
+    final String CARTS = "carts";
     private  TextView txtName, txtPrice, txtStore, txtDescription, txtBrand, txtSize, txtOrigin, txtStore2;
     private ImageView imgProduct;
     private String url;
+    private CartsDTO tempCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +100,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     public void clickAddToCart(View view) {
+        Bundle bundle= getIntent().getBundleExtra("data");
+        final String id = bundle.getString("id_product");
         final AlertDialog.Builder alert = new AlertDialog.Builder(ProductDetailActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.buying_dialog, null);
         Button btnCancel = mView.findViewById(R.id.btn_cancel);
@@ -116,20 +123,30 @@ public class ProductDetailActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadCart();
                 alertDialog.dismiss();
             }
         });
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadCart();
                 alertDialog.dismiss();
             }
         });
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadCart();
                 Intent intent = new Intent(ProductDetailActivity.this, CartActivity.class);
                 startActivity(intent);
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                loadCart();
                 alertDialog.dismiss();
             }
         });
@@ -137,12 +154,45 @@ public class ProductDetailActivity extends AppCompatActivity {
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         alertDialog.show();
         alertDialog.getWindow().setGravity(Gravity.BOTTOM);
+        //add cart to firebase
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(CARTS);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    CartsDTO dto = item.getValue(CartsDTO.class);
+                    if (dto.getProductId().equals(id)){
+                        tempCart= dto;
+                    }
+                }
+                }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+    public void loadCart()
+    {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(CARTS);
+        if (tempCart!=null){
+            mDatabase.child(tempCart.getId()).child("quantity").setValue(tempCart.getQuantity()+1);
+        }else{
+            Bundle bundle= getIntent().getBundleExtra("data");
+            final String id = bundle.getString("id_product");
+            String generatedId = mDatabase.push().getKey();
+            CartsDTO cartsDTO = new CartsDTO(generatedId,"null",id, 1);
+            mDatabase.child(generatedId).setValue(cartsDTO);
+        }
 
     }
     public void clickToCart(View view) {
         Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
     }
 
     public void clickToBack(View view) {

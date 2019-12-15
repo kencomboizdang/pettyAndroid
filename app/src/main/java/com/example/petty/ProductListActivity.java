@@ -38,7 +38,6 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()){
-                    System.out.println(item);
                     ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
                     productsList.add(productsDTO);
                     productsAdapter = new ProductsAdapter(ProductListActivity.this,productsList);
