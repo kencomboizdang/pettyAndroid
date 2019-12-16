@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -21,12 +22,14 @@ import java.util.List;
 
 import adapter.AddressAdapter;
 import dto.AddressesDTO;
+import sqlite.DatabaseHelper;
 
 public class AddressBuyingActivity extends AppCompatActivity {
     private List<AddressesDTO> addressesList= new ArrayList<>();
     private RecyclerView recyclerView;
     private AddressAdapter addressAdapter;
     private final String ADDRESSES = "addresses";
+    private String customerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,13 @@ public class AddressBuyingActivity extends AppCompatActivity {
         loadAddressDatabase();
     }
     public void loadAddressDatabase(){
+        DatabaseHelper myDb;//
+        myDb = new DatabaseHelper(this);//
+        Cursor res = myDb.getKeyCustomer();
+        while (res.moveToFirst()) {
+            customerId = res.getString(0);
+            break;
+        }
         final TextView txtMessage = (TextView) findViewById(R.id.tvMessage);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(ADDRESSES);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -43,9 +53,10 @@ public class AddressBuyingActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 addressesList.clear();
                 for (DataSnapshot item : dataSnapshot.getChildren()){
-                    System.out.println(item);
                     AddressesDTO addressesDTO = item.getValue(AddressesDTO.class);
-                    addressesList.add(addressesDTO);
+                    if (customerId.equals(addressesDTO.getCustomerId())) {
+                        addressesList.add(addressesDTO);
+                    }
                     if (!addressesList.isEmpty()) {
                         addressAdapter = new AddressAdapter(addressesList, AddressBuyingActivity.this,"buying");
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);

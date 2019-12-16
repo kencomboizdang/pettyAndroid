@@ -22,14 +22,6 @@ public class OrdersDTO implements Serializable {
         this.addressId = addressId;
     }
 
-    public OrdersDTO(long date, float total, String orderStatus, String customerId, String addressId) {
-        this.date = date;
-        this.total = total;
-        this.orderStatus = orderStatus;
-        this.customerId = customerId;
-        this.addressId = addressId;
-    }
-
     public String getId() {
         return id;
     }

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentValues;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +34,7 @@ import dto.OrderProductStoresDTO;
 import dto.OrdersDTO;
 import dto.ProductsDTO;
 import dto.StoresDTO;
+import sqlite.DatabaseHelper;
 import util.DateTimeStamp;
 
 public class ConfirmBuyingActivity extends AppCompatActivity {
@@ -46,6 +49,8 @@ public class ConfirmBuyingActivity extends AppCompatActivity {
     private final String ORDERS="orders";
     private final String ORDERPRODUCTSTORES= "order_product_stores";
     private final String ORDERPRODUCTDETAILS = "order_product_details";
+    private String customerId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +62,13 @@ public class ConfirmBuyingActivity extends AppCompatActivity {
         txtTotal = (TextView) findViewById(R.id.txtTotal);
         productsList = new ArrayList<>();
         storesIDList = new ArrayList<>();
+        DatabaseHelper myDb;//
+        myDb = new DatabaseHelper(this);//
+        Cursor res = myDb.getKeyCustomer();
+        while (res.moveToFirst()) {
+            customerId = res.getString(0);
+            break;
+        }
         loadAddressData();
         loadCartData();
     }
@@ -68,8 +80,8 @@ public class ConfirmBuyingActivity extends AppCompatActivity {
                 cartsList.clear();
                 for (DataSnapshot item : dataSnapshot.getChildren()){
                     CartsDTO cartsDTO = item.getValue(CartsDTO.class);
-                    //EDIT
-                    if (true){
+
+                    if (customerId.equals(cartsDTO.getCustomerId())){
                         cartsList.add(cartsDTO);
                     }
                     cartsAdapter = new CartsConfirmAdapter(cartsList,productsList, ConfirmBuyingActivity.this, txtTotal);
@@ -107,7 +119,7 @@ public class ConfirmBuyingActivity extends AppCompatActivity {
         });
     }
     public void loadStoreData(){
-        if (productsList.isEmpty()) {
+        if (!productsList.isEmpty()) {
             for (ProductsDTO productsDTO : productsList) {
                 if (!storesIDList.isEmpty()) {
                     boolean isExisted =false;
@@ -127,27 +139,35 @@ public class ConfirmBuyingActivity extends AppCompatActivity {
     }
 
     public void clickToPaymentSuccess(View view) {
+        loadStoreData();
         Bundle bundle= getIntent().getBundleExtra("data");
         String addressId = bundle.getString("id_address");
         DatabaseReference orderDatabase = FirebaseDatabase.getInstance().getReference(ORDERS);
         DatabaseReference orderProductStoreDatabase = FirebaseDatabase.getInstance().getReference(ORDERPRODUCTSTORES);
         DatabaseReference orderProductDetailDatabase = FirebaseDatabase.getInstance().getReference(ORDERPRODUCTDETAILS);
         String generateOrderID = orderDatabase.push().getKey();
-        String generateOrderProductStoreID =orderProductStoreDatabase.push().getKey();
-        String generateOrderProductDetailID = orderProductDetailDatabase.push().getKey();
         DateTimeStamp dateTimeStamp = new DateTimeStamp();
+        float totalOrder=0;
         for (String storeID : storesIDList){
-
+            String generateOrderProductStoreID =orderProductStoreDatabase.push().getKey();
+            float totalOrderStore=0;
             for (ProductsDTO productsDTO: productsList){
-                if (storeID.equals(productsDTO.getStoreId())){
-                    OrderProductDetailsDTO orderProductDetailsDTO = new OrderProductDetailsDTO();
-                    orderProductDetailDatabase.child(generateOrderProductDetailID).setValue(orderProductDetailsDTO);
-                }
+               for (CartsDTO cartsDTO: cartsList){
+                   if (cartsDTO.getProductId().equals(productsDTO.getId()) && productsDTO.getStoreId().equals(storeID)){
+                       String generateOrderProductDetailID = orderProductDetailDatabase.push().getKey();
+                       OrderProductDetailsDTO orderProductDetailsDTO = new OrderProductDetailsDTO(generateOrderProductDetailID, dateTimeStamp.getCurrentTime(),cartsDTO.getQuantity(), productsDTO.getPrice(), "pending", generateOrderProductStoreID, productsDTO.getId());
+                       totalOrderStore+=productsDTO.getPrice()*cartsDTO.getQuantity();
+                       orderProductDetailDatabase.child(generateOrderProductDetailID).setValue(orderProductDetailsDTO);
+                   }
+               }
             }
+            OrderProductStoresDTO orderProductStoresDTO = new OrderProductStoresDTO(generateOrderProductStoreID, dateTimeStamp.getCurrentTime(), totalOrderStore, "pending", storeID, generateOrderID);
+            totalOrder+=totalOrderStore;
+            orderProductStoreDatabase.child(generateOrderProductStoreID).setValue(orderProductStoresDTO);
         }
-        OrdersDTO ordersDTO = new OrdersDTO(generateOrderID, dateTimeStamp.getCurrentTime(),Float.parseFloat(txtTotal.getText().toString()),"pending", "customerid", addressId);
-//        OrderProductStoresDTO orderProductStoresDTO = new OrderProductStoresDTO(generateOrderProductStoreID,dateTimeStamp.getCurrentTime(), float total,"pending", String storeId, generateOrderID);
-        OrderProductDetailsDTO orderProductDetailsDTO = new OrderProductDetailsDTO();
-
+        OrdersDTO ordersDTO = new OrdersDTO(generateOrderID, dateTimeStamp.getCurrentTime(),totalOrder,"pending", customerId, addressId);
+        orderDatabase.child(generateOrderID).setValue(ordersDTO);
+        Intent intent = new Intent(this, SuccessfulBuyingActivity.class);
+        startActivity(intent);
     }
 }

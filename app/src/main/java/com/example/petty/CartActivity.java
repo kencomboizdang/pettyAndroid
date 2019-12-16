@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,6 +26,7 @@ import adapter.CartsAdapter;
 import adapter.ProductsAdapter;
 import dto.CartsDTO;
 import dto.ProductsDTO;
+import sqlite.DatabaseHelper;
 
 public class CartActivity extends AppCompatActivity {
     private List<CartsDTO> cartsList= new ArrayList<>();
@@ -34,6 +36,8 @@ public class CartActivity extends AppCompatActivity {
     private TextView txtTotal;
     private final String PRODUCTS = "products";
     private final String CARTS = "carts";
+    private String customerId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,13 @@ public class CartActivity extends AppCompatActivity {
         loadCartData();
     }
     public void loadCartData(){
+        DatabaseHelper myDb;//
+        myDb = new DatabaseHelper(this);//
+        Cursor res = myDb.getKeyCustomer();
+        while (res.moveToFirst()) {
+            customerId = res.getString(0);
+            break;
+        }
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(CARTS);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -58,7 +69,7 @@ public class CartActivity extends AppCompatActivity {
                 for (DataSnapshot item : dataSnapshot.getChildren()){
                     CartsDTO cartsDTO = item.getValue(CartsDTO.class);
                     //EDIT
-                    if (true){
+                    if (customerId.equals(cartsDTO.getCustomerId())){
                         cartsList.add(cartsDTO);
                     }
                     cartsAdapter = new CartsAdapter(cartsList, CartActivity.this, txtTotal);

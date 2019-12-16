@@ -9,6 +9,7 @@ public class OrderProductStoresDTO implements Serializable {
     private String orderStatus;
     private String storeId;
     private String orderId;
+    private String note;
 
 
     public OrderProductStoresDTO(String id, long date, float total, String orderStatus, String storeId, String orderId) {
@@ -18,6 +19,16 @@ public class OrderProductStoresDTO implements Serializable {
         this.orderStatus = orderStatus;
         this.storeId = storeId;
         this.orderId = orderId;
+    }
+
+    public OrderProductStoresDTO(String id, long date, float total, String orderStatus, String storeId, String orderId, String note) {
+        this.id = id;
+        this.date = date;
+        this.total = total;
+        this.orderStatus = orderStatus;
+        this.storeId = storeId;
+        this.orderId = orderId;
+        this.note = note;
     }
 
     public OrderProductStoresDTO() {
@@ -71,4 +82,11 @@ public class OrderProductStoresDTO implements Serializable {
         this.orderId = orderId;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 }

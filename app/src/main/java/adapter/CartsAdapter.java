@@ -35,9 +35,8 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
     private final String PRODUCTS = "products";
     private final String CARTS = "carts";
     private TextView txtTotal;
-    private float total;
+    private float total =0;
     public CartsAdapter() {
-
     }
 
     @NonNull
@@ -51,14 +50,16 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final CartsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CartsAdapter.ViewHolder holder, final int position) {
         final CartsDTO cartsDTO = cartsList.get(position);
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         holder.txtName.setText(cartsDTO.getProductId());
         holder.txtQuantity.setText((String.valueOf(cartsDTO.getQuantity())));
         DatabaseReference productDatabase = FirebaseDatabase.getInstance().getReference(PRODUCTS);
         productDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot item : dataSnapshot.getChildren()){
                     ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
                     if (productsDTO.getId().equals(cartsDTO.getProductId())){
@@ -89,6 +90,7 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
             public void onClick(View view) {
                 cartsDTO.setQuantity(cartsDTO.getQuantity()+1);
                 cartDatabase.child(cartsDTO.getId()).child("quantity").setValue(cartsDTO.getQuantity());
+                holder.txtQuantity.setText(String.valueOf(cartsDTO.getQuantity()));
             }
         });
         holder.imgSubtract.setOnClickListener(new View.OnClickListener() {
@@ -96,13 +98,18 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
             public void onClick(View view) {
                 cartsDTO.setQuantity(cartsDTO.getQuantity()-1);
                 cartDatabase.child(cartsDTO.getId()).child("quantity").setValue(cartsDTO.getQuantity());
+                holder.txtQuantity.setText(String.valueOf(cartsDTO.getQuantity()));
+                if (cartsDTO.getQuantity() == 0){
+                    cartsList.remove(position);
+                    FirebaseDatabase.getInstance().getReference(CARTS).child(cartsDTO.getId()).removeValue();
+                }
             }
         });
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cartsDTO.setQuantity(cartsDTO.getQuantity()-1);
-                cartDatabase.child(cartsDTO.getId()).child("quantity").setValue(cartsDTO.getQuantity());
+                cartsList.remove(position);
+                FirebaseDatabase.getInstance().getReference(CARTS).child(cartsDTO.getId()).removeValue();
             }
         });
     }
