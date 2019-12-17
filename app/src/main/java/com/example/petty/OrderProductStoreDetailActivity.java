@@ -53,7 +53,7 @@ public class OrderProductStoreDetailActivity extends AppCompatActivity {
     private final String ORDERS = "orders";
     private final String ADDRESSES = "addresses";
     private TextView txtProductStoreId, txtProductStoreDate, txtAddressName, txtAddressPhoneNumber, txtAddressDetail, txtTotal;
-    private ImageView imgQRCode;
+    private ImageView imgQRCode, imgOrderConfirm, imgStoreConfirm, imgDeliver, imgComplete;
     private Button btnCancel;
     private OrderProductsAdapter orderProductsAdapter;
     private RecyclerView recyclerView;
@@ -72,6 +72,10 @@ public class OrderProductStoreDetailActivity extends AppCompatActivity {
         txtProductStoreDate = (TextView) findViewById(R.id.txtOrderDate);
         imgQRCode = (ImageView) findViewById(R.id.imgQRCode);
         btnCancel = (Button) findViewById(R.id.btn_cancel);
+        imgOrderConfirm = (ImageView) findViewById(R.id.imgOrderConfirm);
+        imgStoreConfirm = (ImageView) findViewById(R.id.imgStoreConfirm);
+        imgDeliver = (ImageView) findViewById(R.id.imgDeliver);
+        imgComplete = (ImageView) findViewById(R.id.imgComplete);
         orderProductDetailsList = new ArrayList<>();
         loadProductStoreDetail();
         loadProductList();
@@ -87,12 +91,7 @@ public class OrderProductStoreDetailActivity extends AppCompatActivity {
                 OrderProductStoresDTO dto = dataSnapshot.getValue(OrderProductStoresDTO.class);
                 loadOrder(dto.getOrderId());
                 status = dto.getOrderStatus();
-                if (status.equals("cancel")){
-                    btnCancel.setBackground(getDrawable(R.drawable.btn_white_stroke_grey));
-                    btnCancel.setText("Đã hủy đơn hàng");
-                    btnCancel.setEnabled(false);
-                    btnCancel.setTextColor(R.color.colorGrey);
-                }
+                loadOrderStatus(status);
                 txtProductStoreId.setText(dto.getId());
                 DateTimeStamp dateTimeStamp = new DateTimeStamp();
                 txtProductStoreDate.setText(dateTimeStamp.convertToDateTimeString(dto.getDate()));
@@ -112,6 +111,31 @@ public class OrderProductStoreDetailActivity extends AppCompatActivity {
                 Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
             }
         });
+    }
+    public void loadOrderStatus(String status){
+        if (status.equals("cancel")){
+            btnCancel.setBackground(getDrawable(R.drawable.btn_white_stroke_grey));
+            btnCancel.setText("Đã hủy đơn hàng");
+            btnCancel.setEnabled(false);
+            btnCancel.setTextColor(getResources().getColor(R.color.colorGrey));
+        } if (status.equals("pending") || status.equals("store_confirm") || status.equals("deliver") || status.equals("complete") ){
+            imgOrderConfirm.setImageResource(R.drawable.icon_process_start_active);
+        } if (status.equals("store_confirm") || status.equals("deliver") || status.equals("complete")){
+            imgStoreConfirm.setImageResource(R.drawable.icon_process_between_active);
+        } if (status.equals("deliver") || status.equals("complete")){
+            imgDeliver.setImageResource(R.drawable.icon_process_between_active);
+            btnCancel.setBackground(getDrawable(R.drawable.btn_white_stroke_grey));
+            btnCancel.setText("ĐÃ HOÀN TẤT ĐƠN HÀNG");
+            btnCancel.setEnabled(false);
+            btnCancel.setTextColor(getResources().getColor(R.color.colorGrey));
+        } if (status.equals("complete")){
+            imgComplete.setImageResource(R.drawable.icon_process_end_active);
+            btnCancel.setBackground(getDrawable(R.drawable.btn_white_stroke_grey));
+            btnCancel.setText("ĐÃ HOÀN TẤT ĐƠN HÀNG");
+            btnCancel.setEnabled(false);
+            btnCancel.setTextColor(getResources().getColor(R.color.colorGrey));
+
+        }
     }
     public void loadOrder(final String id){
 
@@ -228,5 +252,9 @@ public class OrderProductStoreDetailActivity extends AppCompatActivity {
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         alertDialog.show();
         alertDialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    public void clickToBack(View view) {
+        finish();
     }
 }

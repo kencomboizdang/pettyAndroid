@@ -20,7 +20,8 @@
         android:roundIcon="@drawable/logo_petty"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderProductStoreDetailActivity"></activity>
+        <activity android:name=".ResponseProductActivity"></activity>
+        <activity android:name=".OrderProductStoreDetailActivity" />
         <activity android:name=".OrderManagementActivity" />
         <activity android:name=".SuccessfulBuyingActivity" />
         <activity android:name=".ConfirmBuyingActivity" />
@@ -30,7 +31,6 @@
         <activity android:name=".CartActivity" />
         <activity android:name=".SearchProductActivity" />
         <activity android:name=".StoreDetailActivity" />
-        <activity android:name=".OrderPendingActivity" />
         <activity android:name=".ReturnProductActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegistrationActivity" />
@@ -39,7 +39,11 @@
         <activity android:name=".ProductListActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".CustomerActivity" />
-        <activity android:name=".HomePageActivity" />
+        <activity android:name=".HomePageActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".OpeningActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

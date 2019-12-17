@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CategoriesFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+    <View
+        android:id="@+id/view2"
+        android:layout_width="621dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="-80dp"
+        android:background="@drawable/circle_main"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-233dp"
+        android:layout_gravity="center"
+        android:onClick="clickToCart"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="-170dp">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_white_petty"/>
+        <ImageView
+            android:id="@+id/imgCart"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_cart"
+            android:layout_marginRight="10dp"
+            android:onClick="clickToCart"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/text_box_gray"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:onClick="clickToSearch"
+        >
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_search"
+            android:paddingLeft="10dp"
+            android:onClick="clickToSearch"/>
+        <TextView
+            android:id="@+id/edtSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Bạn muốn tìm gì cho thú cưng"
+            android:inputType="textFilter"
+            android:paddingLeft="10dp"
+            android:textColorHighlight="#3CACA797"
+            android:paddingBottom="-10dp"
+            android:textFontWeight="@android:integer/config_mediumAnimTime"
+            android:textSize="15sp"
+            android:onClick="clickToSearch"/>
+
+    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="20dp"
+            android:id="@+id/categories_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderPendingActivity">
+    tools:context=".OrderProductStoreDetailActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -119,131 +119,135 @@
                             android:text="Trạng thái"
                             android:textColor="@color/colorBlack"
                             android:textSize="18sp"/>
-<!--                        <TableLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:layout_marginTop="5dp"-->
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
 
-<!--                            >-->
-<!--                            <TableRow-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="150dp"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:gravity="center">-->
+                            >
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:gravity="center">
 
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="110dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_row="0"-->
-<!--                                    android:layout_column="0"-->
-<!--                                    android:orientation="vertical"-->
-<!--                                    android:foreground="?android:attr/selectableItemBackground"-->
-<!--                                    android:weightSum="3">-->
-<!--                                    <ImageView-->
-<!--                                        android:layout_width="match_parent"-->
-<!--                                        android:layout_height="40dp"-->
-<!--                                        android:src="@mipmap/icon_process_start_active"-->
-<!--                                        android:alpha="0.5"/>-->
+                                <LinearLayout
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="0"
+                                    android:orientation="vertical"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:weightSum="3">
+                                    <ImageView
+                                        android:id="@+id/imgOrderConfirm"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/icon_process_start"
+                                        android:alpha="0.5"/>
 
-<!--                                    <TextView-->
-<!--                                        android:layout_width="100dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:ellipsize="end"-->
-<!--                                        android:gravity="center_horizontal"-->
-<!--                                        android:maxLines="2"-->
-<!--                                        android:layout_gravity="center_horizontal"-->
-<!--                                        android:text="Chờ cửa hàng phản hồi"-->
-<!--                                        android:textAlignment="center"-->
-<!--                                        android:textColor="@color/colorBlack"-->
-<!--                                        android:textSize="13dp" />-->
-<!--                                </LinearLayout>-->
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="110dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_row="0"-->
-<!--                                    android:layout_column="0"-->
-<!--                                    android:orientation="vertical"-->
-<!--                                    android:foreground="?android:attr/selectableItemBackground"-->
-<!--                                    android:layout_gravity="top"-->
-<!--                                    android:weightSum="3">-->
-<!--                                    <ImageView-->
-<!--                                        android:layout_width="match_parent"-->
-<!--                                        android:layout_height="40dp"-->
-<!--                                        android:src="@mipmap/icon_process_between"-->
-<!--                                        android:alpha="0.5"/>-->
+                                    <TextView
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="center_horizontal"
+                                        android:maxLines="2"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="Đặt hàng thành công"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/colorBlack"
+                                        android:textSize="13dp" />
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="0"
+                                    android:orientation="vertical"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:layout_gravity="top"
+                                    android:weightSum="3">
+                                    <ImageView
+                                        android:id="@+id/imgStoreConfirm"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/icon_process_between"
+                                        android:alpha="0.5"/>
 
-<!--                                    <TextView-->
-<!--                                        android:layout_width="100dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:ellipsize="end"-->
-<!--                                        android:gravity="center_horizontal"-->
-<!--                                        android:maxLines="2"-->
-<!--                                        android:layout_gravity="center_horizontal"-->
-<!--                                        android:text="Sản phẩm đã lấy từ cửa hàng"-->
-<!--                                        android:textAlignment="center"-->
-<!--                                        android:textColor="@color/colorBlack"-->
-<!--                                        android:textSize="13dp" />-->
-<!--                                </LinearLayout>-->
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="110dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_row="0"-->
-<!--                                    android:layout_column="0"-->
-<!--                                    android:orientation="vertical"-->
-<!--                                    android:foreground="?android:attr/selectableItemBackground"-->
-<!--                                    android:layout_gravity="top"-->
-<!--                                    android:weightSum="3">-->
-<!--                                    <ImageView-->
-<!--                                        android:layout_width="match_parent"-->
-<!--                                        android:layout_height="40dp"-->
-<!--                                        android:src="@mipmap/icon_process_between"-->
-<!--                                        android:alpha="0.5"/>-->
+                                    <TextView
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="center_horizontal"
+                                        android:maxLines="2"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="Cửa hàng xác nhận"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/colorBlack"
+                                        android:textSize="13dp" />
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="0"
+                                    android:orientation="vertical"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:layout_gravity="top"
+                                    android:weightSum="3">
+                                    <ImageView
+                                        android:id="@+id/imgDeliver"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/icon_process_between"
+                                        android:alpha="0.5"/>
 
-<!--                                    <TextView-->
-<!--                                        android:layout_width="100dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:ellipsize="end"-->
-<!--                                        android:gravity="center_horizontal"-->
-<!--                                        android:maxLines="2"-->
-<!--                                        android:layout_gravity="center_horizontal"-->
-<!--                                        android:text="Sản phẩm đang được giao"-->
-<!--                                        android:textAlignment="center"-->
-<!--                                        android:textColor="@color/colorBlack"-->
-<!--                                        android:textSize="13dp" />-->
-<!--                                </LinearLayout>-->
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="110dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_row="0"-->
-<!--                                    android:layout_column="0"-->
-<!--                                    android:orientation="vertical"-->
-<!--                                    android:foreground="?android:attr/selectableItemBackground"-->
-<!--                                    android:layout_gravity="top"-->
-<!--                                    android:weightSum="3">-->
-<!--                                    <ImageView-->
-<!--                                        android:layout_width="match_parent"-->
-<!--                                        android:layout_height="40dp"-->
-<!--                                        android:src="@mipmap/icon_process_end"-->
-<!--                                        android:alpha="0.5"/>-->
-<!--                                    <TextView-->
-<!--                                        android:layout_width="100dp"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:ellipsize="end"-->
-<!--                                        android:gravity="center_horizontal"-->
-<!--                                        android:maxLines="2"-->
-<!--                                        android:layout_gravity="center_horizontal"-->
-<!--                                        android:text="Hoàn tất giao hàng"-->
-<!--                                        android:textAlignment="center"-->
-<!--                                        android:textColor="@color/colorBlack"-->
-<!--                                        android:textSize="13dp" />-->
-<!--                                </LinearLayout>-->
+                                    <TextView
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="center_horizontal"
+                                        android:maxLines="2"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="Sản phẩm đã lấy từ cửa hàng"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/colorBlack"
+                                        android:textSize="13dp" />
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="0"
+                                    android:orientation="vertical"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:layout_gravity="top"
+                                    android:weightSum="3">
+                                    <ImageView
+                                        android:id="@+id/imgComplete"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/icon_process_end"
+                                        android:alpha="0.5"/>
+                                    <TextView
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="center_horizontal"
+                                        android:maxLines="2"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="Hoàn tất giao hàng"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/colorBlack"
+                                        android:textSize="13dp" />
+                                </LinearLayout>
 
 
 
-<!--                            </TableRow>-->
+                            </TableRow>
 
-<!--                        </TableLayout>-->
+                        </TableLayout>
 
                     </LinearLayout>
                     <View

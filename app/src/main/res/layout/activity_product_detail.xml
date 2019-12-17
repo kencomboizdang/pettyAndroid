@@ -82,37 +82,26 @@
                 />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp">
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/icon_star_yes" />
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/icon_star_yes" />
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/icon_star_yes" />
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/icon_star_yes" />
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/icon_star_no"/>
-                <TextView
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RatingBar
+                    android:id="@+id/ratingProductBar"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stepSize="0.1"
+                    android:rating="5"
+                    android:layout_marginLeft="10dp"
+                    android:theme="@style/RatingBar"
+                    style="@style/Widget.AppCompat.RatingBar.Small"/>
+                <TextView
+                    android:id="@+id/txtNumberResponse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:gravity="center"
-                    android:text="4.0/5"
-                    />
+                    android:text="(Có... đánh giá)"
+                    android:textSize="15sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -362,76 +351,19 @@
                 android:background="@color/colorWhite"
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
-                android:text="Đánh giá và nhận xét (30)"
+                android:text="Đánh giá và nhận xét"
                 android:textColor="#F3000000"
                 android:textSize="19sp"
                 android:layout_marginBottom="10dp" />
-
-
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="10dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="17sp"
-                        android:text="Giang Trinh Le"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"
-                        android:gravity="center|left"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorGrey"
-                        android:textSize="15sp"
-                        android:text="5/9/2019"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center|left"
-                        android:paddingRight="10dp"
-                        />
-                </RelativeLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp">
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/icon_star_yes" />
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/icon_star_yes" />
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/icon_star_yes" />
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/icon_star_yes" />
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/icon_star_no"/>
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                />
 
-                </LinearLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:text="Ổn giá, chất lượng tốt"/>
 
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

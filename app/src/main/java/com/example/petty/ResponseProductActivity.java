@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,17 +46,19 @@ import adapter.OrderProductsAdapter;
 import dto.CartsDTO;
 import dto.OrderProductDetailsDTO;
 import dto.ProductsDTO;
+import dto.ResponsesDTO;
 import dto.ReturnsDTO;
 import util.DateTimeStamp;
 
-public class ReturnProductActivity extends AppCompatActivity {
+public class ResponseProductActivity extends AppCompatActivity {
     private ImageView imgProduct, imgReturn;
     private TextView txtProductName, txtOrderId, txtOrderDate;
+    private RatingBar ratingBar;
     private EditText edtReasonReturn;
     private final String ORDERPRODUCTDETAILS = "order_product_details";
     private final String ORDERS = "orders";
     private final String PRODUCTS = "products";
-    private final String RETURNS = "returns";
+    private final String RESPONSES = "responses";
     private final int PICK_IMAGE_REQUEST = 71;
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
@@ -69,37 +72,39 @@ public class ReturnProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_return_product);
-    edtReasonReturn =(EditText) findViewById(R.id.edtReasonReturn);
+        setContentView(R.layout.activity_response_product);
+        edtReasonReturn =(EditText) findViewById(R.id.edtReasonReturn);
         imgProduct = (ImageView) findViewById(R.id.imgProduct);
         imgReturn = (ImageView) findViewById(R.id.imgReasonReturn);
         txtProductName = (TextView) findViewById(R.id.txtProductName);
         txtOrderId = (TextView) findViewById(R.id.txtOrderId);
         txtOrderDate = (TextView) findViewById(R.id.txtOrderDate);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        loadReturnExisted();
+        loadResponseExisted();
         loadProductDetail();
     }
-    public void loadReturnExisted(){
+    public void loadResponseExisted(){
         Bundle bundle = getIntent().getBundleExtra("data");
         final String id = bundle.getString("id_order_detail");
-        DatabaseReference productDetailDatabase = FirebaseDatabase.getInstance().getReference(RETURNS);
+        DatabaseReference productDetailDatabase = FirebaseDatabase.getInstance().getReference(RESPONSES);
         productDetailDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    final ReturnsDTO returnsDTO = item.getValue(ReturnsDTO.class);
-                    if (returnsDTO.getOrderDetailId().equals(id)) {
-                        edtReasonReturn.setText(returnsDTO.getReason());
+                    final ResponsesDTO responsesDTO = item.getValue(ResponsesDTO.class);
+                    if (responsesDTO.getOrderProductDetailId().equals(id)) {
+                        edtReasonReturn.setText(responsesDTO.getContent());
                         Button btnReturn = (Button) findViewById(R.id.btnReturn);
                         btnReturn.setBackground(getDrawable(R.drawable.btn_white_stroke_grey));
-                        btnReturn.setText("ĐÃ YÊU CẦU HOÀN TRẢ");
+                        btnReturn.setText("ĐÃ ĐÁNH GIÁ SẢN PHẨM");
                         btnReturn.setEnabled(false);
                         btnReturn.setTextColor(getResources().getColor(R.color.colorGrey));
                         edtReasonReturn.setEnabled(false);
-                        Glide.with(ReturnProductActivity.this)
-                                .load(returnsDTO.getImg())
+                        edtReasonReturn.setHint("");
+                        Glide.with(ResponseProductActivity.this)
+                                .load(responsesDTO.getImg())
                                 .into(imgReturn);
                         Button btnSelect = (Button) findViewById(R.id.btnSelectImage);
                         Button btnCapture = (Button) findViewById(R.id.btnCapture);
@@ -107,6 +112,7 @@ public class ReturnProductActivity extends AppCompatActivity {
                         btnCapture.setVisibility(Button.GONE);
                         TextView txtMessage = (TextView) findViewById(R.id.txtMessage);
                         txtMessage.setVisibility(TextView.GONE);
+                        ratingBar.setRating(responsesDTO.getRating());
                     }
                 }
             }
@@ -139,7 +145,7 @@ public class ReturnProductActivity extends AppCompatActivity {
                                     ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
                                     if (productsDTO.getId().equals(orderProductDetailsDTO.getProductId())) {
                                         txtProductName.setText(productsDTO.getName());
-                                        Glide.with(ReturnProductActivity.this)
+                                        Glide.with(ResponseProductActivity.this)
                                                 .load(productsDTO.getImg())
                                                 .into(imgProduct);
                                     }
@@ -162,16 +168,17 @@ public class ReturnProductActivity extends AppCompatActivity {
         });
     }
 
-    public void saveReturn() {
+    public void saveResponse() {
+        Toast.makeText(ResponseProductActivity.this, "Cảm ơn bạn vì đã đánh giá", Toast.LENGTH_SHORT).show();
+        finish();
         Bundle bundle = getIntent().getBundleExtra("data");
         final String id = bundle.getString("id_order_detail");
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(RETURNS);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(RESPONSES);
         String generatedId = mDatabase.push().getKey();
         DateTimeStamp dateTimeStamp = new DateTimeStamp();
-        ReturnsDTO returnsDTO = new ReturnsDTO(generatedId, dateTimeStamp.getCurrentTime(), edtReasonReturn.getText().toString(), urlImage, "pending", id);
-        mDatabase.child(generatedId).setValue(returnsDTO);
-        Toast.makeText(ReturnProductActivity.this, "Cửa hàng sẽ phản hồi trong thời gian sớm nhất", Toast.LENGTH_SHORT).show();
-        finish();
+        ResponsesDTO responsesDTO = new ResponsesDTO(generatedId, dateTimeStamp.getCurrentTime(), "",  edtReasonReturn.getText().toString(), (float)1.5, urlImage, id);
+        mDatabase.child(generatedId).setValue(responsesDTO);
+
     }
 
     public void clickToAddImage(View view) {
@@ -188,11 +195,6 @@ public class ReturnProductActivity extends AppCompatActivity {
 
     }
     public void clickToReturn(View view) {
-        if (edtReasonReturn.getText().toString().trim().length()==0){
-            TextView error = (TextView) findViewById(R.id.txtErrorMessage);
-            error.setVisibility(TextView.VISIBLE);
-            return;
-        }
         if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             String uid = UUID.randomUUID().toString();
@@ -203,7 +205,7 @@ public class ReturnProductActivity extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             urlImage = taskSnapshot.getDownloadUrl().toString();
-                            saveReturn();
+                            saveResponse();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -231,19 +233,17 @@ public class ReturnProductActivity extends AppCompatActivity {
 
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     urlImage = downloadUrl.toString();
-                    saveReturn();
+                    saveResponse();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ReturnProductActivity.this,"failed",Toast.LENGTH_LONG).show();
-
-
+                    Toast.makeText(ResponseProductActivity.this,"failed",Toast.LENGTH_LONG).show();
                 }
             });
         } else {
-            saveReturn();
+            saveResponse();
         }
     }
 
@@ -284,5 +284,7 @@ public class ReturnProductActivity extends AppCompatActivity {
 
     }
 
-
+    public void clickToBack(View view) {
+        finish();
+    }
 }

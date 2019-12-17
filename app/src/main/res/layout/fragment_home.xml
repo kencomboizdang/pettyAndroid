@@ -117,10 +117,30 @@
             android:textColor="#F3000000"
             android:textSize="17dp"
             android:textStyle="bold" />
-        <ImageView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/store_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imgQRCode"/>
+            android:background="#ffffff"
+            />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="Danh mục"
+            android:textColor="#F3000000"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categories_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            />
+
 
     </LinearLayout>
     </ScrollView>
