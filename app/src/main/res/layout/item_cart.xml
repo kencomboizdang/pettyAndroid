@@ -36,6 +36,7 @@
                     android:maxLines="2"
                     android:text="..."
                     android:textColor="@color/colorBlack"
+                    android:paddingRight="15dp"
                     android:textSize="16sp" />
 
                 <ImageView

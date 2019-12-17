@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.petty.ProductDetailActivity;
 import com.example.petty.R;
 
@@ -31,7 +32,7 @@ public class Stores2Adapter  extends RecyclerView.Adapter<Stores2Adapter.ViewHol
     public Stores2Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_store, parent, false);
+        View view = inflater.inflate(R.layout.item_store_2, parent, false);
         return new ViewHolder(view);
 
     }
@@ -39,9 +40,9 @@ public class Stores2Adapter  extends RecyclerView.Adapter<Stores2Adapter.ViewHol
     @Override
     public void onBindViewHolder(@NonNull Stores2Adapter.ViewHolder holder, int position) {
         StoresDTO storesDTO = storesList.get(position);
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
-        holder.txtName.setText(storesDTO.getName());
-        holder.txtAddress.setText(storesDTO.getWard()+", "+storesDTO.getDistrict()+", "+storesDTO.getProvince());
+        Glide.with(context)
+                .load(storesDTO.getLogoImg())
+                .into(holder.imgStore);
         //holder.imgProduct.setImageResource();
     }
 
@@ -56,12 +57,9 @@ public class Stores2Adapter  extends RecyclerView.Adapter<Stores2Adapter.ViewHol
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtName, txtAddress;
         public ImageView imgStore;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtName = (TextView) itemView.findViewById(R.id.txtStore);
-            txtAddress = (TextView) itemView.findViewById(R.id.txtAddress);
             imgStore = (ImageView) itemView.findViewById(R.id.imgStore);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,8 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
     private final String CARTS = "carts";
     private TextView txtTotal;
     private float total =0;
+    private LinearLayout linearLayout;
+    private Button btnBuying;
     public CartsAdapter() {
     }
 
@@ -52,14 +56,13 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull final CartsAdapter.ViewHolder holder, final int position) {
         final CartsDTO cartsDTO = cartsList.get(position);
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+        final DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         holder.txtName.setText(cartsDTO.getProductId());
         holder.txtQuantity.setText((String.valueOf(cartsDTO.getQuantity())));
         DatabaseReference productDatabase = FirebaseDatabase.getInstance().getReference(PRODUCTS);
         productDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot item : dataSnapshot.getChildren()){
                     ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
                     if (productsDTO.getId().equals(cartsDTO.getProductId())){
@@ -72,9 +75,9 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
                         total+=productsDTO.getPrice()*cartsDTO.getQuantity();
                     }
                 }
+                System.out.println(total);
                 DecimalFormat decimalFormat = new DecimalFormat("#,##0");
                 txtTotal.setText(decimalFormat.format(total) + " đ");
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -91,6 +94,28 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
                 cartsDTO.setQuantity(cartsDTO.getQuantity()+1);
                 cartDatabase.child(cartsDTO.getId()).child("quantity").setValue(cartsDTO.getQuantity());
                 holder.txtQuantity.setText(String.valueOf(cartsDTO.getQuantity()));
+                DatabaseReference productDatabase = FirebaseDatabase.getInstance().getReference(PRODUCTS);
+                productDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot item : dataSnapshot.getChildren()){
+                            ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
+                            if (productsDTO.getId().equals(cartsDTO.getProductId())){
+                                total+=productsDTO.getPrice();
+                                txtTotal.setText(decimalFormat.format(total)+ " đ");
+                            }
+                        }
+                        System.out.println(total);
+                        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                        txtTotal.setText(decimalFormat.format(total) + " đ");
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
+
+                    }
+                });
+
             }
         });
         holder.imgSubtract.setOnClickListener(new View.OnClickListener() {
@@ -99,17 +124,77 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
                 cartsDTO.setQuantity(cartsDTO.getQuantity()-1);
                 cartDatabase.child(cartsDTO.getId()).child("quantity").setValue(cartsDTO.getQuantity());
                 holder.txtQuantity.setText(String.valueOf(cartsDTO.getQuantity()));
-                if (cartsDTO.getQuantity() == 0){
-                    cartsList.remove(position);
-                    FirebaseDatabase.getInstance().getReference(CARTS).child(cartsDTO.getId()).removeValue();
-                }
+
+                DatabaseReference productDatabase = FirebaseDatabase.getInstance().getReference(PRODUCTS);
+                productDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot item : dataSnapshot.getChildren()){
+                            ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
+                            if (productsDTO.getId().equals(cartsDTO.getProductId())){
+                                total-=productsDTO.getPrice();
+                                txtTotal.setText(decimalFormat.format(total)+ " đ");
+                            }
+                        }
+                        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                        txtTotal.setText(decimalFormat.format(total) + " đ");
+                        if (cartsDTO.getQuantity() == 0){
+                            cartsList.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position,cartsList.size());
+                            FirebaseDatabase.getInstance().getReference(CARTS).child(cartsDTO.getId()).removeValue();
+                        }
+                        if (cartsList.isEmpty()){
+                            linearLayout.setVisibility(LinearLayout.VISIBLE);
+                            btnBuying.setBackground(context.getDrawable(R.drawable.btn_white_stroke_grey));
+                            btnBuying.setText("VUI LÒNG TIẾP TỤC MUA HÀNG");
+                            btnBuying.setEnabled(false);
+                            btnBuying.setTextColor(context.getResources().getColor(R.color.colorGrey));
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
+
+                    }
+                });
             }
         });
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cartsList.remove(position);
-                FirebaseDatabase.getInstance().getReference(CARTS).child(cartsDTO.getId()).removeValue();
+                DatabaseReference productDatabase = FirebaseDatabase.getInstance().getReference(PRODUCTS);
+                productDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot item : dataSnapshot.getChildren()){
+                            ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
+                            if (productsDTO.getId().equals(cartsDTO.getProductId())){
+                                total-=productsDTO.getPrice()*cartsDTO.getQuantity();
+                                txtTotal.setText(decimalFormat.format(total)+ " đ");
+                            }
+                        }
+                        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                        txtTotal.setText(decimalFormat.format(total) + " đ");
+                        cartsList.remove(position);
+                        FirebaseDatabase.getInstance().getReference(CARTS).child(cartsDTO.getId()).removeValue();
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position,cartsList.size());
+                        if (cartsList.isEmpty()){
+                            linearLayout.setVisibility(LinearLayout.VISIBLE);
+                            btnBuying.setBackground(context.getDrawable(R.drawable.btn_white_stroke_grey));
+                            btnBuying.setText("VUI LÒNG TIẾP TỤC MUA HÀNG");
+                            btnBuying.setEnabled(false);
+                            btnBuying.setTextColor(context.getResources().getColor(R.color.colorGrey));
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
+
+                    }
+                });
+
             }
         });
     }
@@ -124,10 +209,12 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
         this.context = context;
     }
 
-    public CartsAdapter(List<CartsDTO> cartsList, Context context, TextView txtTotal) {
+    public CartsAdapter(List<CartsDTO> cartsList, Context context, TextView txtTotal, LinearLayout linearLayout, Button btnBuying) {
         this.cartsList = cartsList;
         this.context = context;
         this.txtTotal = txtTotal;
+        this.linearLayout = linearLayout;
+        this.btnBuying = btnBuying;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

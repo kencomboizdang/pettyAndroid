@@ -1,7 +1,7 @@
 package com.example.petty;
 
 
-import android.graphics.Bitmap;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,19 +20,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import adapter.ProductsAdapter;
+import adapter.CategoriesAdapter;
 import adapter.ProductsHistoryAdapter;
+import adapter.Stores2Adapter;
+import dto.CategoriesDTO;
+import dto.HistoriesDTO;
 import dto.ProductsDTO;
 import dto.StoresDTO;
+import dto.User;
+import sqlite.DatabaseHelper;
 
 
 /**
@@ -40,9 +41,17 @@ import dto.StoresDTO;
  */
 public class HomeFragment extends Fragment {
     private List<ProductsDTO> productsList= new ArrayList<>();
-    private RecyclerView recyclerView;
+    private List<StoresDTO> storesList= new ArrayList<>();
+    private List<CategoriesDTO> categoriesList= new ArrayList<>();
+    private RecyclerView historyRecyclerView, storeRecyclerView, categoryRecyclerView;
     private ProductsHistoryAdapter productsHistoryAdapter;
-
+    private Stores2Adapter stores2Adapter;
+    private CategoriesAdapter categoriesAdapter;
+    private String customerId = null;
+    private final String PRODUCTS= "products";
+    private final String STORES= "stores";
+    private final String CATEGORIES= "categories";
+    private final String HISTORIES= "histories";
     public HomeFragment() {
         // Required empty public constructor
 
@@ -54,28 +63,67 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView txtSeeHistory = view.findViewById(R.id.tvSeeHistory);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        DatabaseHelper myDb;//
+        myDb = new DatabaseHelper(getActivity());//
+        Cursor res = myDb.getKeyCustomer();
+
+        while (res.moveToFirst()) {
+            customerId = res.getString(0);
+            break;
+        }
+        historyRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        storeRecyclerView = (RecyclerView) view.findViewById(R.id.store_recycler_view);
+        categoryRecyclerView = (RecyclerView) view.findViewById(R.id.categories_recycler_view);
         ImageView imgQR = (ImageView) view.findViewById(R.id.imgQRCode);
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("products");
-//        String id = mDatabase.push().getKey();
-//        ProductsDTO dto = new ProductsDTO(id, "Bánh thưởng cho chó JerHigh Strawberry (70g)", "Bánh rất ngon", 20500, 5 ,"15x15cm","6.2", "561615","Korean", 88, "active", 1085616515, 189616515, "feaffea","fedaw");
-//        mDatabase.child(id).setValue(dto);
+        loadHistory(view);
+        loadStore(view);
+        loadCategory(view);
+//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("categories");
+//        String userId = mDatabase.push().getKey(); // random key
+//        User user = new User("Ravi Tamada", "ravi@androiddhive.info");
+//        CategoriesDTO dto = new CategoriesDTO(userId, "Phụ kiện thú cưng","","https://firebasestorage.googleapis.com/v0/b/petty-418a3.appspot.com/o/images%2Ficon_category_assessory.png?alt=media&token=e45f796e-3c96-4e63-ac07-9825e78a929f");
+//        mDatabase.child(userId).setValue(dto);
+
+
+
+        return view;
+    }
+    public void loadHistory(View view){
+        productsList.clear();
+        final TextView txtSeeHistory = view.findViewById(R.id.tvSeeHistory);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(HISTORIES);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()){
-                    System.out.println(item);
-                    ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
-                    productsList.add(productsDTO);
-                }
-                if (!productsList.isEmpty()) {
-                    productsHistoryAdapter = new ProductsHistoryAdapter(getActivity(), productsList);
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false);
-                    recyclerView.setLayoutManager(layoutManager);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    recyclerView.setAdapter(productsHistoryAdapter);
-                    txtSeeHistory.setVisibility(View.VISIBLE);
+                    final HistoriesDTO historiesDTO = item.getValue(HistoriesDTO.class);
+                   if (historiesDTO.getCustomersId().equals(customerId)){
+                       DatabaseReference productDatabase = FirebaseDatabase.getInstance().getReference(PRODUCTS);
+                       productDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                           @Override
+                           public void onDataChange(DataSnapshot dataSnapshot) {
+                               for (DataSnapshot item : dataSnapshot.getChildren()){
+                                   ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
+                                   if (productsDTO.getId().equals(historiesDTO.getProductsId())){
+                                        productsList.add(productsDTO);
+                                   }
+                               }
+                               if (!productsList.isEmpty()) {
+//                                   Collections.sort(productsList, Collections.reverseOrder());
+                                   productsHistoryAdapter = new ProductsHistoryAdapter(getActivity(), productsList);
+                                   RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false);
+                                   historyRecyclerView.setLayoutManager(layoutManager);
+                                   historyRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                                   historyRecyclerView.setAdapter(productsHistoryAdapter);
+                                   txtSeeHistory.setVisibility(View.VISIBLE);
+                               }
+                           }
+                           @Override
+                           public void onCancelled(DatabaseError databaseError) {
+
+                           }
+                       });
+                   }
                 }
             }
             @Override
@@ -83,24 +131,58 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        String text="Hello"; // Whatever you need to encode in the QR code
-        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-        try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE,200,200);
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-            imgQR.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
+    }
+    public void loadStore(View view){
+        storesList.clear();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(STORES);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()){
+                    StoresDTO storesDTO = item.getValue(StoresDTO.class);
+                    storesList.add(storesDTO);
+                }
+                if (!storesList.isEmpty()) {
+                    stores2Adapter = new Stores2Adapter(storesList, getActivity());
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false);
+                    storeRecyclerView.setLayoutManager(layoutManager);
+                    storeRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                    storeRecyclerView.setAdapter(stores2Adapter);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-//        DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference("stores");
-//        String id = mDatabase2.push().getKey();
-//        StoresDTO dto = new StoresDTO(id, "Petmart City", 199186415, "Pert Mart City là cửa hàng chuyên cung cấp các loại sản phẩm dành riêng cho thú cưng", "https://firebasestorage.googleapis.com/v0/b/petty-418a3.appspot.com/o/images%2Flogo_store_petmart.PNG?alt=media&token=8a3c55b7-8cd3-4006-8b9a-37877ca15fd9", "Tp.HCM", "Q.12","Tân Chánh Hiệp", "132 Dương Thị Mười", "0969336526", "petmart@gmail.com", true, "098561", 1896541,18653, "null");
-//        mDatabase2.child(id).setValue(dto);
+            }
+        });
+    }
+    public void loadCategory(View view){
+        categoriesList.clear();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(CATEGORIES);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()){
+                    CategoriesDTO categoriesDTO = item.getValue(CategoriesDTO.class);
+                    categoriesList.add(categoriesDTO);
+                }
+                if (!categoriesList.isEmpty()) {
+                     categoriesAdapter= new CategoriesAdapter(categoriesList, getActivity());
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false);
+                    categoryRecyclerView.setLayoutManager(layoutManager);
+                    categoryRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                    categoryRecyclerView.setAdapter(categoriesAdapter);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        return view;
-
+            }
+        });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

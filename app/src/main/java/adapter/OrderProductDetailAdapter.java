@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.petty.OrderProductStoreDetailActivity;
 import com.example.petty.ProductDetailActivity;
 import com.example.petty.R;
+import com.example.petty.ResponseProductActivity;
 import com.example.petty.ReturnProductActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -100,7 +101,7 @@ public class OrderProductDetailAdapter extends RecyclerView.Adapter<OrderProduct
             public void onClick(View view) {
                 Intent intent = new Intent(context, ReturnProductActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("id_order_detail_store", orderProductDetailsDTO.getId());
+                bundle.putString("id_order_detail", orderProductDetailsDTO.getId());
                 intent.putExtra("data", bundle);
                 context.startActivity(intent);
             }
@@ -108,6 +109,11 @@ public class OrderProductDetailAdapter extends RecyclerView.Adapter<OrderProduct
         holder.btnEvaluataion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, ResponseProductActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id_order_detail", orderProductDetailsDTO.getId());
+                intent.putExtra("data", bundle);
+                context.startActivity(intent);
 
             }
         });

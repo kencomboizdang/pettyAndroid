@@ -10,21 +10,19 @@ public class ResponsesDTO implements Serializable {
     private String content;
     private float rating;
     private String img;
-    private String productsId;
-    private String orderStoreId;
+    private String orderProductDetailId;
 
     public ResponsesDTO() {
     }
 
-    public ResponsesDTO(String id, long date, String title, String content, float rating, String img, String productsId, String orderStoreId) {
+    public ResponsesDTO(String id, long date, String title, String content, float rating, String img, String orderProductDetailId) {
         this.id = id;
         this.date = date;
         this.title = title;
         this.content = content;
         this.rating = rating;
         this.img = img;
-        this.productsId = productsId;
-        this.orderStoreId = orderStoreId;
+        this.orderProductDetailId = orderProductDetailId;
     }
 
     public String getId() {
@@ -75,19 +73,12 @@ public class ResponsesDTO implements Serializable {
         this.img = img;
     }
 
-    public String getProductsId() {
-        return productsId;
+
+    public String getOrderProductDetailId() {
+        return orderProductDetailId;
     }
 
-    public void setProductsId(String productsId) {
-        this.productsId = productsId;
-    }
-
-    public String getOrderStoreId() {
-        return orderStoreId;
-    }
-
-    public void setOrderStoreId(String orderStoreId) {
-        this.orderStoreId = orderStoreId;
+    public void setOrderProductDetailId(String orderProductDetailId) {
+        this.orderProductDetailId = orderProductDetailId;
     }
 }

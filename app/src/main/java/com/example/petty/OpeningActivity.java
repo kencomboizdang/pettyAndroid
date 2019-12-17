@@ -31,6 +31,8 @@ public class OpeningActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Intent intent=new Intent(OpeningActivity.this, HomePageActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

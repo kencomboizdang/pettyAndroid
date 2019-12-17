@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReturnProductActivity">
+    tools:context=".ResponseProductActivity">
 
 
     <LinearLayout
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Yêu cầu hoàn trả"
+                android:text="Đánh giá chất lượng sản phẩm"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -100,12 +100,12 @@
                                     />
                                 <TextView
                                     android:id="@+id/txtOrderId"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="..."
-                                android:textSize="14sp"
-                                android:textColor="@color/colorGrey"
-                                />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="..."
+                                    android:textSize="14sp"
+                                    android:textColor="@color/colorGrey"
+                                    />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -135,12 +135,20 @@
                         android:id="@+id/txtMessage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Hãy cho chúng tôi biết vì sao bạn muốn trả hàng nhé"
+                        android:text="Hãy đánh giá giúp chúng tôi nhé"
                         android:gravity="center"
                         android:paddingTop="10dp"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         />
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:stepSize="1.0"
+                        android:rating="0"
+                        android:theme="@style/RatingBar" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -155,7 +163,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="134dp"
                             android:background="@drawable/btn_white_stroke_grey"
-                            android:hint="Lý do cụ thể"
+                            android:hint="Lý do cụ thể (Nếu có)"
                             android:inputType="textMultiLine|textPersonName|textImeMultiLine"
                             android:outlineProvider="none"
                             android:singleLine="false"
@@ -215,9 +223,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="16dp"
-                    android:background="@drawable/btn_cancelation"
-                    android:text="HOÀN TRẢ"
-                    android:textColor="@color/colorRed"
+                    android:background="@color/colorAccent"
+                    android:text="GỬI ĐÁNH GIÁ"
+                    android:textColor="@color/colorWhite"
                     android:textSize="18sp"
                     android:onClick="clickToReturn"
                     android:foreground="?android:attr/selectableItemBackground"/>
