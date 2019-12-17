@@ -1,6 +1,7 @@
 package com.example.petty;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -24,18 +25,20 @@ import java.util.List;
 import adapter.OrderAdapter;
 import adapter.ProductsAdapter;
 import dto.OrderProductStoresDTO;
+import dto.OrdersDTO;
+import sqlite.DatabaseHelper;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class OrderListFragment extends Fragment {
-    private String type;
-    private String value;
-    final String ORDERPRODUCTSTORES = "orderProductStores";
+    private final String ORDERPRODUCTSTORES = "order_product_stores";
+    private final String ORDERS = "orders";
     private List<OrderProductStoresDTO> orderProductStoresList = new ArrayList<>();
     private RecyclerView recyclerView;
     private OrderAdapter orderAdapter;
+    private String customerId;
 
     public OrderListFragment() {
         // Required empty public constructor
@@ -48,29 +51,64 @@ public class OrderListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_list, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(ORDERPRODUCTSTORES);
-        mDatabase.addValueEventListener(new ValueEventListener() {
+
+        DatabaseHelper myDb;//
+        myDb = new DatabaseHelper(getActivity());//
+        Cursor res = myDb.getKeyCustomer();
+        while (res.moveToFirst()) {
+            customerId = res.getString(0);
+            break;
+        }
+        return view;
+    }
+    public void loadListOrder(){
+        DatabaseReference orderDatabase = FirebaseDatabase.getInstance().getReference(ORDERS);
+        orderDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                orderProductStoresList.clear();
                 for (DataSnapshot item : dataSnapshot.getChildren()){
-                    OrderProductStoresDTO orderProductStoresDTO = item.getValue(OrderProductStoresDTO.class);
-                            orderProductStoresList.add(orderProductStoresDTO);
+                    final OrdersDTO ordersDTO = item.getValue(OrdersDTO.class);
+                    if(ordersDTO.getCustomerId().equals(customerId)){
+                        DatabaseReference orderStoresDatabase = FirebaseDatabase.getInstance().getReference(ORDERPRODUCTSTORES);
+                        orderStoresDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot item : dataSnapshot.getChildren()){
+                                    OrderProductStoresDTO orderProductStoresDTO = item.getValue(OrderProductStoresDTO.class);
+                                    if (orderProductStoresDTO.getOrderId().equals(ordersDTO.getId()))
+                                    {
+                                        orderProductStoresList.add(orderProductStoresDTO);
+                                    }
+                                    if (!orderProductStoresList.isEmpty()) {
+                                        orderAdapter = new OrderAdapter(orderProductStoresList, getActivity());
+                                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+                                        recyclerView.setLayoutManager(layoutManager);
+                                        recyclerView.setItemAnimator(new DefaultItemAnimator());
+                                        recyclerView.setAdapter(orderAdapter);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                 }
-                if (!orderProductStoresList.isEmpty()) {
-                    System.out.println(orderProductStoresList.size());
-                    orderAdapter = new OrderAdapter(orderProductStoresList, getActivity());
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.VERTICAL, false);
-                    recyclerView.setLayoutManager(layoutManager);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    recyclerView.setAdapter(orderAdapter);
-                }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-        return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("ONRESUME");
+        loadListOrder();
+    }
 }

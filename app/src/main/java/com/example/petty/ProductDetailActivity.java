@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import dto.AddressesDTO;
 import dto.CartsDTO;
 import dto.ProductsDTO;
 import dto.StoresDTO;
+import sqlite.DatabaseHelper;
 
 public class ProductDetailActivity extends AppCompatActivity {
     final String PRODUCTS = "products";
@@ -39,12 +41,21 @@ public class ProductDetailActivity extends AppCompatActivity {
     private ImageView imgProduct;
     private String url;
     private CartsDTO tempCart;
+    private String customerId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        DatabaseHelper myDb;//
+        myDb = new DatabaseHelper(this);//
+        Cursor res = myDb.getKeyCustomer();
+        while (res.moveToFirst()) {
+            customerId = res.getString(0);
+            break;
+        }
         Bundle bundle= getIntent().getBundleExtra("data");
-        String id = bundle.getString("id_product");
+        final String id = bundle.getString("id_product");
         txtName = (TextView) findViewById(R.id.txtTitleProduct);
         txtPrice = (TextView) findViewById(R.id.txtPrice);
         txtStore = (TextView) findViewById(R.id.txtStore);
@@ -97,6 +108,22 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
             }
         });
+        DatabaseReference cartDatabase = FirebaseDatabase.getInstance().getReference(CARTS);
+        cartDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    CartsDTO dto = item.getValue(CartsDTO.class);
+                    if (dto.getProductId().equals(id) && customerId.equals(dto.getCustomerId())){
+                        tempCart= dto;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void clickAddToCart(View view) {
@@ -123,21 +150,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadCart();
                 alertDialog.dismiss();
             }
         });
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadCart();
                 alertDialog.dismiss();
             }
         });
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadCart();
                 Intent intent = new Intent(ProductDetailActivity.this, CartActivity.class);
                 startActivity(intent);
                 alertDialog.dismiss();
@@ -146,7 +170,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                loadCart();
                 alertDialog.dismiss();
             }
         });
@@ -155,23 +178,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         alertDialog.show();
         alertDialog.getWindow().setGravity(Gravity.BOTTOM);
         //add cart to firebase
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(CARTS);
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    CartsDTO dto = item.getValue(CartsDTO.class);
-                    if (dto.getProductId().equals(id)){
-                        tempCart= dto;
-                    }
-                }
-                }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
+        loadCart();
 
     }
     public void loadCart()
@@ -183,7 +191,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             Bundle bundle= getIntent().getBundleExtra("data");
             final String id = bundle.getString("id_product");
             String generatedId = mDatabase.push().getKey();
-            CartsDTO cartsDTO = new CartsDTO(generatedId,"null",id, 1);
+            CartsDTO cartsDTO = new CartsDTO(generatedId,customerId,id, 1);
             mDatabase.child(generatedId).setValue(cartsDTO);
         }
 

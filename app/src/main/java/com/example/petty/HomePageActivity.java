@@ -69,11 +69,6 @@ public class HomePageActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clickToAddressView(View view) {
-        Intent intent = new Intent(this, SearchProductActivity.class);
-        startActivity(intent);
-    }
-
     public void clickToAddressList(View view) {
         Intent intent = new Intent(this, AddressListActivity.class);
         startActivity(intent);
@@ -86,6 +81,11 @@ public class HomePageActivity extends AppCompatActivity {
 
     public void clickToSignOut(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickToOrderManagement(View view) {
+        Intent intent = new Intent(this, OrderManagementActivity.class);
         startActivity(intent);
     }
 }
