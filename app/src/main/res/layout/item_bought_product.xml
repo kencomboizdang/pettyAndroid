@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp">
     <ImageView
         android:id="@+id/imgProductView"
         android:layout_width="100dp"
@@ -25,25 +26,50 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="Thức ăn hữu cơ cho chó con vị thịt cừu (7kg)"
+            android:text="..."
             android:textColor="@color/colorBlack"
             android:textSize="16sp" />
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã đơn hàng: "
+                android:textSize="14sp"
+                android:textColor="@color/colorGrey"
+                />
+            <TextView
             android:id="@+id/txtOrderStoreId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mã đơn hàng: 18616181"
+            android:text="..."
             android:textSize="14sp"
             android:textColor="@color/colorGrey"
             />
-        <TextView
-            android:id="@+id/txtOrderDate"
-            android:layout_width="match_parent"
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ngày đặt hàng: 6h00 CH, 29/9/2019"
-            android:textSize="14sp"
-            android:textColor="@color/colorGrey"
-            />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày đặt hàng: "
+                android:textSize="14sp"
+                android:textColor="@color/colorGrey"
+                />
+            <TextView
+                android:id="@+id/txtOrderDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textSize="14sp"
+                android:textColor="@color/colorGrey"
+                />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

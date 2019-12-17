@@ -1,6 +1,7 @@
 package com.example.petty;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,11 +26,13 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseHelper myDb;
 
     private static final String ACCOUNT = "accounts";
+    private static final String CUSTOMER = "customers";
 
     EditText edtUsername, edtPassword;
     TextView txtWarning;
 
     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseCustomer;
 
     Button btnLogin, btnRegister;
 
@@ -45,8 +48,11 @@ public class LoginActivity extends AppCompatActivity {
         txtWarning = (TextView) findViewById(R.id.txtWarning);
 
         mDatabase = FirebaseDatabase.getInstance().getReference(ACCOUNT);
+        mDatabaseCustomer = FirebaseDatabase.getInstance().getReference(CUSTOMER);
+
         myDb = new DatabaseHelper(this);
 
+        Cursor resCus = myDb.getKeyCustomer();
     }
 
     public void clickToLogin(View view) {
@@ -57,14 +63,39 @@ public class LoginActivity extends AppCompatActivity {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String dbUsername = ds.child("username").getValue(String.class);
                         String dbPassword = ds.child("password").getValue(String.class);
+                        final String dbId = ds.child("id").getValue(String.class);
                         String iUsername = edtUsername.getText().toString();
                         String iPassword = edtPassword.getText().toString();
                         txtWarning.setText("");
                         if (iUsername.equals(dbUsername)&& iPassword.equals(dbPassword)) {
-                            myDb.insertAccount(iUsername, iPassword);
-                            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
-                            startActivity(intent);
-                            txtWarning.setText("");
+                            myDb.insertAccount(dbId, iUsername, iPassword);
+                            mDatabaseCustomer.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for(DataSnapshot noteDataSnapshotCus : dataSnapshot.getChildren()) {
+                                        for(DataSnapshot dsCus : dataSnapshot.getChildren()) {
+                                            String dbCustomerId = dsCus.child("id").getValue(String.class);
+                                            String dbAccountId = dsCus.child("accountsId").getValue(String.class);
+                                            if(dbAccountId.equals(dbId)) {
+                                                myDb.insertCustomer(dbCustomerId, dbAccountId);
+                                                finish();
+                                                Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                                                startActivity(intent);
+                                            } else {
+                                                finish();
+                                                Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
                         } else {
                             txtWarning.setText("Sai tên đăng nhập hoặc mật khẩu");
                         }

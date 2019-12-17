@@ -5,7 +5,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -25,21 +27,35 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 
+import dto.AddressesDTO;
+import dto.CartsDTO;
 import dto.ProductsDTO;
 import dto.StoresDTO;
+import sqlite.DatabaseHelper;
 
 public class ProductDetailActivity extends AppCompatActivity {
     final String PRODUCTS = "products";
     final String STORES = "stores";
+    final String CARTS = "carts";
     private  TextView txtName, txtPrice, txtStore, txtDescription, txtBrand, txtSize, txtOrigin, txtStore2;
     private ImageView imgProduct;
     private String url;
+    private CartsDTO tempCart;
+    private String customerId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        DatabaseHelper myDb;//
+        myDb = new DatabaseHelper(this);//
+        Cursor res = myDb.getKeyCustomer();
+        while (res.moveToFirst()) {
+            customerId = res.getString(0);
+            break;
+        }
         Bundle bundle= getIntent().getBundleExtra("data");
-        String id = bundle.getString("id_product");
+        final String id = bundle.getString("id_product");
         txtName = (TextView) findViewById(R.id.txtTitleProduct);
         txtPrice = (TextView) findViewById(R.id.txtPrice);
         txtStore = (TextView) findViewById(R.id.txtStore);
@@ -92,9 +108,27 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
             }
         });
+        DatabaseReference cartDatabase = FirebaseDatabase.getInstance().getReference(CARTS);
+        cartDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    CartsDTO dto = item.getValue(CartsDTO.class);
+                    if (dto.getProductId().equals(id) && customerId.equals(dto.getCustomerId())){
+                        tempCart= dto;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void clickAddToCart(View view) {
+        Bundle bundle= getIntent().getBundleExtra("data");
+        final String id = bundle.getString("id_product");
         final AlertDialog.Builder alert = new AlertDialog.Builder(ProductDetailActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.buying_dialog, null);
         Button btnCancel = mView.findViewById(R.id.btn_cancel);
@@ -133,16 +167,40 @@ public class ProductDetailActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                alertDialog.dismiss();
+            }
+        });
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         alertDialog.show();
         alertDialog.getWindow().setGravity(Gravity.BOTTOM);
+        //add cart to firebase
+
+        loadCart();
+
+    }
+    public void loadCart()
+    {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(CARTS);
+        if (tempCart!=null){
+            mDatabase.child(tempCart.getId()).child("quantity").setValue(tempCart.getQuantity()+1);
+        }else{
+            Bundle bundle= getIntent().getBundleExtra("data");
+            final String id = bundle.getString("id_product");
+            String generatedId = mDatabase.push().getKey();
+            CartsDTO cartsDTO = new CartsDTO(generatedId,customerId,id, 1);
+            mDatabase.child(generatedId).setValue(cartsDTO);
+        }
 
     }
     public void clickToCart(View view) {
         Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
     }
 
     public void clickToBack(View view) {

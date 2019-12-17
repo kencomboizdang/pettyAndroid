@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
         ImageView imgQR = (ImageView) view.findViewById(R.id.imgQRCode);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("products");
 //        String id = mDatabase.push().getKey();
-//        ProductsDTO dto = new ProductsDTO(id, "thịt", "ko ngon", 19888, 5 ,"6.2", "561615","Korean", 88, "active", 1085616515, 189616515, "feaffea");
+//        ProductsDTO dto = new ProductsDTO(id, "Bánh thưởng cho chó JerHigh Strawberry (70g)", "Bánh rất ngon", 20500, 5 ,"15x15cm","6.2", "561615","Korean", 88, "active", 1085616515, 189616515, "feaffea","fedaw");
 //        mDatabase.child(id).setValue(dto);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

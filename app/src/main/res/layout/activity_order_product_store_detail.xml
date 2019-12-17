@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderPendingActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/icon_back"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:onClick="clickToBack"/>
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Đơn hàng đang tiếp nhận"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite">
+            <ScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="150dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mã đơn hàng:"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/colorBlack"
+                                    />
+                                <TextView
+                                android:id="@+id/txtOrderStoreId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="..."
+                                android:textSize="16sp"
+                                android:textColor="@color/colorBlack"
+                                />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/txtOrderDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ngày đặt hàng: 6h00, 5/1/2019"
+                                android:layout_alignParentRight="true"
+                                android:textSize="16sp"
+                                android:gravity="center"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/colorGrey"
+                                />
+
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp">
+                            <View
+                                android:id="@+id/view2"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:background="@drawable/circle_white_border_yellow"
+                                android:layout_gravity="center"
+                                android:layout_centerHorizontal="true"
+                                />
+                            <ImageView
+                                android:id="@+id/imgQRCode"
+                                android:layout_width="130dp"
+                                android:layout_height="130dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"/>
+                        </RelativeLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Trạng thái"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="18sp"/>
+<!--                        <TableLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginTop="5dp"-->
+
+<!--                            >-->
+<!--                            <TableRow-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="150dp"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:gravity="center">-->
+
+<!--                                <LinearLayout-->
+<!--                                    android:layout_width="110dp"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_row="0"-->
+<!--                                    android:layout_column="0"-->
+<!--                                    android:orientation="vertical"-->
+<!--                                    android:foreground="?android:attr/selectableItemBackground"-->
+<!--                                    android:weightSum="3">-->
+<!--                                    <ImageView-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="40dp"-->
+<!--                                        android:src="@mipmap/icon_process_start_active"-->
+<!--                                        android:alpha="0.5"/>-->
+
+<!--                                    <TextView-->
+<!--                                        android:layout_width="100dp"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:ellipsize="end"-->
+<!--                                        android:gravity="center_horizontal"-->
+<!--                                        android:maxLines="2"-->
+<!--                                        android:layout_gravity="center_horizontal"-->
+<!--                                        android:text="Chờ cửa hàng phản hồi"-->
+<!--                                        android:textAlignment="center"-->
+<!--                                        android:textColor="@color/colorBlack"-->
+<!--                                        android:textSize="13dp" />-->
+<!--                                </LinearLayout>-->
+<!--                                <LinearLayout-->
+<!--                                    android:layout_width="110dp"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_row="0"-->
+<!--                                    android:layout_column="0"-->
+<!--                                    android:orientation="vertical"-->
+<!--                                    android:foreground="?android:attr/selectableItemBackground"-->
+<!--                                    android:layout_gravity="top"-->
+<!--                                    android:weightSum="3">-->
+<!--                                    <ImageView-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="40dp"-->
+<!--                                        android:src="@mipmap/icon_process_between"-->
+<!--                                        android:alpha="0.5"/>-->
+
+<!--                                    <TextView-->
+<!--                                        android:layout_width="100dp"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:ellipsize="end"-->
+<!--                                        android:gravity="center_horizontal"-->
+<!--                                        android:maxLines="2"-->
+<!--                                        android:layout_gravity="center_horizontal"-->
+<!--                                        android:text="Sản phẩm đã lấy từ cửa hàng"-->
+<!--                                        android:textAlignment="center"-->
+<!--                                        android:textColor="@color/colorBlack"-->
+<!--                                        android:textSize="13dp" />-->
+<!--                                </LinearLayout>-->
+<!--                                <LinearLayout-->
+<!--                                    android:layout_width="110dp"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_row="0"-->
+<!--                                    android:layout_column="0"-->
+<!--                                    android:orientation="vertical"-->
+<!--                                    android:foreground="?android:attr/selectableItemBackground"-->
+<!--                                    android:layout_gravity="top"-->
+<!--                                    android:weightSum="3">-->
+<!--                                    <ImageView-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="40dp"-->
+<!--                                        android:src="@mipmap/icon_process_between"-->
+<!--                                        android:alpha="0.5"/>-->
+
+<!--                                    <TextView-->
+<!--                                        android:layout_width="100dp"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:ellipsize="end"-->
+<!--                                        android:gravity="center_horizontal"-->
+<!--                                        android:maxLines="2"-->
+<!--                                        android:layout_gravity="center_horizontal"-->
+<!--                                        android:text="Sản phẩm đang được giao"-->
+<!--                                        android:textAlignment="center"-->
+<!--                                        android:textColor="@color/colorBlack"-->
+<!--                                        android:textSize="13dp" />-->
+<!--                                </LinearLayout>-->
+<!--                                <LinearLayout-->
+<!--                                    android:layout_width="110dp"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_row="0"-->
+<!--                                    android:layout_column="0"-->
+<!--                                    android:orientation="vertical"-->
+<!--                                    android:foreground="?android:attr/selectableItemBackground"-->
+<!--                                    android:layout_gravity="top"-->
+<!--                                    android:weightSum="3">-->
+<!--                                    <ImageView-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="40dp"-->
+<!--                                        android:src="@mipmap/icon_process_end"-->
+<!--                                        android:alpha="0.5"/>-->
+<!--                                    <TextView-->
+<!--                                        android:layout_width="100dp"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:ellipsize="end"-->
+<!--                                        android:gravity="center_horizontal"-->
+<!--                                        android:maxLines="2"-->
+<!--                                        android:layout_gravity="center_horizontal"-->
+<!--                                        android:text="Hoàn tất giao hàng"-->
+<!--                                        android:textAlignment="center"-->
+<!--                                        android:textColor="@color/colorBlack"-->
+<!--                                        android:textSize="13dp" />-->
+<!--                                </LinearLayout>-->
+
+
+
+<!--                            </TableRow>-->
+
+<!--                        </TableLayout>-->
+
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorGreyWhite"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorGreyWhite"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Địa chỉ người nhận"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:id="@+id/txtAddressName"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="...."
+                            android:textSize="15sp"
+                            android:textColor="@color/colorGrey"
+                            />
+
+
+                        <TextView
+                            android:id="@+id/txtAddressPhoneNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="....."
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="15sp"
+                            />
+                        <TextView
+                            android:id="@+id/txtAddressDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="....."
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="15sp"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorGreyWhite"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Thông tin đơn hàng"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18sp"
+                        android:padding="10dp"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </LinearLayout>
+            </ScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                android:layout_alignBottom="@+id/scroll_view"
+                android:background="@color/colorWhite">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/colorGreyWhite"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="Tổng cộng"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:text="Giá trên đã bao gồm VAT"
+                    android:textAlignment="textEnd"></TextView>
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/btn_cancelation"
+                    android:onClick="clickToCancelation"
+                    android:text="Hủy đơn hàng"
+                    android:textColor="@color/colorRed"
+                    android:foreground="?android:attr/selectableItemBackground"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

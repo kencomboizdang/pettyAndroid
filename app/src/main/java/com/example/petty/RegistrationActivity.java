@@ -25,6 +25,8 @@ public class RegistrationActivity extends AppCompatActivity {
     TextView tvValidUser, tvValidPass, tvValidConfirm;
     private DatabaseReference mDatabase;
     DatabaseHelper myDb;
+
+    String accountKey = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +80,7 @@ public class RegistrationActivity extends AppCompatActivity {
         if(valid) {
             addAccount(iUsername, iPassword, "user");
             Toast.makeText(RegistrationActivity.this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
-            myDb.insertAccount(iUsername,iPassword);
+            myDb.insertAccount(iUsername,iPassword, accountKey);
             Handler handler=new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -99,7 +101,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public void addAccount(String username, String password, String role) {
         AccountsDTO dto = new AccountsDTO(username, password, role);
-        String accountKey = mDatabase.push().getKey();
+        accountKey = mDatabase.push().getKey();
         dto.setId(accountKey);
         mDatabase.child(accountKey).setValue(dto);
     }

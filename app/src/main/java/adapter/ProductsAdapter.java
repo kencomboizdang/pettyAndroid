@@ -46,7 +46,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         holder.txtName.setText(productsDTO.getName());
         holder.txtPrice.setText(decimalFormat.format(productsDTO.getPrice()) + " đ");
-        //holder.imgProduct.setImageResource();
         Glide.with(context)
                 .load(productsDTO.getImg())
                 .into(holder.imgProduct);

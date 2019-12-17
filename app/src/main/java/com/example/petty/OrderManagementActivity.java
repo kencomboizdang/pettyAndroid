@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -28,5 +29,9 @@ public class OrderManagementActivity extends AppCompatActivity {
         viewPageAdapter.addFragment(new OrderListFragment(),"Đơn hàng");
         viewPageAdapter.addFragment(new BoughtProductFragment(),"Sản phẩm đã mua");
         viewPager.setAdapter(viewPageAdapter);
+    }
+
+    public void clickToBack(View view) {
+        finish();
     }
 }

@@ -20,6 +20,7 @@
         android:roundIcon="@drawable/logo_petty"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".OrderProductStoreDetailActivity"></activity>
         <activity android:name=".OrderManagementActivity" />
         <activity android:name=".SuccessfulBuyingActivity" />
         <activity android:name=".ConfirmBuyingActivity" />
@@ -37,8 +38,9 @@
         <activity android:name=".ProductDetailActivity" />
         <activity android:name=".ProductListActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".OpeningActivity" />
-        <activity android:name=".HomePageActivity">
+        <activity android:name=".CustomerActivity" />
+        <activity android:name=".HomePageActivity" />
+        <activity android:name=".OpeningActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

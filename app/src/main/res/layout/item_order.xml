@@ -1,39 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:id="@+id/itemLayout"
     android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/txtOrderId"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thức ăn hữu cơ cho chó con vị thịt cừu (7kg) và 2 sản phẩm khác"
-            android:textSize="18sp"
-            android:textColor="@color/colorBlack"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mã đơn hàng: "
+                android:textSize="18sp"
+                android:textColor="@color/colorBlack"
+                />
+            <TextView
+                android:id="@+id/txtOrderId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textSize="18sp"
+                android:textColor="@color/colorBlack"
+                />
+        </LinearLayout>
 
-            />
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ngày đặt hàng: "
+                android:textSize="14sp"
+                android:textColor="@color/colorGrey"
+                />
         <TextView
             android:id="@+id/txtOrderDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ngày đặt hàng: 6h00 CH, 29/9/2019"
+            android:text="..."
             android:textSize="14sp"
             android:textColor="@color/colorGrey"
             />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trạng thái: "
+                android:textSize="14sp"
+                android:textColor="@color/colorGrey"
+                />
         <TextView
             android:id="@+id/txtOrderStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trạng thái: Cửa hàng đang tiếp nhận"
+            android:text="..."
             android:textSize="14sp"
             android:textColor="@color/colorGrey"
             />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

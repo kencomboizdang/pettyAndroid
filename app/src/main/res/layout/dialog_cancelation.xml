@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/label_dialog">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HÃY CHO CHÚNG TÔI BIẾT LÝ DO VÌ SAO BẠN HỦY ĐƠN HÀNG NHÉ"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:layout_toRightOf="@+id/tick"
+            android:layout_marginEnd="30dp"/>
+        <ImageView
+            android:id="@+id/icon_dismiss"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/icon_close"
+            android:layout_alignParentRight="true"
+            android:onClick="ClickToDismiss"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+
+        <EditText
+            android:id="@+id/edtReason"
+            style="@android:style/Widget.Holo.Light.AutoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="134dp"
+            android:background="@drawable/btn_white_stroke_grey"
+            android:hint="Lý do cụ thể"
+            android:inputType="textMultiLine|textPersonName|textImeMultiLine"
+            android:outlineProvider="none"
+            android:singleLine="false"
+            android:gravity="top|left"
+            android:padding="10dp"
+            />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtWarning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vui lòng điền lý do"
+        android:gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorRed"
+        android:visibility="gone"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/colorGreyWhite"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_margin="10dp">
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_white_grey"
+            android:text="trở về"
+            android:textColor="@color/colorGrey"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:layout_marginRight="10sp"
+            android:foreground="?android:attr/selectableItemBackground"/>
+        <Button
+            android:id="@+id/btn_to_cancelation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f57224"
+            android:text="XÁC NHẬN HỦY"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:foreground="?android:attr/selectableItemBackground"/>
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

@@ -8,23 +8,27 @@ public class OrderProductStoresDTO implements Serializable {
     private float total;
     private String orderStatus;
     private String storeId;
-    private String orderProductDetailId;
+    private String orderId;
+    private String note;
 
-    public OrderProductStoresDTO(String id, long date, float total, String orderStatus, String storeId, String orderProductDetailId) {
+
+    public OrderProductStoresDTO(String id, long date, float total, String orderStatus, String storeId, String orderId) {
         this.id = id;
         this.date = date;
         this.total = total;
         this.orderStatus = orderStatus;
         this.storeId = storeId;
-        this.orderProductDetailId = orderProductDetailId;
+        this.orderId = orderId;
     }
 
-    public OrderProductStoresDTO(long date, float total, String orderStatus, String storeId, String orderProductDetailId) {
+    public OrderProductStoresDTO(String id, long date, float total, String orderStatus, String storeId, String orderId, String note) {
+        this.id = id;
         this.date = date;
         this.total = total;
         this.orderStatus = orderStatus;
         this.storeId = storeId;
-        this.orderProductDetailId = orderProductDetailId;
+        this.orderId = orderId;
+        this.note = note;
     }
 
     public OrderProductStoresDTO() {
@@ -70,11 +74,19 @@ public class OrderProductStoresDTO implements Serializable {
         this.storeId = storeId;
     }
 
-    public String getOrderProductDetailId() {
-        return orderProductDetailId;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrderProductDetailId(String orderProductDetailId) {
-        this.orderProductDetailId = orderProductDetailId;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
