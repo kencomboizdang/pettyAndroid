@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PetDetailActivity">
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,13 +62,12 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/edtPassRes"
+                    android:id="@+id/edtUpdateName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:hint="NGUYEN THI HONG NHUNG"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
                 <TextView
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
@@ -80,30 +78,13 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/edtPassRes"
+                    android:id="@+id/edtUpdateEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:hint="nhungnguyen@gmail.com"
-                    android:textSize="16sp"/>
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20px"
-                    android:text="Mật khẩu"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/edtPassRes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPassword"
-                    android:hint="************"
-                    android:textSize="16sp"/>
                 <TextView
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
@@ -114,13 +95,14 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/edtPassRes"
+                    android:id="@+id/edtUpdateBirthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:editable="false"
                     android:ems="10"
+                    android:enabled="false"
                     android:inputType="datetime"
-                    android:hint="18/1/1998"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -128,19 +110,20 @@
                     android:requiresFadingEdge="horizontal">
 
                     <RadioButton
-                        android:id="@+id/radioButton3"
+                        android:id="@+id/rbtUpdateMale"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
+                        android:checked="false"
                         android:text="Nam"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <RadioButton
-                        android:id="@+id/radioButton4"
+                        android:id="@+id/rbtUpdateFemale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="true"
+                        android:checked="false"
                         android:text="Nữ"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
                 </RadioGroup>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -152,13 +135,13 @@
                         android:id="@+id/button2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/btn_yellow"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:onClick="clickToUpdateCustomer"
                         android:text="Lưu thay đổi"
-                        android:textColor="@color/colorWhite"
-                        android:layout_marginRight="5dp"
-                        android:onClick="clickToComplete"
-                        android:foreground="?android:attr/selectableItemBackground"/>
+                        android:textColor="@color/colorWhite" />
 
                 </LinearLayout>
 

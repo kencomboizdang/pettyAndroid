@@ -29,9 +29,6 @@ public class OpeningActivity extends AppCompatActivity {
                 if(res.getCount() == 0) {
                     Intent intent = new Intent(OpeningActivity.this, LoginActivity.class);
                     startActivity(intent);
-                } else if(resCus.getCount() == 0){
-                    Intent intent = new Intent(OpeningActivity.this, CustomerActivity.class);
-                    startActivity(intent);
                 } else {
                     Intent intent=new Intent(OpeningActivity.this, HomePageActivity.class);
                     startActivity(intent);

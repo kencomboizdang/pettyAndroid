@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,9 @@ public class AccountFragment extends Fragment {
 
     private TextView txtCustomerName, txtCustomerGmail;
     private final String CUSTOMERS ="customers";
+    private TableRow btnAccountDetail;
+
+    DatabaseReference mDatabase;
     public AccountFragment() {
         // Required empty public constructor
     }
@@ -45,23 +49,38 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         txtCustomerName = (TextView) view.findViewById(R.id.txtCustomerName);
         txtCustomerGmail = (TextView) view.findViewById(R.id.txtCustomerGmail);
-        DatabaseHelper myDb;//
-        myDb = new DatabaseHelper(getActivity());//
+        btnAccountDetail = (TableRow) view.findViewById(R.id.btnAccountDetail);
+
+        btnAccountDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        DatabaseHelper myDb;
+        myDb = new DatabaseHelper(getActivity());
         Cursor res = myDb.getKeyCustomer();
         String customerId = null;
         while (res.moveToFirst()) {
             customerId = res.getString(0);
             break;
         }
-        if (customerId!=null){
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(CUSTOMERS);
-            mDatabase.child(customerId).addValueEventListener(new ValueEventListener() {
+
+        Log.d("TAG", customerId);
+            mDatabase = FirebaseDatabase.getInstance().getReference(CUSTOMERS);
+            final String finalCustomerId = customerId;
+            mDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    CustomersDTO dto = dataSnapshot.getValue(CustomersDTO.class);
-                    if (dto != null) {
-                        txtCustomerName.setText(dto.getName());
-                        txtCustomerGmail.setText(dto.getEmail());
+                    for(DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            if(finalCustomerId.equals(ds.child("id").getValue(String.class))) {
+                                txtCustomerName.setText(ds.child("name").getValue(String.class));
+                                txtCustomerGmail.setText(ds.child("email").getValue(String.class));
+                            }
+                        }
                     }
                 }
                 @Override
@@ -69,13 +88,6 @@ public class AccountFragment extends Fragment {
                     Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
                 }
             });
-        }
-
-
-
         return view;
-
     }
-
-
 }
