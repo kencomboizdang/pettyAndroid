@@ -22,8 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import dto.AddressesDTO;
-import dto.CustomersDTO;
 import sqlite.DatabaseHelper;
 
 
@@ -32,12 +30,12 @@ import sqlite.DatabaseHelper;
  */
 public class AccountFragment extends Fragment {
 
-    private TextView txtCustomerName, txtCustomerGmail;
-    private final String CUSTOMERS ="customers";
-    private TableRow btnAccountDetail;
-    private RelativeLayout relativeLayout;
-
+    private final String CUSTOMERS = "customers";
     DatabaseReference mDatabase;
+    private TextView txtCustomerName, txtCustomerGmail;
+    private TableRow btnAccountDetail;
+    private RelativeLayout relativeLayout, btnChangePassword;
+
     public AccountFragment() {
         // Required empty public constructor
     }
@@ -54,13 +52,48 @@ public class AccountFragment extends Fragment {
         txtCustomerGmail = (TextView) view.findViewById(R.id.txtCustomerGmail);
         btnAccountDetail = (TableRow) view.findViewById(R.id.btnAccountDetail);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.btnSignOut);
+        btnChangePassword = (RelativeLayout) view.findViewById(R.id.btnChangePassword);
+
+        Cursor res = myDb.getKeyCustomer();
+        String customerId = null;
+        while (res.moveToFirst()) {
+            customerId = res.getString(0);
+            break;
+        }
+
+        Log.d("TAG", customerId);
+        mDatabase = FirebaseDatabase.getInstance().getReference(CUSTOMERS);
+        final String finalCustomerId = customerId;
+        mDatabase.child(customerId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (finalCustomerId.equals(dataSnapshot.child("id").getValue(String.class))) {
+                    txtCustomerName.setText(dataSnapshot.child("name").getValue(String.class));
+                    txtCustomerGmail.setText(dataSnapshot.child("email").getValue(String.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
+
 
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myDb.dropTable();
-                getActivity().finish();
+                myDb.dropTable1();
+                myDb.dropTable2();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -73,13 +106,8 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        return view;
 
-        Cursor res = myDb.getKeyCustomer();
-        String customerId = null;
-        while (res.moveToFirst()) {
-            customerId = res.getString(0);
-            break;
-        }
 
         Log.d("TAG", customerId);
             mDatabase = FirebaseDatabase.getInstance().getReference(CUSTOMERS);

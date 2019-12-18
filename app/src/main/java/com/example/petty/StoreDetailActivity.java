@@ -3,7 +3,6 @@ package com.example.petty;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,23 +25,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dto.ProductsDTO;
-
 public class StoreDetailActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final String STORES = "stores";
     TextView txtNameStore, txtAddress, txtEmail, txtPhone;
     DatabaseReference mDatabase;
     ImageView imgStore;
-    private RecyclerView recyclerView;
     String id = "";
-    private ProductFilterFragment productFilterFragment ;
-
     GoogleMap map;
-    GoogleMap ggMap;
-
+    private RecyclerView recyclerView;
+    private ProductFilterFragment productFilterFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +98,8 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
         });
 
     }
-    private void setFragment(Fragment fragment){
+
+    private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.replace(R.id.frame_products, fragment);
@@ -119,15 +111,16 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
     }
 
     public void clickToSearch(View view) {
-        Intent intent= new Intent(this, SearchProductActivity.class);
+        Intent intent = new Intent(this, SearchProductActivity.class);
         startActivity(intent);
     }
 
     public void clickToCart(View view) {
-        Intent intent= new Intent(this, CartActivity.class);
+        Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }
-    public void loadProduct(){
+
+    public void loadProduct() {
 
     }
 
@@ -142,7 +135,7 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
                 double x = dataSnapshot.child("positionX").getValue(double.class);
                 double y = dataSnapshot.child("positionY").getValue(double.class);
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?daddr="+x+","+y));
+                        Uri.parse("http://maps.google.com/maps?daddr=" + x + "," + y));
                 startActivity(intent);
 
             }

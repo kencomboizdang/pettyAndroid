@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                         txtWarning.setText("");
                         if (iUsername.equals(dbUsername)&& iPassword.equals(dbPassword)) {
                             check =true;
+                            txtWarning.setText("");
                             myDb.insertAccount(dbId, iUsername, iPassword);
                             mDatabaseCustomer.addValueEventListener(new ValueEventListener() {
                                 @Override
@@ -79,7 +80,9 @@ public class LoginActivity extends AppCompatActivity {
                                         for(DataSnapshot dsCus : dataSnapshot.getChildren()) {
                                             String dbCustomerId = dsCus.child("id").getValue(String.class);
                                             String dbAccountId = dsCus.child("accountsId").getValue(String.class);
+                                            if(dbId.equals(dbAccountId)) {
                                                 myDb.insertCustomer(dbCustomerId, dbAccountId);
+                                            }
                                                 finish();
                                                 Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
                                                 startActivity(intent);

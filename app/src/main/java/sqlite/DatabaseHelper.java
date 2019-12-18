@@ -58,8 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertCustomer(String id, String accountId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_22, accountId);
         contentValues.put(COL_21, id);
+        contentValues.put(COL_22, accountId);
         long result = db.insert(TABLE_NAME2, null, contentValues);
     }
 
@@ -69,9 +69,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public void dropTable() {
+    public void dropTable1() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_NAME1);
+    }
+
+    public void dropTable2() {
+        SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_NAME2);
     }
 }
