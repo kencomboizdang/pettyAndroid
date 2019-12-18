@@ -264,7 +264,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ProductDetailActivity.this, RecyclerView.VERTICAL, false);
                                    recyclerView.setLayoutManager(layoutManager);
                                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                                   recyclerView.setNestedScrollingEnabled(false);
                                    recyclerView.setAdapter(responsesAdapter);
+                                   viewEmpty.setVisibility(LinearLayout.GONE);
                                }
                            }
                            @Override

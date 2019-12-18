@@ -77,7 +77,6 @@
             style="@android:style/Widget.Material.Light.ScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
             android:scrollbarSize="0dp"
             android:scrollbarStyle="insideInset"
             android:scrollbars="none">
@@ -86,6 +85,39 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="600dp"
+                        android:layout_height="260dp"
+                        android:layout_marginTop="-100dp"
+                        android:background="@drawable/circle_main"
+                        tools:layout_editor_absoluteX="0dp"
+                        android:layout_gravity="center"
+                        />
+                    </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:background="@drawable/circle_stroke_grey"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="70dp">
+                        <ImageView
+                            android:id="@+id/imgStore"
+                            android:layout_width="145dp"
+                            android:layout_height="145dp"
+                            android:src="@drawable/food_dog_001"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+                </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,16 +130,7 @@
                         android:orientation="horizontal"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:layout_margin="10dp">
-                        <RelativeLayout
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:src="@drawable/circle_main">
-                        <ImageView
-                            android:id="@+id/imgStore"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/food_dog_001" />
-                        </RelativeLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -115,9 +138,6 @@
                             android:orientation="vertical"
                             android:paddingLeft="7dp"
                             >
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
                                 <TextView
                                     android:id="@+id/txtNameStore"
                                     android:layout_width="match_parent"
@@ -126,23 +146,20 @@
                                     android:maxLines="2"
                                     android:text="Tên Store"
                                     android:textColor="@color/colorBlack"
-                                    android:textSize="16sp"
+                                    android:textSize="28sp"
+                                    android:gravity="center_horizontal"
                                     android:textStyle="bold"/>
-                            </RelativeLayout>
 
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
                                 <TextView
-                                    android:id="@+id/txtAddress"
+                                    android:id="@+id/txtEmail"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Địa chỉ"
+                                    android:text="Email"
+                                    android:layout_gravity="center_horizontal"
+                                    android:gravity="center_horizontal"
                                     android:textColor="#F3555555"
-                                    android:textSize="16sp"
+                                    android:textSize="19sp"
                                     />
-                            </LinearLayout>
 
 
                         </LinearLayout>
@@ -151,7 +168,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="5dp"
+                    android:layout_height="2dp"
                     android:background="@color/colorGreyWhite"
                     android:orientation="vertical" />
                 <LinearLayout
@@ -163,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:text="Thông tin liên lạc"
                         android:layout_marginTop="6dp"
-                        android:textSize="18dp"
+                        android:textSize="20dp"
                         android:textStyle="bold"
                         android:paddingLeft="10dp"/>
                     <LinearLayout
@@ -174,56 +191,87 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:text="Địa chỉ"
-                            android:paddingLeft="12dp"
+                            android:text="SĐT "
+                            android:textSize="17sp"
+                            android:paddingLeft="10dp"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/txtAdd2"
+                            android:id="@+id/txtPhone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Số 116, Đường Ba Tháng Hai, Quận 10, Tp. Hồ Chí Minh"
+                            android:text="..."
+                            android:ellipsize="end"
+                            android:textSize="17sp"
+                            android:maxLines="2"
+                            android:paddingLeft="14dp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Địa chỉ"
+                            android:textSize="17sp"
+                            android:paddingLeft="10dp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/txtAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="17sp"
+                            android:text="..."
                             android:ellipsize="end"
                             android:maxLines="2"
-                            android:paddingLeft="12dp"/>
+                            android:paddingLeft="14dp"/>
                     </LinearLayout>
 
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="12dp"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/txtStoreAddr"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Chỉ đường"
-                            android:ellipsize="end"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorRed"
-                            android:maxLines="2"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal">
+                        <Button
+                            android:id="@+id/btnFollowStore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:text="LIÊN HỆ"
+                            android:textSize="14sp"
+                            android:background="@drawable/btn_yellow"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:textColor="@color/colorWhite"
+                            android:onClick="clickToCall"/>
+                        <Button
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:text="CHỈ ĐƯỜNG"
+                            android:textSize="14sp"
                             android:onClick="clickToDirection"
-                            android:paddingLeft="12dp"/>
+                            android:background="@drawable/btn_white_grey"
+                            android:textColor="@color/colorRed"/>
                     </LinearLayout>
+                    <fragment
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_margin="10dp"
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment" />
 
                 </LinearLayout>
-                <fragment
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    android:id="@+id/map"
-                    android:name="com.google.android.gms.maps.SupportMapFragment" />
-
-                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:id="@+id/frame_products"/>
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/colorGreyWhite"
-                    android:orientation="vertical" />
+                    android:layout_height="@dimen/cardview_compat_inset_shadow"
+                    android:text="fufuufuf"/>
 <!--                <com.example.petty.NonScrollListView-->
 <!--                    android:id="@+id/listCategory"-->
 <!--                    android:layout_width="match_parent"-->
@@ -231,7 +279,9 @@
 <!--                    android:scrollbars="none"-->
 <!--                    >-->
 <!--                </com.example.petty.NonScrollListView>-->
+
             </LinearLayout>
+
         </ScrollView>
 
     </LinearLayout>
