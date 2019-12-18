@@ -137,7 +137,8 @@
                     android:layout_marginLeft="3dp"
                     android:layout_gravity="right"
                     android:textStyle="bold"
-                    android:text="Tên cửa hàng"/>
+                    android:text="Tên cửa hàng"
+                    android:onClick="clickToStoreDetail"/>
             </LinearLayout>
 
             <LinearLayout

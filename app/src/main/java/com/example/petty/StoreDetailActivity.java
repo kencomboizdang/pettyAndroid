@@ -37,7 +37,8 @@ public class StoreDetailActivity extends AppCompatActivity {
         txtAddress = (TextView) findViewById(R.id.txtAddress);
         imgStore = (ImageView) findViewById(R.id.imgStore);
         txtAdd2 = (TextView) findViewById(R.id.txtAdd2);
-
+        loadStore();
+        System.out.println(id);
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -63,7 +64,7 @@ public class StoreDetailActivity extends AppCompatActivity {
 
             }
         });
-        loadStore();
+
     }
 
     public void loadStore() {

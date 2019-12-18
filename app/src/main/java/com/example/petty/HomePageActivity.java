@@ -95,5 +95,10 @@ public class HomePageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OrderManagementActivity.class);
         startActivity(intent);
     }
+
+    public void clickToStoreList(View view) {
+        Intent intent = new Intent(this, StoreListActivity.class);
+        startActivity(intent);
+    }
 }
 

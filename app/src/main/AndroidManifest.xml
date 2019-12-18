@@ -39,8 +39,8 @@
         <activity android:name=".ProductListActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".HomePageActivity" />
-        <activity android:name=".OpeningActivity" />
-        <activity android:name=".StoreListActivity">
+        <activity android:name=".StoreListActivity" />
+        <activity android:name=".OpeningActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

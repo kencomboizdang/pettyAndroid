@@ -61,6 +61,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private ImageView imgProduct;
     private RatingBar ratingBar;
     private String url;
+    private String storeID;
     private float star;
     private int count;
     private CartsDTO tempCart;
@@ -161,6 +162,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             if (storesDTO.getId().equals(productDto.getStoreId())){
                                 txtStore.setText(storesDTO.getName());
                                 txtStore2.setText(storesDTO.getName());
+                                storeID=storesDTO.getId();
                             }
                         }
                     }
@@ -254,7 +256,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                                for (DataSnapshot item : dataSnapshot.getChildren()){
                                    ResponsesDTO responsesDTO = item.getValue(ResponsesDTO.class);
                                    if (responsesDTO.getOrderProductDetailId().equals(orderProductDetailsDTO.getId())){
-                                       System.out.println(responsesDTO);
                                             responsesList.add(responsesDTO);
                                    }
                                }
@@ -361,4 +362,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         finish();
     }
 
+    public void clickToStoreDetail(View view) {
+        Intent intent = new Intent(ProductDetailActivity.this, StoreDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("id_store", storeID);
+        intent.putExtra("dataStore", bundle);
+        startActivity(intent);
+    }
 }
