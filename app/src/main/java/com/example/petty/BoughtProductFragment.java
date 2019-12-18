@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +39,8 @@ public class BoughtProductFragment extends Fragment {
     private final String ORDERPRODUCTSTORES = "order_product_stores";
     private final String ORDERPRODUCTDETAILS = "order_product_details";
     private final String ORDERS = "orders";
+    private LinearLayout viewEmpty;
+
     private List<OrderProductDetailsDTO> orderProductDetailsList = new ArrayList<>();
     private RecyclerView recyclerView;
     private OrderProductDetailAdapter orderProductDetailAdapter;
@@ -53,6 +56,7 @@ public class BoughtProductFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_bought_product, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_bought_product);
+        viewEmpty = (LinearLayout) view.findViewById(R.id.viewEmptyBought);
         DatabaseHelper myDb;//
         myDb = new DatabaseHelper(getActivity());//
         Cursor res = myDb.getKeyCustomer();
@@ -99,6 +103,7 @@ public class BoughtProductFragment extends Fragment {
                                                 }
                                                 if (!orderProductDetailsList.isEmpty())
                                                 {
+                                                    viewEmpty.setVisibility(LinearLayout.GONE);
                                                     orderProductDetailAdapter = new OrderProductDetailAdapter(orderProductDetailsList, getActivity());
                                                     recyclerView.setAdapter(orderProductDetailAdapter);
                                                 }

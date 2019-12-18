@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -55,8 +56,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     final String HISTORIES = "histories";
     private List<ResponsesDTO> responsesList= new ArrayList<>();
     private ResponsesAdapter responsesAdapter;
-
-    private  TextView txtName, txtPrice, txtStore, txtDescription, txtBrand, txtSize, txtOrigin, txtStore2, txtNumberResponse;
+    private LinearLayout viewEmpty;
+    private  TextView txtName, txtPrice, txtStore, txtDescription, txtBrand, txtSize, txtOrigin, txtStore2, txtNumberResponse, txtNumberResponse2;
     private ImageView imgProduct;
     private RatingBar ratingBar;
     private String url;
@@ -89,9 +90,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         txtOrigin = (TextView) findViewById(R.id.txtOrigin);
         txtStore2 = (TextView) findViewById(R.id.txtStore2);
         txtNumberResponse = (TextView) findViewById(R.id.txtNumberResponse);
+        txtNumberResponse2 = (TextView) findViewById(R.id.txtNumberResponse2);
         imgProduct= (ImageView) findViewById(R.id.imgProduct);
         recyclerView= (RecyclerView) findViewById(R.id.recycler_view);
         ratingBar = (RatingBar) findViewById(R.id.ratingProductBar);
+        viewEmpty = (LinearLayout) findViewById(R.id.viewEmpty);
+
         loadProduct();
         loadStar();
         loadResponse();
@@ -202,8 +206,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                                     txtNumberResponse.setText("Chưa có đánh giá nào");
 
                                 } else{
+                                    ratingBar.setVisibility(RatingBar.VISIBLE);
                                    ratingBar.setRating(star/count);
                                    txtNumberResponse.setText("(Có "+count+" người đánh giá)");
+                                   txtNumberResponse2.setText("("+count+")");
                                 }
                             }
                             @Override

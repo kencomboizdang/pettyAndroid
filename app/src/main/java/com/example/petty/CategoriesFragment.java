@@ -51,6 +51,7 @@ public class CategoriesFragment extends Fragment {
         return view;
     }
     public void loadCategory(View view){
+        categoriesList.clear();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(CATEGORIES);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

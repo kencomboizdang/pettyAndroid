@@ -6,4 +6,8 @@
     <string name="map_key" translatable="false">
         AIzaSyBNFJxbuP_F0gaNP4BK8ur3KTc2Cbfmtng
     </string>
+    <string name="product_guarantee"> - Sản phẩm có hạn sử dụng trên 2 năm\n
+        - Sản phẩm có nguồn gốc xuất xứ rõ ràng\n
+        - Hoàn tiền 200% giá trị sản phẩm nếu phát hiện hàng giả\n
+    </string>
 </resources>

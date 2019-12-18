@@ -43,7 +43,7 @@ public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.ViewHol
         final AddressesDTO addressesDTO = addressList.get(position);
         holder.txtName.setText(addressesDTO.getName());
         holder.txtPhone.setText(String.valueOf(addressesDTO.getPhone()));
-        holder.txtAddress.setText(addressesDTO.getWard()+ ", "+addressesDTO.getDistrict()+", "+addressesDTO.getProvince());
+        holder.txtAddress.setText(addressesDTO.getDetail()+","+addressesDTO.getWard()+ ", "+addressesDTO.getDistrict()+", "+addressesDTO.getProvince());
         holder.addressItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
