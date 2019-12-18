@@ -64,12 +64,12 @@ public class StoreListActivity extends AppCompatActivity {
         });
     }
 
-    private void setFragment(Fragment fragment){
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        fragmentTransaction.replace(R.id.frame_stores, fragment);
-        fragmentTransaction.commit();
-    }
+//    private void setFragment(Fragment fragment){
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+//        fragmentTransaction.replace(R.id.frame_stores, fragment);
+//        fragmentTransaction.commit();
+//    }
 
     public void clickToCart(View view) {
         Intent intent = new Intent(this, CartActivity.class);

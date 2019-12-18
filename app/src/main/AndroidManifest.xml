@@ -39,7 +39,8 @@
         <activity android:name=".ProductListActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".HomePageActivity" />
-        <activity android:name=".OpeningActivity">
+        <activity android:name=".OpeningActivity" />
+        <activity android:name=".StoreListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,6 +51,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
     </application>
 
 </manifest>

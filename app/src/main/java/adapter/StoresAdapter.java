@@ -2,18 +2,23 @@ package adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.petty.ProductDetailActivity;
 import com.example.petty.R;
+import com.example.petty.StoreDetailActivity;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -41,10 +46,20 @@ public class StoresAdapter  extends RecyclerView.Adapter<StoresAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull StoresAdapter.ViewHolder holder, int position) {
-        StoresDTO storesDTO = storesList.get(position);
+        final StoresDTO storesDTO = storesList.get(position);
         holder.txtNameStore.setText(storesDTO.getName());
         holder.txtAddress.setText(storesDTO.getWard()+", "+storesDTO.getDistrict()+", "+storesDTO.getProvince());
-        holder.imgStore.setImageURI();
+        Glide.with(context).load(storesDTO.getLogoImg()).into(holder.imgStore);
+        holder.storeRe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, StoreDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id_store", storesDTO.getId());
+                intent.putExtra("dataStore", bundle);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -55,15 +70,19 @@ public class StoresAdapter  extends RecyclerView.Adapter<StoresAdapter.ViewHolde
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView txtNameStore, txtAddress;
         public ImageView imgStore;
+
+        public LinearLayout storeRe;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNameStore = (TextView) itemView.findViewById(R.id.txtNameStore);
             txtAddress = (TextView) itemView.findViewById(R.id.txtAddress);
-            //imgStore = (ImageView) itemView.findViewById(R.id.imgStore);
+            imgStore = (ImageView) itemView.findViewById(R.id.imgStore);
+            storeRe = (LinearLayout) itemView.findViewById(R.id.storeRe);
+
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View view) {
-//                    Intent intent = new Intent(context, ProductDetailActivity.class);
+//                    Intent intent = new Intent(context, StoreDetailActivity.class);
 //                    context.startActivity(intent);
 //                }
 //            });
