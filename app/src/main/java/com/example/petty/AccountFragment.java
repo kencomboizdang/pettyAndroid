@@ -35,6 +35,7 @@ public class AccountFragment extends Fragment {
     private TextView txtCustomerName, txtCustomerGmail;
     private final String CUSTOMERS ="customers";
     private TableRow btnAccountDetail;
+    private RelativeLayout relativeLayout;
 
     DatabaseReference mDatabase;
     public AccountFragment() {
@@ -47,9 +48,21 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+        final DatabaseHelper myDb;
+        myDb = new DatabaseHelper(getActivity());
         txtCustomerName = (TextView) view.findViewById(R.id.txtCustomerName);
         txtCustomerGmail = (TextView) view.findViewById(R.id.txtCustomerGmail);
         btnAccountDetail = (TableRow) view.findViewById(R.id.btnAccountDetail);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.btnSignOut);
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDb.dropTable();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnAccountDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +72,7 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        DatabaseHelper myDb;
-        myDb = new DatabaseHelper(getActivity());
+
         Cursor res = myDb.getKeyCustomer();
         String customerId = null;
         while (res.moveToFirst()) {

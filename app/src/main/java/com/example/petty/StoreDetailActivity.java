@@ -41,6 +41,10 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
     private ProductFilterFragment productFilterFragment ;
 
     GoogleMap map;
+    GoogleMap map;
+    GoogleMap ggMap;
+    private ProductFilterFragment productFilterFragment ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +85,9 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
 
             }
         });
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-
-//    private void fetchLastLocation() {
-//        Task<Location> task = fusedLocationProviderClient.getLastLocation()
-//    }
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
