@@ -75,13 +75,6 @@
             </RelativeLayout>
 
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_stores"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="#ffffff"
-            />
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
