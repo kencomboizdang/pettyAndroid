@@ -92,13 +92,14 @@
                     android:rating="5"
                     android:layout_marginLeft="10dp"
                     android:theme="@style/RatingBar"
+                    android:visibility="gone"
                     style="@style/Widget.AppCompat.RatingBar.Small"/>
                 <TextView
                     android:id="@+id/txtNumberResponse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="(Có... đánh giá)"
+                    android:text="Chưa có đánh giá nào"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -136,7 +137,8 @@
                     android:layout_marginLeft="3dp"
                     android:layout_gravity="right"
                     android:textStyle="bold"
-                    android:text="Tên cửa hàng"/>
+                    android:text="Tên cửa hàng"
+                    android:onClick="clickToStoreDetail"/>
             </LinearLayout>
 
             <LinearLayout
@@ -332,7 +334,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Text cam kết"
+                        android:text="@string/product_guarantee"
                         android:gravity="center|left"
                         android:textSize="15sp"
                         android:paddingLeft="15dp" />
@@ -344,17 +346,34 @@
                 android:layout_height="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorGreyWhite" />
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:text="Đánh giá và nhận xét"
-                android:textColor="#F3000000"
-                android:textSize="19sp"
-                android:layout_marginBottom="10dp" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:text="Đánh giá và nhận xét"
+                    android:textColor="#F3000000"
+                    android:textSize="19sp"
+                    android:layout_marginBottom="10dp" />
+                <TextView
+                    android:id="@+id/txtNumberResponse2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:text="..."
+                    android:textColor="#F3000000"
+                    android:textSize="19sp"
+                    android:layout_marginBottom="10dp" />
+            </LinearLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
@@ -362,6 +381,26 @@
                 android:layout_marginTop="10dp"
                 android:background="#ffffff"
                 />
+            <LinearLayout
+                android:id="@+id/viewEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/icon_empty"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chưa có đánh giá nào. Hãy là người mua hàng và đánh giá đầu tiên"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="50dp"
+                    android:gravity="center_horizontal"
+                    android:textSize="18dp"/>
+            </LinearLayout>
 
 
         </LinearLayout>

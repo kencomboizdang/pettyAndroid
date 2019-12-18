@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -66,13 +67,13 @@ public class AddressListActivity extends AppCompatActivity {
                         addressesList.add(addressesDTO);
                     }
                     if (!addressesList.isEmpty()) {
+                        LinearLayout viewEmpty = (LinearLayout) findViewById(R.id.viewEmpty);
+                        viewEmpty.setVisibility(View.GONE);
                         addressAdapter = new AddressAdapter(addressesList, AddressListActivity.this, "edit");
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
                         recyclerView.setLayoutManager(layoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                         recyclerView.setAdapter(addressAdapter);
-                    } else{
-                        txtMessage.setVisibility(View.VISIBLE);
                     }
                 }
             }

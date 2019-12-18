@@ -34,6 +34,7 @@ import dto.ProductsDTO;
 import dto.StoresDTO;
 import dto.User;
 import sqlite.DatabaseHelper;
+import util.DateTimeStamp;
 
 
 /**
@@ -78,13 +79,27 @@ public class HomeFragment extends Fragment {
         loadHistory(view);
         loadStore(view);
         loadCategory(view);
-//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("categories");
-//        String userId = mDatabase.push().getKey(); // random key
-//        User user = new User("Ravi Tamada", "ravi@androiddhive.info");
-//        CategoriesDTO dto = new CategoriesDTO(userId, "Phụ kiện thú cưng","","https://firebasestorage.googleapis.com/v0/b/petty-418a3.appspot.com/o/images%2Ficon_category_assessory.png?alt=media&token=e45f796e-3c96-4e63-ac07-9825e78a929f");
-//        mDatabase.child(userId).setValue(dto);
-
-
+//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("products");
+//        String id = mDatabase.push().getKey(); // random key
+//
+//        DateTimeStamp dateTimeStamp = new DateTimeStamp();
+//        String name ="Lồng vận chuyển máy bay cho chó mèo IRIS size XS";
+//        String description ="Lồng vận chuyển máy bay cho chó mèo IRIS size XS màu sắc ngẫu nhiên";
+//        float price=67000;
+//        int quantity =100;
+//        String size="150g";
+//        String img="https://firebasestorage.googleapis.com/v0/b/petty-418a3.appspot.com/o/images%2Faccessory_cat_001.PNG?alt=media&token=32b12170-13ab-4cb9-8016-d135fbfccd43";
+//        String origin="UK";
+//        String brand="IRIS";
+//        float netWeight = 100;
+//        String status="buying";
+//        long startDate=dateTimeStamp.getCurrentTime();
+//        long expiration=dateTimeStamp.getCurrentTime();
+//        String categoriesId="-LwI9yQ_8ZQoWjCyzy8Y";
+//        String storeId="-Lvtnyxt2wnX8R5QNab3";
+//
+//        ProductsDTO dto = new ProductsDTO(id, name, description,price , quantity,  size,  img,  origin,  brand,  netWeight,  status,  startDate,  expiration,  categoriesId,  storeId);
+//        mDatabase.child(id).setValue(dto);
 
         return view;
     }

@@ -2,6 +2,7 @@ package adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.petty.ProductDetailActivity;
 import com.example.petty.R;
+import com.example.petty.StoreDetailActivity;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -39,10 +41,20 @@ public class Stores2Adapter  extends RecyclerView.Adapter<Stores2Adapter.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull Stores2Adapter.ViewHolder holder, int position) {
-        StoresDTO storesDTO = storesList.get(position);
+        final StoresDTO storesDTO = storesList.get(position);
         Glide.with(context)
                 .load(storesDTO.getLogoImg())
                 .into(holder.imgStore);
+        holder.imgStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, StoreDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id_store", storesDTO.getId());
+                intent.putExtra("dataStore", bundle);
+                context.startActivity(intent);
+            }
+        });
         //holder.imgProduct.setImageResource();
     }
 

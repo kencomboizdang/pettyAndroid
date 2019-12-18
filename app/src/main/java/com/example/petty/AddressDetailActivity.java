@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,11 +27,13 @@ import java.text.DecimalFormat;
 
 import dto.AddressesDTO;
 import dto.ProductsDTO;
+import sqlite.DatabaseHelper;
 
 public class AddressDetailActivity extends AppCompatActivity {
     final String ADDRESSES = "addresses";
     private EditText edtName, edtPhone, edtProvince, edtDistrict, edtWard, edtDetail;
     private TextView txtErrorMessage;
+    private  String customerId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,14 @@ public class AddressDetailActivity extends AppCompatActivity {
     }
 
     public void clickToSaveAddress(View view) {
+
+        DatabaseHelper myDb;//
+        myDb = new DatabaseHelper(AddressDetailActivity.this);//
+        Cursor res = myDb.getKeyCustomer();
+        while (res.moveToFirst()) {
+            customerId = res.getString(0);
+            break;
+        }
         if (checkAddressValidation()) {
             Bundle bundle = getIntent().getBundleExtra("data");
             if (bundle != null) {
@@ -87,7 +98,7 @@ public class AddressDetailActivity extends AppCompatActivity {
             } else {
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(ADDRESSES);
                 String generatedId = mDatabase.push().getKey();
-                AddressesDTO dto = new AddressesDTO(generatedId, edtName.getText().toString(), edtProvince.getText().toString(), edtDistrict.getText().toString(), edtWard.getText().toString(), edtDetail.getText().toString(), edtPhone.getText().toString(), "null");
+                AddressesDTO dto = new AddressesDTO(generatedId, edtName.getText().toString(), edtProvince.getText().toString(), edtDistrict.getText().toString(), edtWard.getText().toString(), edtDetail.getText().toString(), edtPhone.getText().toString(), customerId);
                 mDatabase.child(generatedId).setValue(dto);
                 Toast.makeText(this, "Thêm địa chỉ mới thành công", Toast.LENGTH_LONG);
                 finish();

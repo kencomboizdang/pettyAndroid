@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BoughtProductFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_bought_product"
         android:layout_width="match_parent"
@@ -13,4 +14,26 @@
         android:layout_marginTop="10dp"
         android:background="#ffffff"
         />
+    <LinearLayout
+        android:id="@+id/viewEmptyBought"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/icon_empty"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Còn trống"
+        android:layout_gravity="center_horizontal"
+        android:textSize="18dp"/>
+    </LinearLayout>
+
+</RelativeLayout>
+    <!-- TODO: Update blank fragment layout -->
+
 </FrameLayout>

@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -55,11 +56,12 @@ public class ProductDetailActivity extends AppCompatActivity {
     final String HISTORIES = "histories";
     private List<ResponsesDTO> responsesList= new ArrayList<>();
     private ResponsesAdapter responsesAdapter;
-
-    private  TextView txtName, txtPrice, txtStore, txtDescription, txtBrand, txtSize, txtOrigin, txtStore2, txtNumberResponse;
+    private LinearLayout viewEmpty;
+    private  TextView txtName, txtPrice, txtStore, txtDescription, txtBrand, txtSize, txtOrigin, txtStore2, txtNumberResponse, txtNumberResponse2;
     private ImageView imgProduct;
     private RatingBar ratingBar;
     private String url;
+    private String storeID;
     private float star;
     private int count;
     private CartsDTO tempCart;
@@ -89,9 +91,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         txtOrigin = (TextView) findViewById(R.id.txtOrigin);
         txtStore2 = (TextView) findViewById(R.id.txtStore2);
         txtNumberResponse = (TextView) findViewById(R.id.txtNumberResponse);
+        txtNumberResponse2 = (TextView) findViewById(R.id.txtNumberResponse2);
         imgProduct= (ImageView) findViewById(R.id.imgProduct);
         recyclerView= (RecyclerView) findViewById(R.id.recycler_view);
         ratingBar = (RatingBar) findViewById(R.id.ratingProductBar);
+        viewEmpty = (LinearLayout) findViewById(R.id.viewEmpty);
+
         loadProduct();
         loadStar();
         loadResponse();
@@ -157,6 +162,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             if (storesDTO.getId().equals(productDto.getStoreId())){
                                 txtStore.setText(storesDTO.getName());
                                 txtStore2.setText(storesDTO.getName());
+                                storeID=storesDTO.getId();
                             }
                         }
                     }
@@ -202,8 +208,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                                     txtNumberResponse.setText("Chưa có đánh giá nào");
 
                                 } else{
+                                    ratingBar.setVisibility(RatingBar.VISIBLE);
                                    ratingBar.setRating(star/count);
                                    txtNumberResponse.setText("(Có "+count+" người đánh giá)");
+                                   txtNumberResponse2.setText("("+count+")");
                                 }
                             }
                             @Override
@@ -248,7 +256,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                                for (DataSnapshot item : dataSnapshot.getChildren()){
                                    ResponsesDTO responsesDTO = item.getValue(ResponsesDTO.class);
                                    if (responsesDTO.getOrderProductDetailId().equals(orderProductDetailsDTO.getId())){
-                                       System.out.println(responsesDTO);
                                             responsesList.add(responsesDTO);
                                    }
                                }
@@ -355,4 +362,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         finish();
     }
 
+    public void clickToStoreDetail(View view) {
+        Intent intent = new Intent(ProductDetailActivity.this, StoreDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("id_store", storeID);
+        intent.putExtra("dataStore", bundle);
+        startActivity(intent);
+    }
 }

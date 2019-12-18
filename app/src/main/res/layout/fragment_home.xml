@@ -106,17 +106,35 @@
             android:layout_height="wrap_content"
             android:background="#ffffff"
             />
-        <TextView
-            android:id="@+id/textView3"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:text="Có thể bạn biết cửa hàng này"
-            android:textColor="#F3000000"
-            android:textSize="17dp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:text="Có thể bạn biết cửa hàng này"
+                android:textColor="#F3000000"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:text="Xem thêm"
+                android:layout_alignParentRight="true"
+                android:textColor="#F3FF5903"
+                android:paddingRight="10dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:onClick="clickToStoreList"/>
+        </RelativeLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/store_recycler_view"
             android:layout_width="match_parent"
