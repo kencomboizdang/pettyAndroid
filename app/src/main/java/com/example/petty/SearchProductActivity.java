@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 public class SearchProductActivity extends AppCompatActivity {
@@ -32,8 +33,10 @@ public class SearchProductActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 setFragment(new ProductFilterFragment("search",edtSearch.getQuery().toString().trim()));
+                setFragment2(new StoreListFragment("search", edtSearch.getQuery().toString().trim()));
                 if(edtSearch.getQuery().toString().length()==0) {
                     setFragment(searchScreenFragment);
+                    setFragment2(new EmptyFragment());
                 }
                 return true;
             }
@@ -48,6 +51,13 @@ public class SearchProductActivity extends AppCompatActivity {
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.replace(R.id.search_frame, fragment);
         fragmentTransaction.commit();
+    }
+    private  void setFragment2(Fragment fragment){
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            fragmentTransaction.replace(R.id.search_frame_2, fragment);
+            fragmentTransaction.commit();
+
     }
     public void clickToPasteSearch(View view) {
         TextView textView= view.findViewById(R.id.txtHintSearch);

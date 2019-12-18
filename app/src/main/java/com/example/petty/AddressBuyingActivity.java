@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -46,7 +47,10 @@ public class AddressBuyingActivity extends AppCompatActivity {
             customerId = res.getString(0);
             break;
         }
-        final TextView txtMessage = (TextView) findViewById(R.id.tvMessage);
+
+    }
+    public void loadAddress(){
+        final LinearLayout viewEmpty = (LinearLayout) findViewById(R.id.viewEmpty);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(ADDRESSES);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -63,8 +67,7 @@ public class AddressBuyingActivity extends AppCompatActivity {
                         recyclerView.setLayoutManager(layoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                         recyclerView.setAdapter(addressAdapter);
-                    } else{
-                        txtMessage.setVisibility(View.VISIBLE);
+                        viewEmpty.setVisibility(LinearLayout.GONE);
                     }
                 }
             }
@@ -73,6 +76,7 @@ public class AddressBuyingActivity extends AppCompatActivity {
 
             }
         });
+
     }
     public void clickToAddAddress(View view) {
         Intent intent = new Intent(AddressBuyingActivity.this, AddressDetailActivity.class);
@@ -82,5 +86,11 @@ public class AddressBuyingActivity extends AppCompatActivity {
 
     public void clickToBack(View view) {
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadAddress();
     }
 }

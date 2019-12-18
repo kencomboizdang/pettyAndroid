@@ -96,7 +96,7 @@ public class BoughtProductFragment extends Fragment {
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 for (DataSnapshot item : dataSnapshot.getChildren()){
                                                     OrderProductDetailsDTO orderProductDetailsDTO = item.getValue(OrderProductDetailsDTO.class);
-                                                    if (orderProductDetailsDTO.getOrderProductStoreId().equals(orderProductStoresDTO.getId()))
+                                                    if (orderProductDetailsDTO.getOrderProductStoreId().equals(orderProductStoresDTO.getId()) && orderProductDetailsDTO.getOrderStatus().equals("complete"))
                                                     {
                                                         orderProductDetailsList.add(orderProductDetailsDTO);
                                                     }

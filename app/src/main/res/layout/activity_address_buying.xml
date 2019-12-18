@@ -56,15 +56,6 @@
             </RelativeLayout>
 
         </LinearLayout>
-        <TextView
-            android:id="@+id/tvMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bạn chưa có địa chỉ nào, hãy thêm địa chỉ"
-            android:gravity="center_horizontal"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            android:visibility="gone"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_address"
             android:layout_width="match_parent"
@@ -73,6 +64,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/viewEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/icon_empty"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Bạn chưa có địa chỉ nào, hãy thêm địa chỉ"
+                android:layout_gravity="center_horizontal"
+                android:textSize="18dp"/>
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -113,6 +113,7 @@ public class ResponseProductActivity extends AppCompatActivity {
                         TextView txtMessage = (TextView) findViewById(R.id.txtMessage);
                         txtMessage.setVisibility(TextView.GONE);
                         ratingBar.setRating(responsesDTO.getRating());
+                        ratingBar.setEnabled(false);
                     }
                 }
             }

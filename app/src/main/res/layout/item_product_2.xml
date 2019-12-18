@@ -15,6 +15,7 @@
             android:id="@+id/imgProduct"
             android:layout_width="65dp"
             android:layout_height="65dp"
+            android:layout_marginLeft="3dp"
            android:src="@drawable/food_dog_001"/>
 
         <LinearLayout

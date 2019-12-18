@@ -88,6 +88,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPagerHome"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp">
+        </androidx.viewpager.widget.ViewPager>
         <TextView
             android:id="@+id/tvSeeHistory"
             android:layout_width="match_parent"
@@ -99,7 +106,10 @@
             android:textColor="#F3000000"
             android:textSize="17dp"
             android:textStyle="bold"
-            android:visibility="gone"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
@@ -112,7 +122,6 @@
             android:background="@color/colorWhite"
             >
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"

@@ -38,7 +38,6 @@ public class AddressListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_list);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_address);
-        loadAddressDatabase();
     }
 
     @Override
@@ -47,7 +46,7 @@ public class AddressListActivity extends AppCompatActivity {
         loadAddressDatabase();
     }
     public void loadAddressDatabase(){
-//        addressesList.clear();
+        addressesList.clear();
         DatabaseHelper myDb;//
         myDb = new DatabaseHelper(AddressListActivity.this);//
         Cursor res = myDb.getKeyCustomer();
@@ -55,12 +54,10 @@ public class AddressListActivity extends AppCompatActivity {
             customerId = res.getString(0);
             break;
         }
-        final TextView txtMessage = (TextView) findViewById(R.id.tvMessage);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(ADDRESSES);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                addressesList.clear();
                 for (DataSnapshot item : dataSnapshot.getChildren()){
                     AddressesDTO addressesDTO = item.getValue(AddressesDTO.class);
                     if (customerId.equals(addressesDTO.getCustomerId())) {
@@ -74,6 +71,9 @@ public class AddressListActivity extends AppCompatActivity {
                         recyclerView.setLayoutManager(layoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                         recyclerView.setAdapter(addressAdapter);
+                    } else {
+                        LinearLayout viewEmpty = (LinearLayout) findViewById(R.id.viewEmpty);
+                        viewEmpty.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -87,5 +87,9 @@ public class AddressListActivity extends AppCompatActivity {
     public void clickToAddAddress(View view) {
         Intent intent = new Intent(AddressListActivity.this, AddressDetailActivity.class);
         startActivity(intent);
+    }
+
+    public void clickToBackHome(View view) {
+        finish();
     }
 }

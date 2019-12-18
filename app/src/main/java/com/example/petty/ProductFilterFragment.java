@@ -64,6 +64,7 @@ public class ProductFilterFragment extends Fragment {
                     if (type.equals(SEARCH)) {
                         if (productsDTO.getName().toLowerCase().contains(value.toLowerCase()))
                             productsList.add(productsDTO);
+                            recyclerView.setNestedScrollingEnabled(false);
                     }
                     if (type.equals(CATEGORY)) {
                         if (productsDTO.getCategoriesId().contains(value))

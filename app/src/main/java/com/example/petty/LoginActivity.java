@@ -59,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                txtWarning.setText("");
+                boolean check =false;
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String dbUsername = ds.child("username").getValue(String.class);
@@ -68,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                         String iPassword = edtPassword.getText().toString();
                         txtWarning.setText("");
                         if (iUsername.equals(dbUsername)&& iPassword.equals(dbPassword)) {
+                            check =true;
                             myDb.insertAccount(dbId, iUsername, iPassword);
                             mDatabaseCustomer.addValueEventListener(new ValueEventListener() {
                                 @Override
@@ -88,11 +91,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                 }
                             });
-
-                        } else {
-                            txtWarning.setText("Sai tên đăng nhập hoặc mật khẩu");
                         }
                     }
+                }
+                if (!check){
+                        txtWarning.setText("Sai tên đăng nhập hoặc mật khẩu");
                 }
             }
 

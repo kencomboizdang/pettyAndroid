@@ -90,6 +90,8 @@ public class OrderProductStoreDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 OrderProductStoresDTO dto = dataSnapshot.getValue(OrderProductStoresDTO.class);
                 loadOrder(dto.getOrderId());
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                txtTotal.setText(decimalFormat.format(dto.getTotal()) + " đ");
                 status = dto.getOrderStatus();
                 loadOrderStatus(status);
                 txtProductStoreId.setText(dto.getId());
@@ -148,8 +150,6 @@ public class OrderProductStoreDetailActivity extends AppCompatActivity {
                     if (ordersDTO.getId().equals(id)){
                         orderId=id;
                        loadAddressData(ordersDTO.getAddressId());
-                        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
-                       txtTotal.setText(decimalFormat.format(ordersDTO.getTotal()) + " đ");
                     }
                 }
             }

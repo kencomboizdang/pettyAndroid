@@ -33,10 +33,16 @@ public class StoreListFragment extends Fragment {
     private StoresAdapter adapter;
     private DatabaseReference mDatabase;
     private final String STORES = "stores";
+    private String type;
+    private String value;
     public StoreListFragment() {
         // Required empty public constructor
     }
 
+    public StoreListFragment(String type, String value) {
+        this.type = type;
+        this.value = value;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,9 +58,16 @@ public class StoreListFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     StoresDTO dto = postSnapshot.getValue(StoresDTO.class);
-                    listStore.add(dto);
+                    if (type!=null && value !=null){
+                        if (type.equals("search") && dto.getName().trim().toLowerCase().contains(value))
+                            listStore.add(dto);
+                            recyclerView.setNestedScrollingEnabled(false);
+                    } else {
+                        listStore.add(dto);
+                    }
                 }
                 adapter= new StoresAdapter(getContext(), listStore);
+
                 recyclerView.setAdapter(adapter);
             }
 

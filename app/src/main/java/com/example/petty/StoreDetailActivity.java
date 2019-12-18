@@ -41,9 +41,7 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
     private ProductFilterFragment productFilterFragment ;
 
     GoogleMap map;
-    GoogleMap map;
     GoogleMap ggMap;
-    private ProductFilterFragment productFilterFragment ;
 
 
     @Override

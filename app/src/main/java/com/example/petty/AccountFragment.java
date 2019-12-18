@@ -59,6 +59,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 myDb.dropTable();
+                getActivity().finish();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
             }
@@ -83,17 +84,12 @@ public class AccountFragment extends Fragment {
         Log.d("TAG", customerId);
             mDatabase = FirebaseDatabase.getInstance().getReference(CUSTOMERS);
             final String finalCustomerId = customerId;
-            mDatabase.addValueEventListener(new ValueEventListener() {
+            mDatabase.child(finalCustomerId).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                            if(finalCustomerId.equals(ds.child("id").getValue(String.class))) {
-                                txtCustomerName.setText(ds.child("name").getValue(String.class));
-                                txtCustomerGmail.setText(ds.child("email").getValue(String.class));
-                            }
-                        }
-                    }
+                    CustomersDTO dto = dataSnapshot.getValue(CustomersDTO.class);
+                    txtCustomerName.setText(dto.getName());
+                    txtCustomerGmail.setText(dto.getEmail());
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {

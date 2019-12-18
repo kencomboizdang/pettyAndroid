@@ -158,4 +158,8 @@ public class AccountDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void clickToBack(View view) {
+        finish();
+    }
 }
