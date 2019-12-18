@@ -90,21 +90,19 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot item : dataSnapshot.getChildren()){
                                     ResponsesDTO responsesDTO = item.getValue(ResponsesDTO.class);
-
                                     if (orderProductDetailsDTO.getId().equals(responsesDTO.getOrderProductDetailId())){
-                                    System.out.println(responsesDTO.getId()+"-"+responsesDTO.getRating());
-//                                    holder.ratingBar.setTop(2);
-                                    holder.ratingBar.setRating(responsesDTO.getRating());
-
-//                                    starTemp+= responsesDTO.getRating();
-//                                    count++;
+                                        float tempRating = holder.ratingBar.getRating();
+                                        int count = Integer.parseInt(holder.txtCount.getText().toString());
+                                        holder.txtCount.setText(String.valueOf(++count));
+                                        holder.ratingBar.setRating((holder.ratingBar.getRating()*(count-1)+responsesDTO.getRating())/count);
                                     }
                                 }
-//                                if (starTemp==0){
-//                                    holder.ratingBar.setVisibility(RatingBar.GONE);
-//                                } else{
-//                                    holder.ratingBar.setRating(starTemp/count);
-//                                }
+                                if (holder.ratingBar.getRating()==0)
+                                {
+                                    holder.ratingBar.setVisibility(RatingBar.GONE);
+                                } else{
+                                    holder.ratingBar.setVisibility(RatingBar.VISIBLE);
+                                }
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
@@ -135,7 +133,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtName, txtPrice;
+        public TextView txtName, txtPrice, txtCount;
         public ImageView imgProduct;
         public LinearLayout productItem;
         public RatingBar ratingBar;
@@ -144,6 +142,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             super(itemView);
             txtName = (TextView) itemView.findViewById(R.id.txtProductName);
             txtPrice = (TextView) itemView.findViewById(R.id.txtProductPrice);
+            txtCount = (TextView) itemView.findViewById(R.id.txtCount);
             imgProduct = (ImageView) itemView.findViewById(R.id.imgProduct);
             productItem = (LinearLayout) itemView.findViewById(R.id.itemProduct);
             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingProductBar);

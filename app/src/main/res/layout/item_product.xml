@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:foreground="?android:attr/selectableItemBackground"
     android:layout_height="wrap_content">
     <LinearLayout
     android:id="@+id/itemProduct"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="10dp">
+        android:foreground="?android:attr/selectableItemBackground"
+
+        android:layout_margin="10dp">
     <ImageView
         android:id="@+id/imgProduct"
         android:layout_width="100dp"
@@ -52,9 +53,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:stepSize="0.1"
-            android:rating="5"
+            android:rating="0"
             android:theme="@style/RatingBar"
             style="@style/Widget.AppCompat.RatingBar.Small"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="0"
+            android:id="@+id/txtCount"/>
     </LinearLayout>
 </LinearLayout>
 </LinearLayout>

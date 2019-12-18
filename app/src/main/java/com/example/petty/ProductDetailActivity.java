@@ -80,8 +80,6 @@ public class ProductDetailActivity extends AppCompatActivity {
             customerId = res.getString(0);
             break;
         }
-        Bundle bundle= getIntent().getBundleExtra("data");
-        final String id = bundle.getString("id_product");
         txtName = (TextView) findViewById(R.id.txtTitleProduct);
         txtPrice = (TextView) findViewById(R.id.txtPrice);
         txtStore = (TextView) findViewById(R.id.txtStore);
@@ -98,6 +96,20 @@ public class ProductDetailActivity extends AppCompatActivity {
         loadStar();
         loadResponse();
         saveHistory();
+        loadExistedCart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadExistedCart();
+        System.out.println(customerId);
+    }
+
+    public void loadExistedCart(){
+        tempCart=null;
+        Bundle bundle= getIntent().getBundleExtra("data");
+        final String id = bundle.getString("id_product");
         DatabaseReference cartDatabase = FirebaseDatabase.getInstance().getReference(CARTS);
         cartDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -105,9 +117,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     CartsDTO dto = item.getValue(CartsDTO.class);
                     if (dto.getProductId()!=null)
-                    if (dto.getProductId().equals(id) && customerId.equals(dto.getCustomerId())){
-                        tempCart= dto;
-                    }
+                        if (dto.getProductId().equals(id) && customerId.equals(dto.getCustomerId())){
+                            tempCart= dto;
+                            System.out.println(tempCart);
+                        }
                 }
             }
             @Override
@@ -116,7 +129,6 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
     }
-
     public void loadProduct(){
         Bundle bundle= getIntent().getBundleExtra("data");
         final String id = bundle.getString("id_product");
@@ -342,4 +354,5 @@ public class ProductDetailActivity extends AppCompatActivity {
     public void clickToBack(View view) {
         finish();
     }
+
 }
