@@ -14,12 +14,13 @@
         <RelativeLayout
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@drawable/circle_main">
+            android:background="@drawable/circle_stroke_grey">
+
             <ImageView
                 android:id="@+id/imgStore"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/food_dog_001"/>
+                android:src="@drawable/food_dog_001" />
         </RelativeLayout>
 
 
@@ -41,7 +42,7 @@
                     android:maxLines="2"
                     android:text="Tên Store"
                     android:textColor="@color/colorBlack"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"/>
             </RelativeLayout>
 

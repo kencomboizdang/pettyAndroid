@@ -75,4 +75,9 @@ public class StoreListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }
+
+    public void clickToSearch(View view) {
+        Intent intent = new Intent(this, SearchProductActivity.class);
+        startActivity(intent);
+    }
 }

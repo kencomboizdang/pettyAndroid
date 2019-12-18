@@ -37,7 +37,9 @@ public class ProductFilterFragment extends Fragment {
     private List<ProductsDTO> productsList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProductsAdapter productsAdapter;
-
+    private final String SEARCH= "search";
+    private final String CATEGORY= "category";
+    private final String STORE= "store";
     public ProductFilterFragment() {
         // Required empty public constructor
     }
@@ -59,13 +61,17 @@ public class ProductFilterFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
-                    if (type.equals("search")) {
+                    if (type.equals(SEARCH)) {
                         if (productsDTO.getName().toLowerCase().contains(value.toLowerCase()))
                             productsList.add(productsDTO);
                     }
-                    if (type.equals("category")) {
+                    if (type.equals(CATEGORY)) {
                         if (productsDTO.getCategoriesId().contains(value))
                             productsList.add(productsDTO);
+                    } if (type.equals(STORE)){
+                        if (productsDTO.getStoreId().equals(value)) {
+                            productsList.add(productsDTO);
+                        }
                     }
                 }
                 if (!productsList.isEmpty()) {
@@ -73,8 +79,12 @@ public class ProductFilterFragment extends Fragment {
                     productsAdapter = new ProductsAdapter(getActivity(), productsList);
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.VERTICAL, false);
                     recyclerView.setLayoutManager(layoutManager);
+                    if (type.equals(STORE)){
+                        recyclerView.setNestedScrollingEnabled(false);
+                    }
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(productsAdapter);
+                    recyclerView.setHasFixedSize(true);
                 }
             }
 
