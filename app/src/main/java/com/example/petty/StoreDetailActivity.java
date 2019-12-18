@@ -62,14 +62,9 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
 
             }
         });
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-
-//    private void fetchLastLocation() {
-//        Task<Location> task = fusedLocationProviderClient.getLastLocation()
-//    }
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
