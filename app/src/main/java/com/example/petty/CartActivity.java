@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,25 +34,21 @@ public class CartActivity extends AppCompatActivity {
     private List<CartsDTO> cartsList= new ArrayList<>();
     private RecyclerView recyclerView;
     private CartsAdapter cartsAdapter;
-    private LinearLayout linearLayout;
+    private LinearLayout linearEmptyCart;
     private TextView txtTotal;
     private final String PRODUCTS = "products";
     private final String CARTS = "carts";
+    private Button btnBuying;
     private String customerId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        linearLayout = (LinearLayout) findViewById(R.id.mainLayout);
+        linearEmptyCart = (LinearLayout) findViewById(R.id.viewEmptyCart);
         txtTotal =(TextView) findViewById(R.id.txtTotal);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadCartData();
-            }
-        });
+        btnBuying = (Button) findViewById(R.id.btnBuying);
+
         loadCartData();
     }
     public void loadCartData(){
@@ -72,11 +70,20 @@ public class CartActivity extends AppCompatActivity {
                     if (customerId.equals(cartsDTO.getCustomerId())){
                         cartsList.add(cartsDTO);
                     }
-                    cartsAdapter = new CartsAdapter(cartsList, CartActivity.this, txtTotal);
+                    cartsAdapter = new CartsAdapter(cartsList, CartActivity.this, txtTotal, linearEmptyCart, btnBuying);
+                    cartsAdapter.notifyDataSetChanged();
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(cartsAdapter);
+                }
+                if (!cartsList.isEmpty()){
+                    linearEmptyCart.setVisibility(LinearLayout.GONE);
+                } else {
+                    btnBuying.setBackground(getDrawable(R.drawable.btn_white_stroke_grey));
+                    btnBuying.setText("VUI LÒNG TIẾP TỤC MUA HÀNG");
+                    btnBuying.setEnabled(false);
+                    btnBuying.setTextColor(getResources().getColor(R.color.colorGrey));
                 }
             }
             @Override
@@ -92,11 +99,11 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        System.out.println("Aaaa");
     }
 
     public void clickToAddress(View view) {
-        Intent intent = new Intent(CartActivity.this, AddressBuyingActivity.class);
-        startActivity(intent);
-    }
+
+            Intent intent = new Intent(CartActivity.this, AddressBuyingActivity.class);
+            startActivity(intent);
+        }
 }

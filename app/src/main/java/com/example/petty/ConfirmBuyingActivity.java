@@ -167,7 +167,11 @@ public class ConfirmBuyingActivity extends AppCompatActivity {
         }
         OrdersDTO ordersDTO = new OrdersDTO(generateOrderID, dateTimeStamp.getCurrentTime(),totalOrder,"pending", customerId, addressId);
         orderDatabase.child(generateOrderID).setValue(ordersDTO);
+        for (CartsDTO cartsDTO: cartsList){
+            FirebaseDatabase.getInstance().getReference(CARTS).child(cartsDTO.getId()).removeValue();
+        }
         Intent intent = new Intent(this, SuccessfulBuyingActivity.class);
         startActivity(intent);
+
     }
 }

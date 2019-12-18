@@ -77,5 +77,10 @@ public class AddressBuyingActivity extends AppCompatActivity {
     public void clickToAddAddress(View view) {
         Intent intent = new Intent(AddressBuyingActivity.this, AddressDetailActivity.class);
         startActivity(intent);
+
+    }
+
+    public void clickToBack(View view) {
+        finish();
     }
 }

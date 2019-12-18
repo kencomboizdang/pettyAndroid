@@ -20,8 +20,9 @@ import sqlite.DatabaseHelper;
 public class HomePageActivity extends AppCompatActivity {
     private FrameLayout mMainFrame;
     private BottomNavigationView navigationView;
-    private  HomeFragment homePageFragment;
+    private HomeFragment homePageFragment;
     private AccountFragment accountFragment;
+    private CategoriesFragment categoriesFragment;
 
     DatabaseHelper myDb;
 
@@ -29,9 +30,10 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        navigationView =  findViewById(R.id.bottom_navigation_bar);
+        navigationView = findViewById(R.id.bottom_navigation_bar);
         homePageFragment = new HomeFragment();
         accountFragment = new AccountFragment();
+        categoriesFragment = new CategoriesFragment();
         setFragment(homePageFragment);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -40,10 +42,14 @@ public class HomePageActivity extends AppCompatActivity {
                     case R.id.bar_home:
                         setFragment(homePageFragment);
                         return true;
+                    case R.id.bar_list:
+                        setFragment(categoriesFragment);
+                        return true;
                     case R.id.bar_account:
                         setFragment(accountFragment);
                         return true;
-                    default: return false;
+                    default:
+                        return false;
                 }
             }
         });
@@ -57,7 +63,8 @@ public class HomePageActivity extends AppCompatActivity {
         }
         Log.d("TAG", keyCustomer);
     }
-    private  void setFragment(Fragment fragment){
+
+    private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.replace(R.id.main_frame, fragment);

@@ -1,14 +1,17 @@
 package adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,16 +20,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.petty.ProductDetailActivity;
 import com.example.petty.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
+import dto.CustomersDTO;
+import dto.OrderProductDetailsDTO;
+import dto.OrdersDTO;
 import dto.ProductsDTO;
+import dto.ResponsesDTO;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
     private List<ProductsDTO> productsList;
     private Context context;
-
+    final private String RESPONSES ="responses";
+    private final String ORDERPRODUCTDETAILS = "order_product_details";
+    private float starTemp;
+    private int count;
     public ProductsAdapter() {
     }
 
@@ -41,8 +56,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final ProductsDTO productsDTO = productsList.get(position);
+        starTemp=0;
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         holder.txtName.setText(productsDTO.getName());
         holder.txtPrice.setText(decimalFormat.format(productsDTO.getPrice()) + " đ");
@@ -57,6 +73,52 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 bundle.putString("id_product", productsDTO.getId());
                 intent.putExtra("data", bundle);
                 context.startActivity(intent);
+            }
+        });
+        DatabaseReference orderDetailDatabase = FirebaseDatabase.getInstance().getReference(ORDERPRODUCTDETAILS);
+        orderDetailDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot item : dataSnapshot.getChildren()){
+                    final OrderProductDetailsDTO orderProductDetailsDTO = item.getValue(OrderProductDetailsDTO.class);
+                    if (orderProductDetailsDTO.getProductId().equals(productsDTO.getId())){
+                        System.out.println(productsDTO.getId()+"KKKKKKKKK");
+                        DatabaseReference responseDatabase = FirebaseDatabase.getInstance().getReference(RESPONSES);
+                        responseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot item : dataSnapshot.getChildren()){
+                                    ResponsesDTO responsesDTO = item.getValue(ResponsesDTO.class);
+
+                                    if (orderProductDetailsDTO.getId().equals(responsesDTO.getOrderProductDetailId())){
+                                    System.out.println(responsesDTO.getId()+"-"+responsesDTO.getRating());
+//                                    holder.ratingBar.setTop(2);
+                                    holder.ratingBar.setRating(responsesDTO.getRating());
+
+//                                    starTemp+= responsesDTO.getRating();
+//                                    count++;
+                                    }
+                                }
+//                                if (starTemp==0){
+//                                    holder.ratingBar.setVisibility(RatingBar.GONE);
+//                                } else{
+//                                    holder.ratingBar.setRating(starTemp/count);
+//                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
+
+                            }
+                        });
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
+
             }
         });
     }
@@ -76,6 +138,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         public TextView txtName, txtPrice;
         public ImageView imgProduct;
         public LinearLayout productItem;
+        public RatingBar ratingBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +146,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             txtPrice = (TextView) itemView.findViewById(R.id.txtProductPrice);
             imgProduct = (ImageView) itemView.findViewById(R.id.imgProduct);
             productItem = (LinearLayout) itemView.findViewById(R.id.itemProduct);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.ratingProductBar);
+
         }
     }
 }

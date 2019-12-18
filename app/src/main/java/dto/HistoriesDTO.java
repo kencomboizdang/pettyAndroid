@@ -1,9 +1,11 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
-public class HistoriesDTO implements Serializable {
+public class HistoriesDTO implements Comparable {
 
     private String id;
     private long date;
@@ -50,5 +52,13 @@ public class HistoriesDTO implements Serializable {
 
     public void setProductsId(String productsId) {
         this.productsId = productsId;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        if (this.date - ((HistoriesDTO)o).date>0)
+        return 1 ;
+        return 0;
     }
 }

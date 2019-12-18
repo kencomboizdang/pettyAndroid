@@ -34,9 +34,10 @@ public class ProductFilterFragment extends Fragment {
     private String value;
     final String PRODUCTS = "products";
 
-    private List<ProductsDTO> productsList= new ArrayList<>();
+    private List<ProductsDTO> productsList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProductsAdapter productsAdapter;
+
     public ProductFilterFragment() {
         // Required empty public constructor
     }
@@ -56,11 +57,14 @@ public class ProductFilterFragment extends Fragment {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot item : dataSnapshot.getChildren()){
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
                     ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
-                    if (type.equals("search"))
-                    {
+                    if (type.equals("search")) {
                         if (productsDTO.getName().toLowerCase().contains(value.toLowerCase()))
+                            productsList.add(productsDTO);
+                    }
+                    if (type.equals("category")) {
+                        if (productsDTO.getCategoriesId().contains(value))
                             productsList.add(productsDTO);
                     }
                 }
@@ -73,6 +77,7 @@ public class ProductFilterFragment extends Fragment {
                     recyclerView.setAdapter(productsAdapter);
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

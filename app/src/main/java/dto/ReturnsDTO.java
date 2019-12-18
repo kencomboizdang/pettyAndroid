@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class ReturnsDTO implements Serializable {
     private String id;
     private long date;
-    private String title;
     private String reason;
     private String img;
     private String confirm;
@@ -27,13 +26,6 @@ public class ReturnsDTO implements Serializable {
         this.date = date;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getReason() {
         return reason;
@@ -70,10 +62,9 @@ public class ReturnsDTO implements Serializable {
     public ReturnsDTO() {
     }
 
-    public ReturnsDTO(String id, long date, String title, String reason, String img, String confirm, String orderDetailId) {
+    public ReturnsDTO(String id, long date, String reason, String img, String confirm, String orderDetailId) {
         this.id = id;
         this.date = date;
-        this.title = title;
         this.reason = reason;
         this.img = img;
         this.confirm = confirm;
