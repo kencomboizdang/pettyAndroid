@@ -76,20 +76,13 @@ public class LoginActivity extends AppCompatActivity {
                                         for(DataSnapshot dsCus : dataSnapshot.getChildren()) {
                                             String dbCustomerId = dsCus.child("id").getValue(String.class);
                                             String dbAccountId = dsCus.child("accountsId").getValue(String.class);
-                                            if(dbAccountId.equals(dbId)) {
                                                 myDb.insertCustomer(dbCustomerId, dbAccountId);
                                                 finish();
                                                 Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
                                                 startActivity(intent);
-                                            } else {
-                                                finish();
-                                                Intent intent = new Intent(LoginActivity.this, CustomerActivity.class);
-                                                startActivity(intent);
-                                            }
                                         }
                                     }
                                 }
-
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
 

@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btnChoose, btnUpload;
 
     private Uri filePath;
-
     private final int PICK_IMAGE_REQUEST = 71;
     FirebaseStorage storage;
     StorageReference storageReference;
