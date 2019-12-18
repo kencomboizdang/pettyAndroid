@@ -35,7 +35,7 @@ public class AccountFragment extends Fragment {
     private TextView txtCustomerName, txtCustomerGmail;
     private final String CUSTOMERS ="customers";
     private TableRow btnAccountDetail;
-    private RelativeLayout relativeLayout;
+    private RelativeLayout relativeLayout, btnChangePassword;
 
     DatabaseReference mDatabase;
     public AccountFragment() {
@@ -54,12 +54,21 @@ public class AccountFragment extends Fragment {
         txtCustomerGmail = (TextView) view.findViewById(R.id.txtCustomerGmail);
         btnAccountDetail = (TableRow) view.findViewById(R.id.btnAccountDetail);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.btnSignOut);
+        btnChangePassword = (RelativeLayout) view.findViewById(R.id.btnChangePassword);
 
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myDb.dropTable();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
                 startActivity(intent);
             }
         });
