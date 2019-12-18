@@ -23,7 +23,7 @@ public class HomePageActivity extends AppCompatActivity {
     private HomeFragment homePageFragment;
     private AccountFragment accountFragment;
     private CategoriesFragment categoriesFragment;
-
+    private StoreListHomeFragment storeListHomeFragment;
     DatabaseHelper myDb;
 
     @Override
@@ -34,6 +34,7 @@ public class HomePageActivity extends AppCompatActivity {
         homePageFragment = new HomeFragment();
         accountFragment = new AccountFragment();
         categoriesFragment = new CategoriesFragment();
+        storeListHomeFragment = new StoreListHomeFragment();
         setFragment(homePageFragment);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -44,6 +45,9 @@ public class HomePageActivity extends AppCompatActivity {
                         return true;
                     case R.id.bar_list:
                         setFragment(categoriesFragment);
+                        return true;
+                    case R.id.bar_store:
+                        setFragment(storeListHomeFragment);
                         return true;
                     case R.id.bar_account:
                         setFragment(accountFragment);

@@ -10,9 +10,9 @@
         android:icon="@drawable/icon_list"
         android:title="Danh mục"/>
     <item
-        android:id="@+id/bar_notification"
-        android:icon="@drawable/icon_news"
-        android:title="Tin tức"/>
+        android:id="@+id/bar_store"
+        android:icon="@drawable/icon_store"
+        android:title="Cửa hàng"/>
     <item
         android:id="@+id/bar_account"
         android:icon="@drawable/icon_account"

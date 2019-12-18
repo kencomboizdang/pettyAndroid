@@ -38,7 +38,6 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
     ImageView imgStore;
     private RecyclerView recyclerView;
     String id = "";
-    GoogleMap ggMap;
     private ProductFilterFragment productFilterFragment ;
 
     GoogleMap map;
@@ -140,5 +139,22 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
     }
 
     public void clickToDirection(View view) {
+        mDatabase.child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                double x = dataSnapshot.child("positionX").getValue(double.class);
+                double y = dataSnapshot.child("positionY").getValue(double.class);
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?daddr="+x+","+y));
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }

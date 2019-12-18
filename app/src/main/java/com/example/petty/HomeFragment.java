@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
         storeRecyclerView = (RecyclerView) view.findViewById(R.id.store_recycler_view);
         categoryRecyclerView = (RecyclerView) view.findViewById(R.id.categories_recycler_view);
         ImageView imgQR = (ImageView) view.findViewById(R.id.imgQRCode);
-        loadHistory(view);
+//        loadHistory(view);
         loadStore(view);
         loadCategory(view);
 //        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("products");
@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment {
                                    }
                                }
                                if (!productsList.isEmpty()) {
-//                                   Collections.sort(productsList, Collections.reverseOrder());
+                                   Collections.reverse(productsList);
                                    productsHistoryAdapter = new ProductsHistoryAdapter(getActivity(), productsList);
                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false);
                                    historyRecyclerView.setLayoutManager(layoutManager);
@@ -199,5 +199,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        loadHistory(getView());
     }
 }
