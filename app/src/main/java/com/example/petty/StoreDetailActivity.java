@@ -14,9 +14,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +32,6 @@ import java.util.List;
 import dto.ProductsDTO;
 
 public class StoreDetailActivity extends FragmentActivity implements OnMapReadyCallback {
-
     private static final String STORES = "stores";
     TextView txtNameStore, txtAddress, txtEmail, txtPhone;
     DatabaseReference mDatabase;
@@ -39,6 +41,7 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
     GoogleMap ggMap;
     private ProductFilterFragment productFilterFragment ;
 
+    GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +82,33 @@ public class StoreDetailActivity extends FragmentActivity implements OnMapReadyC
 
             }
         });
-        // google map
 
-        SupportMapFragment mapFragment;
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
+//    private void fetchLastLocation() {
+//        Task<Location> task = fusedLocationProviderClient.getLastLocation()
+//    }
+
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
+        mDatabase.child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                map = googleMap;
+                double x = dataSnapshot.child("positionX").getValue(double.class);
+                double y = dataSnapshot.child("positionY").getValue(double.class);
+                LatLng storeXY = new LatLng(x, y);
+                map.addMarker(new MarkerOptions().position(storeXY).title("Ho Chi Minh"));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(storeXY, 20));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
     private void setFragment(Fragment fragment){
