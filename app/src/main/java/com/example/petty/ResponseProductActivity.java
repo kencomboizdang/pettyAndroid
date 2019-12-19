@@ -55,6 +55,8 @@ public class ResponseProductActivity extends AppCompatActivity {
     private TextView txtProductName, txtOrderId, txtOrderDate;
     private RatingBar ratingBar;
     private EditText edtReasonReturn;
+    private Button btnReturn;
+
     private final String ORDERPRODUCTDETAILS = "order_product_details";
     private final String ORDERS = "orders";
     private final String PRODUCTS = "products";
@@ -80,6 +82,7 @@ public class ResponseProductActivity extends AppCompatActivity {
         txtOrderId = (TextView) findViewById(R.id.txtOrderId);
         txtOrderDate = (TextView) findViewById(R.id.txtOrderDate);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        btnReturn = (Button) findViewById(R.id.btnReturn);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         loadResponseExisted();
@@ -116,6 +119,7 @@ public class ResponseProductActivity extends AppCompatActivity {
                         ratingBar.setEnabled(false);
                     }
                 }
+                btnReturn.setVisibility(Button.VISIBLE);
             }
 
             @Override
@@ -177,7 +181,7 @@ public class ResponseProductActivity extends AppCompatActivity {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(RESPONSES);
         String generatedId = mDatabase.push().getKey();
         DateTimeStamp dateTimeStamp = new DateTimeStamp();
-        ResponsesDTO responsesDTO = new ResponsesDTO(generatedId, dateTimeStamp.getCurrentTime(), "",  edtReasonReturn.getText().toString(), (float)1.5, urlImage, id);
+        ResponsesDTO responsesDTO = new ResponsesDTO(generatedId, dateTimeStamp.getCurrentTime(), "",  edtReasonReturn.getText().toString(), ratingBar.getRating(), urlImage, id);
         mDatabase.child(generatedId).setValue(responsesDTO);
 
     }

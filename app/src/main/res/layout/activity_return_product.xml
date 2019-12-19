@@ -220,6 +220,7 @@
                     android:textColor="@color/colorRed"
                     android:textSize="18sp"
                     android:onClick="clickToReturn"
+                    android:visibility="invisible"
                     android:foreground="?android:attr/selectableItemBackground"/>
             </LinearLayout>
 

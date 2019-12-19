@@ -48,7 +48,6 @@ public class CartActivity extends AppCompatActivity {
         linearEmptyCart = (LinearLayout) findViewById(R.id.viewEmptyCart);
         txtTotal =(TextView) findViewById(R.id.txtTotal);
         btnBuying = (Button) findViewById(R.id.btnBuying);
-
         loadCartData();
     }
     public void loadCartData(){
@@ -85,6 +84,7 @@ public class CartActivity extends AppCompatActivity {
                     btnBuying.setEnabled(false);
                     btnBuying.setTextColor(getResources().getColor(R.color.colorGrey));
                 }
+                btnBuying.setVisibility(Button.VISIBLE);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

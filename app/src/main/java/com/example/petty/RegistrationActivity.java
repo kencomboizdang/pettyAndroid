@@ -136,9 +136,8 @@ public class RegistrationActivity extends AppCompatActivity {
             },1800);
         }
     }
-    public void goBack(View view) {
-        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-        startActivity(intent);
+    public void clickToBack(View view) {
+        finish();
     }
 
     public void addAccount(String username, String password, String role) {

@@ -176,4 +176,9 @@ public class AddressDetailActivity extends AppCompatActivity {
         }
         return result;
     }
+
+
+    public void clickToBack(View view) {
+        finish();
+    }
 }

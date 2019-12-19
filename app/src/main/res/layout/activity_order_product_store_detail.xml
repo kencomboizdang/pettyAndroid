@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Đơn hàng đang tiếp nhận"
+                android:text="Đơn hàng"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
         </LinearLayout>

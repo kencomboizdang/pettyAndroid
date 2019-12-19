@@ -53,6 +53,13 @@
         android:layout_gravity="center"
         android:layout_margin="4dp"
         android:gravity="center">
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifLoadingSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:src="@drawable/gif_loading"
+            android:visibility="gone"/>
         <ImageView
             android:id="@+id/imgWarning"
             android:layout_width="30dp"
@@ -115,11 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/gifLoadingSignIn"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_gravity="center" />
+
     </LinearLayout>
 
 

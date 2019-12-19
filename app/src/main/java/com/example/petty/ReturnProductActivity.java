@@ -52,6 +52,7 @@ public class ReturnProductActivity extends AppCompatActivity {
     private ImageView imgProduct, imgReturn;
     private TextView txtProductName, txtOrderId, txtOrderDate;
     private EditText edtReasonReturn;
+    private Button btnReturn;
     private final String ORDERPRODUCTDETAILS = "order_product_details";
     private final String ORDERS = "orders";
     private final String PRODUCTS = "products";
@@ -76,6 +77,7 @@ public class ReturnProductActivity extends AppCompatActivity {
         txtProductName = (TextView) findViewById(R.id.txtProductName);
         txtOrderId = (TextView) findViewById(R.id.txtOrderId);
         txtOrderDate = (TextView) findViewById(R.id.txtOrderDate);
+        btnReturn = (Button) findViewById(R.id.btnReturn);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         loadReturnExisted();
@@ -92,7 +94,6 @@ public class ReturnProductActivity extends AppCompatActivity {
                     final ReturnsDTO returnsDTO = item.getValue(ReturnsDTO.class);
                     if (returnsDTO.getOrderDetailId().equals(id)) {
                         edtReasonReturn.setText(returnsDTO.getReason());
-                        Button btnReturn = (Button) findViewById(R.id.btnReturn);
                         btnReturn.setBackground(getDrawable(R.drawable.btn_white_stroke_grey));
                         btnReturn.setText("ĐÃ YÊU CẦU HOÀN TRẢ");
                         btnReturn.setEnabled(false);
@@ -109,6 +110,7 @@ public class ReturnProductActivity extends AppCompatActivity {
                         txtMessage.setVisibility(TextView.GONE);
                     }
                 }
+                btnReturn.setVisibility(Button.VISIBLE);
             }
 
             @Override
@@ -165,13 +167,14 @@ public class ReturnProductActivity extends AppCompatActivity {
     public void saveReturn() {
         Bundle bundle = getIntent().getBundleExtra("data");
         final String id = bundle.getString("id_order_detail");
+        Toast.makeText(ReturnProductActivity.this, "Cửa hàng sẽ phản hồi trong thời gian sớm nhất", Toast.LENGTH_SHORT).show();
+        finish();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(RETURNS);
         String generatedId = mDatabase.push().getKey();
         DateTimeStamp dateTimeStamp = new DateTimeStamp();
         ReturnsDTO returnsDTO = new ReturnsDTO(generatedId, dateTimeStamp.getCurrentTime(), edtReasonReturn.getText().toString(), urlImage, "pending", id);
         mDatabase.child(generatedId).setValue(returnsDTO);
-        Toast.makeText(ReturnProductActivity.this, "Cửa hàng sẽ phản hồi trong thời gian sớm nhất", Toast.LENGTH_SHORT).show();
-        finish();
+
     }
 
     public void clickToAddImage(View view) {
@@ -285,4 +288,7 @@ public class ReturnProductActivity extends AppCompatActivity {
     }
 
 
+    public void clickToBack(View view) {
+        finish();
+    }
 }

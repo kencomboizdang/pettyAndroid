@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
     private List<ProductsDTO> productsList= new ArrayList<>();
     private List<StoresDTO> storesList= new ArrayList<>();
     private List<CategoriesDTO> categoriesList= new ArrayList<>();
+    private List<HistoriesDTO> historiesList= new ArrayList<>();
     private RecyclerView historyRecyclerView, storeRecyclerView, categoryRecyclerView;
     private ProductsHistoryAdapter productsHistoryAdapter;
     private Stores2Adapter stores2Adapter;
@@ -162,6 +163,7 @@ public class HomeFragment extends Fragment {
     }
     public void loadHistory(View view){
         productsList.clear();
+        historiesList.clear();
         final TextView txtSeeHistory = view.findViewById(R.id.tvSeeHistory);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(HISTORIES);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -178,6 +180,11 @@ public class HomeFragment extends Fragment {
                                    ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
                                    if (productsDTO.getId().equals(historiesDTO.getProductsId())){
                                         productsList.add(productsDTO);
+                                        historiesList.add(historiesDTO);
+                                        if (historiesList.size()==10){
+                                            FirebaseDatabase.getInstance().getReference(HISTORIES).child(historiesList.get(0).getId()).removeValue();
+                                            historiesList.remove(0);
+                                        }
                                    }
                                }
                                if (!productsList.isEmpty()) {

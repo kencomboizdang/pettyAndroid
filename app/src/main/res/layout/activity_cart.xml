@@ -126,6 +126,7 @@
                 android:layout_margin="16dp"
                 android:background="@color/colorAccent"
                 android:onClick="clickToAddress"
+                android:visibility="invisible"
                 android:text="Tiếp tục"
                 android:textColor="@color/colorWhite"
                 />

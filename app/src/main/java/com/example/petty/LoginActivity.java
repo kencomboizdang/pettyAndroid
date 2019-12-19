@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import dto.AccountsDTO;
+import pl.droidsonroids.gif.GifImageView;
 import sqlite.DatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText edtUsername, edtPassword;
     TextView txtWarning;
-
+    GifImageView loadingGif;
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabaseCustomer;
 
@@ -46,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         edtUsername = (EditText) findViewById(R.id.edtUsername);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
         txtWarning = (TextView) findViewById(R.id.txtWarning);
-
+        loadingGif = (GifImageView) findViewById(R.id.gifLoadingSignIn);
         mDatabase = FirebaseDatabase.getInstance().getReference(ACCOUNT);
         mDatabaseCustomer = FirebaseDatabase.getInstance().getReference(CUSTOMER);
 
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 txtWarning.setText("");
+                loadingGif.setVisibility(GifImageView.VISIBLE);
                 boolean check =false;
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -83,9 +85,10 @@ public class LoginActivity extends AppCompatActivity {
                                             if(dbId.equals(dbAccountId)) {
                                                 myDb.insertCustomer(dbCustomerId, dbAccountId);
                                             }
-                                                finish();
-                                                Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
-                                                startActivity(intent);
+                                            loadingGif.setVisibility(GifImageView.GONE);
+                                            finish();
+                                            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                                            startActivity(intent);
                                         }
                                     }
                                 }
@@ -99,6 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (!check){
                         txtWarning.setText("Sai tên đăng nhập hoặc mật khẩu");
+                        loadingGif.setVisibility(GifImageView.GONE);
+
                 }
             }
 
