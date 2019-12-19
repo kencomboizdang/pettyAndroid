@@ -188,6 +188,7 @@ public class HomeFragment extends Fragment {
                                    historyRecyclerView.setItemAnimator(new DefaultItemAnimator());
                                    historyRecyclerView.setAdapter(productsHistoryAdapter);
                                    txtSeeHistory.setVisibility(View.VISIBLE);
+
                                }
                            }
                            @Override

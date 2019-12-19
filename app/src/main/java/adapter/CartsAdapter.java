@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -87,7 +88,6 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
         });
 
         final DatabaseReference cartDatabase = FirebaseDatabase.getInstance().getReference(CARTS);
-
         holder.imgPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,16 +103,18 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
                             if (productsDTO.getId().equals(cartsDTO.getProductId())){
                                 total+=productsDTO.getPrice();
                                 txtTotal.setText(decimalFormat.format(total)+ " đ");
+                                if (cartsDTO.getQuantity()>=productsDTO.getQuantity()){
+                                    cartsDTO.setQuantity(cartsDTO.getQuantity()-1);
+                                    Toast.makeText(context, "Hàng còn số lượng giới hạn nhất định", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
-                        System.out.println(total);
                         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
                         txtTotal.setText(decimalFormat.format(total) + " đ");
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
-
                     }
                 });
 
@@ -121,7 +123,7 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
         holder.imgSubtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cartsDTO.setQuantity(cartsDTO.getQuantity()-1);
+
                 cartDatabase.child(cartsDTO.getId()).child("quantity").setValue(cartsDTO.getQuantity());
                 holder.txtQuantity.setText(String.valueOf(cartsDTO.getQuantity()));
 
@@ -133,7 +135,7 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
                             ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
                             if (productsDTO.getId().equals(cartsDTO.getProductId())){
                                 total-=productsDTO.getPrice();
-                                txtTotal.setText(decimalFormat.format(total)+ " đ");
+                                cartsDTO.setQuantity(cartsDTO.getQuantity()-1);
                             }
                         }
                         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
@@ -151,6 +153,7 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
                             btnBuying.setEnabled(false);
                             btnBuying.setTextColor(context.getResources().getColor(R.color.colorGrey));
                         }
+                        txtTotal.setText(decimalFormat.format(total)+ " đ");
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -172,11 +175,11 @@ public class CartsAdapter extends RecyclerView.Adapter <CartsAdapter.ViewHolder>
                             if (productsDTO.getId().equals(cartsDTO.getProductId())){
                                 total-=productsDTO.getPrice()*cartsDTO.getQuantity();
                                 txtTotal.setText(decimalFormat.format(total)+ " đ");
+                                cartsList.remove(position);
                             }
                         }
                         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
                         txtTotal.setText(decimalFormat.format(total) + " đ");
-                        cartsList.remove(position);
                         FirebaseDatabase.getInstance().getReference(CARTS).child(cartsDTO.getId()).removeValue();
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position,cartsList.size());

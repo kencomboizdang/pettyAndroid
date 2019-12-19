@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import dto.CustomersDTO;
 import sqlite.DatabaseHelper;
 
 
@@ -109,21 +110,5 @@ public class AccountFragment extends Fragment {
         return view;
 
 
-        Log.d("TAG", customerId);
-            mDatabase = FirebaseDatabase.getInstance().getReference(CUSTOMERS);
-            final String finalCustomerId = customerId;
-            mDatabase.child(finalCustomerId).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    CustomersDTO dto = dataSnapshot.getValue(CustomersDTO.class);
-                    txtCustomerName.setText(dto.getName());
-                    txtCustomerGmail.setText(dto.getEmail());
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.w(ContentValues.TAG, "Failed to read value.", databaseError.toException());
-                }
-            });
-        return view;
     }
 }

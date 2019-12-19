@@ -61,17 +61,20 @@ public class ProductFilterFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     ProductsDTO productsDTO = item.getValue(ProductsDTO.class);
-                    if (type.equals(SEARCH)) {
-                        if (productsDTO.getName().toLowerCase().contains(value.toLowerCase()))
-                            productsList.add(productsDTO);
+                    if (productsDTO.getQuantity()!=0) {
+                        if (type.equals(SEARCH)) {
+                            if (productsDTO.getName().toLowerCase().contains(value.toLowerCase()))
+                                productsList.add(productsDTO);
                             recyclerView.setNestedScrollingEnabled(false);
-                    }
-                    if (type.equals(CATEGORY)) {
-                        if (productsDTO.getCategoriesId().contains(value))
-                            productsList.add(productsDTO);
-                    } if (type.equals(STORE)){
-                        if (productsDTO.getStoreId().equals(value)) {
-                            productsList.add(productsDTO);
+                        }
+                        if (type.equals(CATEGORY)) {
+                            if (productsDTO.getCategoriesId().contains(value))
+                                productsList.add(productsDTO);
+                        }
+                        if (type.equals(STORE)) {
+                            if (productsDTO.getStoreId().equals(value)) {
+                                productsList.add(productsDTO);
+                            }
                         }
                     }
                 }

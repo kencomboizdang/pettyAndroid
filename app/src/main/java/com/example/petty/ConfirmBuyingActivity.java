@@ -47,6 +47,7 @@ public class ConfirmBuyingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CartsConfirmAdapter cartsAdapter;
     private final String ORDERS="orders";
+    private final String PRODUCTS="products";
     private final String ORDERPRODUCTSTORES= "order_product_stores";
     private final String ORDERPRODUCTDETAILS = "order_product_details";
     private String customerId;
@@ -168,6 +169,12 @@ public class ConfirmBuyingActivity extends AppCompatActivity {
         OrdersDTO ordersDTO = new OrdersDTO(generateOrderID, dateTimeStamp.getCurrentTime(),totalOrder,"pending", customerId, addressId);
         orderDatabase.child(generateOrderID).setValue(ordersDTO);
         for (CartsDTO cartsDTO: cartsList){
+            for (ProductsDTO productsDTO: productsList){
+                if (cartsDTO.getProductId().equals(productsDTO.getId()))
+                {
+                    FirebaseDatabase.getInstance().getReference(PRODUCTS).child(cartsDTO.getProductId()).child("quantity").setValue(productsDTO.getQuantity()-cartsDTO.getQuantity());
+                }
+            }
             FirebaseDatabase.getInstance().getReference(CARTS).child(cartsDTO.getId()).removeValue();
         }
         Intent intent = new Intent(this, SuccessfulBuyingActivity.class);

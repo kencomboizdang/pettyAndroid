@@ -83,7 +83,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 for (DataSnapshot item : dataSnapshot.getChildren()){
                     final OrderProductDetailsDTO orderProductDetailsDTO = item.getValue(OrderProductDetailsDTO.class);
                     if (orderProductDetailsDTO.getProductId().equals(productsDTO.getId())){
-                        System.out.println(productsDTO.getId()+"KKKKKKKKK");
                         DatabaseReference responseDatabase = FirebaseDatabase.getInstance().getReference(RESPONSES);
                         responseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

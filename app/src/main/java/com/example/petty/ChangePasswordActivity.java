@@ -89,4 +89,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void clickToBack(View view) {
+        finish();
+    }
 }
